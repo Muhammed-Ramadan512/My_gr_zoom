@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="this_app_name">Zoom SDK Demo</string>
+    
+    <string name="invite_acitivity_name">Meeting Invite Example</string>
+
+    <string name="zm_rc_using_fingers_for_remote_control">Remotely control a desktop using gestures</string>
+    <string name="zm_rc_one_finger_tap">Tap with one finger</string>
+    <string name="zm_rc_one_finger_tap_description">Tap the screen with one finger to click the mouse</string>
+    <string name="zm_rc_one_finger_double_taps">Double tap with one finger</string>
+    <string name="zm_rc_one_finger_double_taps_description">Double tap with one finger to double click the mouse</string>
+    <string name="zm_rc_one_long_tap">Long press with one finger</string>
+    <string name="zm_rc_one_long_tap_description">Press the screen with one finger to right-click the mouse</string>
+    <string name="zm_rc_two_fingers_scroll">Swipe with two fingers</string>
+    <string name="zm_rc_two_fingers_scroll_description">Swipe with two fingers to scroll up and down</string>
+    <string name="zm_rc_two_fingers_pinch">Pinch with two fingers</string>
+    <string name="zm_rc_two_fingers_pinch_description">Pinch in and out with two fingers to zoom in and out</string>
+    <string name="zm_rc_mouse_icon">Mouse icon</string>
+    <string name="zm_rc_mouse_icon_description">Drag the mouse icon to move the remote mouse pointer</string>
+    <string name="zm_rc_tap_notice">Tap here to control %s\'s screen remotely</string>
+
+    <string name="alert_other_is_sharing">You cannot start screen share while the other participant is sharing.</string>
+
+    <string name="settings_custom_ui">Customized UI</string>
+    <string name="settings_video_source">External Video Source</string>
+    <string name="settings_switch_domain">Switch domain</string>
+    <string name="settings_hide_screen_share_toolbar_annotation">Hide annotation button in screen share</string>
+    <string name="settings_hide_screen_share_toolbar_stopshare">Hide stopshare button in screen share</string>
+	
+	
+	<string name="zm_msg_interpreter">You have been assigned an interpreter.</string>
+
+    <string name="end_or_leave_meeting">End or leave meeting</string>
+    <string name="end">End</string>
+    <string name="leave">Leave</string>
+    <string name="leave_bo">Leave BO</string>
+    <string name="leave_meeting">Leave meeting</string>
+    <string name="cancel">Cancel</string>
+    <string name="lower_all_hands_successfully">Lower all hands successfully</string>
+    <string name="lower_all_hands">Lower All Hands</string>
+    <string name="reclaim_host">Reclaim Host</string>
+    <string name="reclaim_host_successfully">Reclaim host successfully</string>
+    <string name="meeting">Meeting</string>
+
+    <string name="disconnect_audio">Disconnect Audio</string>
+    <string name="speak_off">Speak Off</string>
+    <string name="speak_on">Speak On</string>
+    <string name="participants">Participants</string>
+    <string name="disable_annotation">Disable Annotation</string>
+    <string name="enable_annotation">Enable Annotation</string>
+    <string name="disallow_panelist">Disallow panelist start video</string>
+    <string name="allow_panelist">Allow panelist start video</string>
+    <string name="disallow_attendee">Disallow attendee chat</string>
+    <string name="allow_attendee">Allow attendee chat</string>
+    <string name="qa">QA</string>
+    <string name="language_interpretation">Language Interpretation</string>
+    <string name="interpretation">Interpretation</string>
+    <string name="breakout_rooms">Breakout Rooms</string>
+    <string name="request_transcription">Request Live Transcription</string>
+    <string name="stop_transcription">STOP Live Transcription</string>
+    <string name="join">Join</string>
+    <string name="later">Later</string>
+    <string name="host_inviting_1">The host is inviting you to join Breakout Room: </string>
+    <string name="ok">OK</string>
+    <string name="help_request_result_1">The host is currently helping others. Please try again later.</string>
+    <string name="join_breakout_room">Join Breakout Room</string>
+    <string name="show_chat_legal_notice">Show Chat Legal Notice</string>
+    <string name="share">Share</string>
+    <string name="stop_share">Stop Share</string>
+    <string name="more">More</string>
+    <string name="chats">Chats</string>
+    <string name="video">Video</string>
+    <string name="audio">Audio</string>
+
+    <string name="menu_share_screen">Screen</string>
+    <string name="menu_share_image">Image</string>
+    <string name="menu_share_webview">Web url</string>
+    <string name="menu_white_board">WhiteBoard</string>
+    <string name="menu_pdf">PDF</string>
+    <string name="menu_share_source">External Share Source</string>
+    <string name="menu_share_source_with_audio">External Share/Audio Source</string>
+    <string name="menu_share_camera">Camera</string>
+    <string name="menu_share_new_white_board">New WhiteBoard</string>
+
+    <string name="join_bo">Join BO</string>
+    <string name="request_for_help">Request for Help</string>
+    <string name="connecting">Connecting...</string>
+    <string name="wait_host_to_start">Wait host to start this meeting...</string>
+    <string name="please_wait_host">Please wait, the meeting host will let you in soon.</string>
+    <string name="english">English</string>
+    <string name="back">Back</string>
+
+
+</resources>

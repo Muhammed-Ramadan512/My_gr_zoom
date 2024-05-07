@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="this_app_name">Demo do SDK Zoom</string>
+
+    <string name="invite_acitivity_name">Exemplo de Convite para Reunião</string>
+    <string name="zm_rc_using_fingers_for_remote_control">Controle remotamente um desktop usando gestos</string>
+    <string name="zm_rc_one_finger_tap">Toque com um dedo</string>
+    <string name="zm_rc_one_finger_tap_description">Toque na tela com um dedo para clicar no mouse</string>
+    <string name="zm_rc_one_finger_double_taps">Toque duplo com um dedo</string>
+    <string name="zm_rc_one_finger_double_taps_description">Toque duplo com um dedo para dar um clique duplo no mouse</string>
+    <string name="zm_rc_one_long_tap">Pressione longamente com um dedo</string>
+    <string name="zm_rc_one_long_tap_description">Pressione a tela com um dedo para clicar com o botão direito do mouse</string>
+    <string name="zm_rc_two_fingers_scroll">Deslize com dois dedos</string>
+    <string name="zm_rc_two_fingers_scroll_description">Deslize com dois dedos para rolar para cima e para baixo</string>
+    <string name="zm_rc_two_fingers_pinch">Pinça com dois dedos</string>
+    <string name="zm_rc_two_fingers_pinch_description">Faça pinça com dois dedos para dar zoom dentro e fora</string>
+    <string name="zm_rc_mouse_icon">Ícone do mouse</string>
+    <string name="zm_rc_mouse_icon_description">Arraste o ícone do mouse para mover o ponteiro do mouse remoto</string>
+    <string name="zm_rc_tap_notice">Toque aqui para controlar a tela de %s remotamente</string>
+
+    <string name="alert_other_is_sharing">Você não pode iniciar o compartilhamento de tela enquanto o outro participante estiver compartilhando.</string>
+
+    <string name="settings_custom_ui">Interface Personalizada</string>
+    <string name="settings_video_source">Fonte de Vídeo Externa</string>
+    <string name="settings_switch_domain">Trocar de Domínio</string>
+    <string name="settings_hide_screen_share_toolbar_annotation">Ocultar botão de anotação no compartilhamento de tela</string>
+    <string name="settings_hide_screen_share_toolbar_stopshare">Ocultar botão de parar compartilhamento no compartilhamento de tela</string>
+
+    <string name="zm_msg_interpreter">Você foi designado a um intérprete.</string>
+
+
+    <string name="end_or_leave_meeting">Encerrar ou sair da reunião</string>
+    <string name="end">Encerrar</string>
+    <string name="leave">Sair</string>
+    <string name="leave_bo">Sair da BO</string>
+    <string name="leave_meeting">Sair da reunião</string>
+    <string name="cancel">Cancelar</string>
+    <string name="lower_all_hands_successfully">Todas as mãos abaixadas com sucesso</string>
+    <string name="lower_all_hands">Abaixar todas as mãos</string>
+    <string name="reclaim_host">Requisitar Host</string>
+    <string name="reclaim_host_successfully">Host adquirido com sucesso</string>
+    <string name="meeting">Reunião</string>
+	
+    <string name="disconnect_audio">Desconectar Áudio</string>
+    <string name="speak_off">Falar Desativado</string>
+    <string name="speak_on">Falar Ativado</string>
+    <string name="participants">Participantes</string>
+    <string name="disable_annotation">Desativar Anotação</string>
+    <string name="enable_annotation">Ativar Anotação</string>
+    <string name="disallow_panelist">Impedir que o painelista inicie o vídeo</string>
+    <string name="allow_panelist">Permitir que o painelista inicie o vídeo</string>
+    <string name="disallow_attendee">Impedir que o participante inicie o chat</string>
+    <string name="allow_attendee">Permitir que o participante inicie o chat</string>
+    <string name="qa">QA</string>
+    <string name="language_interpretation">Interpretação de Idiomas</string>
+    <string name="interpretation">Interpretação</string>
+    <string name="breakout_rooms">Salas de Divisão</string>
+    <string name="request_transcription">Solicitar Transcrição ao Vivo</string>
+    <string name="stop_transcription">PARAR Transcrição ao Vivo</string>
+    <string name="join">Entrar</string>
+    <string name="later">Depois</string>
+    <string name="host_inviting_1">O anfitrião está convidando você para participar da Sala de Discussão: </string>
+    <string name="ok">OK</string>
+    <string name="help_request_result_1">O anfitrião está atualmente ajudando outros. Por favor, tente novamente mais tarde.</string>
+    <string name="join_breakout_room">Entrar na Sala de Grupo</string>
+    <string name="show_chat_legal_notice">Mostrar Aviso Legal do Chat</string>
+    <string name="share">Compartilhar</string>
+    <string name="stop_share">Parar Compartilhamento</string>
+    <string name="more">Mais</string>
+    <string name="chats">Participantes</string>
+    <string name="video">Vídeo</string>
+    <string name="audio">Audio</string>
+
+    <string name="menu_share_screen">Tela</string>
+    <string name="menu_share_image">Imagem</string>
+    <string name="menu_share_webview">URL da Web</string>
+    <string name="menu_white_board">Quadro Branco</string>
+    <string name="menu_pdf">PDF</string>
+    <string name="menu_share_source">Fonte de Compartilhamento Externo</string>
+    <string name="menu_share_source_with_audio">Fonte de Compartilhamento Externo/Áudio</string>
+    <string name="menu_share_camera">Câmera</string>
+    <string name="menu_share_new_white_board">Novo Quadro Branco</string>
+
+    <string name="connecting">Conectando...</string>
+    <string name="wait_host_to_start">Aguarde o anfitrião iniciar esta reunião...</string>
+    <string name="please_wait_host">Por favor, aguarde, o anfitrião da reunião permitirá sua entrada em breve.</string>
+    <string name="request_for_help">Solicitar Ajuda</string>
+    <string name="join_bo">Entrar</string>
+    <string name="english">English</string>
+    <string name="back">Voltar</string>
+
+</resources>
