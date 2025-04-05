@@ -84,7 +84,7 @@ class _ZoomJoinScreenState extends State<ZoomJoinScreen> {
     ZoomOptions zoomOptions = ZoomOptions(
         domain: "zoom.us",
         jwtToken:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBLZXkiOiJUMVZ0Qmtnd1JHYUtMb0dtdW5sWkJRIiwibW4iOiI4Njk3NjA5NzkzMCIsInJvbGUiOjAsImlhdCI6MTc0MzAzNzU1NywiZXhwIjoxNzQzMDQxMTU3LCJ0b2tlbkV4cCI6MTc0MzA0MTE1N30.Wz5dzQ0ioXpF9LUKH72CaoclnTcJOKxvXd--c30ouCU"
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBLZXkiOiJUMVZ0Qmtnd1JHYUtMb0dtdW5sWkJRIiwibW4iOiI4Njk3NjA5NzkzMCIsInJvbGUiOjAsImlhdCI6MTc0Mzg1OTExMywiZXhwIjoxNzQzODYyNzEzLCJ0b2tlbkV4cCI6MTc0Mzg2MjcxM30.Lrs8goib2K_T3VN_PyU0NPJjg5bMYtibXLh0vjy1HlM"
         // appKey: widget.appKey, //API KEY FROM ZOOM - Sdk API Key
         // appSecret: widget.appSecret,
         // disableScreenshotAndRecording: false,
@@ -102,7 +102,7 @@ class _ZoomJoinScreenState extends State<ZoomJoinScreen> {
       disableShare: "true",
       noAudio: "false",
       noDisconnectAudio: "false",
-      meetingViewOptions: 0,
+      meetingViewOptions: 1,
     );
 
     var zoom = Zoom();
