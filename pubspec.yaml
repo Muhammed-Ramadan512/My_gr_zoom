@@ -1,18 +1,17 @@
 name: gr_zoom
 description: A Flutter plugin for the Zoom Meeting SDK on mobile platform (Android and IOS). This plugin get files from Zoom Meeting Sdk from Android and IOS and link it with Flutter code.
-version: 1.3.0+1
+version: 1.5.0
 repository: https://github.com/25LucasAnselmo/gr_zoom
 homepage: https://github.com/25LucasAnselmo
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.12.0 <4.0.0"
   flutter: ">=1.20.0"
 
 dependencies:
   flutter:
     sdk: flutter
   plugin_platform_interface: ^2.0.0
-  screen_protector: 1.4.2
 
 dev_dependencies:
   flutter_test:
@@ -30,7 +29,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.webcare.zoom.sdksample
+        package: us.zoom.sdksample
         pluginClass: ZoomPlugin
       ios:
         pluginClass: ZoomPlugin

@@ -80,12 +80,6 @@
       "languageVersion": "2.18"
     },
     {
-      "name": "screen_protector",
-      "rootUri": "file:///C:/Flutter/.pub-cache/hosted/pub.dartlang.org/screen_protector-1.4.2",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "sky_engine",
       "rootUri": "file:///C:/Flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -140,7 +134,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2024-05-07T17:31:12.182961Z",
+  "generated": "2025-04-04T23:49:26.713360Z",
   "generator": "pub",
   "generatorVersion": "2.18.0"
 }

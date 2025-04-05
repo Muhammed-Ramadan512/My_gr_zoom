@@ -1,149 +1,103 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:gr_zoom/gr_zoom.dart';
-import 'package:screen_protector/screen_protector.dart';
+
+import 'zoom/join_screen.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp();
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  final _grZoomPlugin = Zoom();
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await ScreenProtector.preventScreenshotOn();
-    });
-    // initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    // String platformVersion;
-    // // Platform messages may fail, so we use a try/catch PlatformException.
-    // // We also handle the message potentially returning null.
-    // try {
-    //   platformVersion = await _grZoomPlugin.getPlatformVersion() ??
-    //       'Unknown platform version';
-    // } on PlatformException {
-    //   platformVersion = 'Failed to get platform version.';
-    // }
-
-    // // If the widget was removed from the tree while the asynchronous platform
-    // // message was in flight, we want to discard the reply rather than calling
-    // // setState to update our non-existent appearance.
-    // if (!mounted) return;
-
-    // setState(() {
-    //   _platformVersion = platformVersion;
-    // });
-  }
-
-  late Timer timer;
-
-  @override
-  void dispose() {
-    if (timer.isActive) {
-      timer.cancel();
-    }
-    super.dispose();
-  }
-
-  joinMeeting(BuildContext context, userName) {
-    bool _isMeetingEnded(String status) {
-      var result = false;
-
-      if (Platform.isAndroid)
-        result = status == "MEETING_STATUS_DISCONNECTING" ||
-            status == "MEETING_STATUS_FAILED";
-      else
-        result = status == "MEETING_STATUS_IDLE";
-
-      return result;
-    }
-
-    ZoomOptions zoomOptions = ZoomOptions(
-      domain: "zoom.us",
-
-      jwtToken:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBLZXkiOiJnaFBHU04ybnlRVDl5UDMyMnNmM2F0WW43V2hROVE0QzJhWnIiLCJzZGtLZXkiOiJnaFBHU04ybnlRVDl5UDMyMnNmM2F0WW43V2hROVE0QzJhWnIiLCJtbiI6IjgzMzU2NTgzMjU4Iiwicm9sZSI6MSwiaWF0IjoxNzE1MTA0Mzg3LCJleHAiOjE3MTUxMDc5ODcsInRva2VuRXhwIjoxNzE1MTA3OTg3fQ.S6VbBcaftD_pvWriWLZ9r04MhUucNZYCIltJRTYIHPo",
-      // appKey:
-      //     "TfHhRiMpRZ33yVhBcSO4ZIOi9Ew1eLsp2GJJ", //API KEY FROM ZOOM - Sdk API Key
-      // appSecret:
-      //     "ZubMdRlYUeOa4HbQWFdcA8mxAamqYBvAVQS7", //API SECRET FROM ZOOM - Sdk API Secret
-    );
-    var meetingOptions = ZoomMeetingOptions(
-        userId: userName ??
-            "User", //pass username for join meeting only --- Any name eg:- EVILRATT.
-        meetingId:
-            "83356583258", //widget.meetingId, //pass meeting id for join meeting only
-        meetingPassword: "123456",
-        // widget
-        //     .meetingPassword, //pass meeting password for join meeting only
-        disableDialIn: "true",
-        disableDrive: "true",
-        disableInvite: "true",
-        disableShare: "true",
-        noAudio: "false",
-        noDisconnectAudio: "false");
-
-    var zoom = Zoom();
-    // ZoomView(); //Zoom()
-    zoom.init(zoomOptions).then((results) {
-      print(results);
-      if (results[0] == 0) {
-        zoom
-            .meetingStatus("83356583258"
-                // widget.meetingId
-                )
-            .then((status) {
-          print("[Meeting Status Stream] : " + status[0] + " - " + status[1]);
-          if (_isMeetingEnded(status[0])) {
-            print("[Meeting Status] :- Ended");
-            timer.cancel();
-          }
-        });
-        print("listen on event channel");
-        zoom.joinMeeting(meetingOptions).then((joinMeetingResult) {
-          timer = Timer.periodic(new Duration(seconds: 2), (timer) {
-            zoom.meetingStatus(meetingOptions.meetingId).then((status) {
-              print("[Meeting Status Polling] : " +
-                  status[0] +
-                  " - " +
-                  status[1]);
-            });
-          });
-        });
-      }
-    }).catchError((error) {
-      print("[Error Generated] : " + error.toString());
-    });
-  }
-
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Plugin example app'),
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          // This is the theme of your application.
+          //
+          // Try running your application with "flutter run". You'll see the
+          // application has a blue toolbar. Then, without quitting the app, try
+          // changing the primarySwatch below to Colors.green and then invoke
+          // "hot reload" (press "r" in the console where you ran "flutter run",
+          // or simply save your changes to "hot reload" in a Flutter IDE).
+          // Notice that the counter didn't reset back to zero; the application
+          // is not restarted.
+          primarySwatch: Colors.blue,
+        ),
+        home: const MyHomePage("zoom"));
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage(this.title);
+
+  // This widget is the home page of your application. It is stateful, meaning
+  // that it has a State object (defined below) that contains fields that affect
+  // how it looks.
+
+  // This class is the configuration for the state. It holds the values (in this
+  // case the title) provided by the parent (in this case the App widget) and
+  // used by the build method of the State. Fields in a Widget subclass are
+  // always marked "final".
+
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
+    return Scaffold(
+        appBar: AppBar(
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text(widget.title),
+        ),
+        body: Center(
+          // Center is a layout widget. It takes a single child and positions it
+          // in the middle of the parent.
+          child: Column(
+            children: <Widget>[
+              // Column is also a layout widget. It takes a list of children and
+              // arranges them vertically. By default, it sizes itself to fit its
+              // children horizontally, and tries to be as tall as its parent.
+              //
+              // Invoke "debug painting" (press "p" in the console, choose the
+              // "Toggle Debug Paint" action from the Flutter Inspector in Android
+              // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+              // to see the wireframe for each widget.
+              //
+              // Column has various properties to control how it sizes itself and
+              // how it positions its children. Here we use mainAxisAlignment to
+              // center the children vertically; the main axis here is the vertical
+              // axis because Columns are vertical (the cross axis would be
+              // horizontal).
+
+              InkWell(
+                child: Text(
+                  'join zoom',
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ZoomJoinScreen()));
+                },
+              ),
+            ],
           ),
-          body: Center(
-            child: TextButton(
-                onPressed: () => joinMeeting(context, "MR"),
-                child: Text("join meeting")),
-          )),
-    );
+        ) // This trailing comma makes auto-formatting nicer for build methods.
+        );
   }
 }

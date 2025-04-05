@@ -10,11 +10,11 @@
         android:layout_height="match_parent"
         android:focusable="false" />
 
-    <com.webcare.zoom.sdksample.inmeetingfunction.customizedmeetingui.view.share.CustomShareView
+    <us.zoom.sdksample.inmeetingfunction.customizedmeetingui.view.share.CustomShareView
         android:id="@+id/custom_share_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible">
-    </com.webcare.zoom.sdksample.inmeetingfunction.customizedmeetingui.view.share.CustomShareView>
+    </us.zoom.sdksample.inmeetingfunction.customizedmeetingui.view.share.CustomShareView>
 
 </FrameLayout>

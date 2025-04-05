@@ -27,7 +27,7 @@
                     android:layout_height="match_parent"
                     android:visibility="gone" />
 
-                <com.webcare.zoom.sdksample.inmeetingfunction.customizedmeetingui.view.share.AnnotateToolbar
+                <us.zoom.sdksample.inmeetingfunction.customizedmeetingui.view.share.AnnotateToolbar
                     android:id="@+id/drawingView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -42,20 +42,20 @@
                     android:layout_gravity="top|right"
                     android:visibility="gone" />
 
-                <com.webcare.zoom.sdksample.inmeetingfunction.customizedmeetingui.rawdata.RawDataRender
+                <us.zoom.sdksample.inmeetingfunction.customizedmeetingui.rawdata.RawDataRender
                     android:id="@+id/local_share_content_view_render"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:layout_gravity="top|left"
                     android:visibility="gone">
 
-                </com.webcare.zoom.sdksample.inmeetingfunction.customizedmeetingui.rawdata.RawDataRender>
+                </us.zoom.sdksample.inmeetingfunction.customizedmeetingui.rawdata.RawDataRender>
 
             </FrameLayout>
         </FrameLayout>
 
 
-        <com.webcare.zoom.sdksample.inmeetingfunction.customizedmeetingui.view.VideoListLayout
+        <us.zoom.sdksample.inmeetingfunction.customizedmeetingui.view.VideoListLayout
             android:id="@+id/videoListLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-        </com.webcare.zoom.sdksample.inmeetingfunction.customizedmeetingui.view.VideoListLayout>
+        </us.zoom.sdksample.inmeetingfunction.customizedmeetingui.view.VideoListLayout>
 
 
     </RelativeLayout>
@@ -119,11 +119,11 @@
         android:background="#00000000"></FrameLayout>
 
 
-    <com.webcare.zoom.sdksample.inmeetingfunction.customizedmeetingui.view.MeetingOptionBar
+    <us.zoom.sdksample.inmeetingfunction.customizedmeetingui.view.MeetingOptionBar
         android:id="@+id/meeting_option_contain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible"></com.webcare.zoom.sdksample.inmeetingfunction.customizedmeetingui.view.MeetingOptionBar>
+        android:visibility="invisible"></us.zoom.sdksample.inmeetingfunction.customizedmeetingui.view.MeetingOptionBar>
 
     <ImageView
         android:id="@+id/iv_view_apps"

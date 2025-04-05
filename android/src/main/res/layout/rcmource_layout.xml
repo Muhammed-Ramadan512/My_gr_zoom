@@ -4,14 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.webcare.zoom.sdksample.inmeetingfunction.customizedmeetingui.view.share.RCFloatView
+    <us.zoom.sdksample.inmeetingfunction.customizedmeetingui.view.share.RCFloatView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/rc_float"
         android:layout_gravity="bottom">
-    </com.webcare.zoom.sdksample.inmeetingfunction.customizedmeetingui.view.share.RCFloatView>
+    </us.zoom.sdksample.inmeetingfunction.customizedmeetingui.view.share.RCFloatView>
 
-    <com.webcare.zoom.sdksample.inmeetingfunction.customizedmeetingui.view.share.RCMouseView
+    <us.zoom.sdksample.inmeetingfunction.customizedmeetingui.view.share.RCMouseView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/rc_mouse"

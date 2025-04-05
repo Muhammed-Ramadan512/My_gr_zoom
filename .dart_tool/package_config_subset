@@ -42,10 +42,6 @@ plugin_platform_interface
 2.18
 file:///C:/Flutter/.pub-cache/hosted/pub.dartlang.org/plugin_platform_interface-2.1.5/
 file:///C:/Flutter/.pub-cache/hosted/pub.dartlang.org/plugin_platform_interface-2.1.5/lib/
-screen_protector
-2.12
-file:///C:/Flutter/.pub-cache/hosted/pub.dartlang.org/screen_protector-1.4.2/
-file:///C:/Flutter/.pub-cache/hosted/pub.dartlang.org/screen_protector-1.4.2/lib/
 source_span
 2.14
 file:///C:/Flutter/.pub-cache/hosted/pub.dartlang.org/source_span-1.9.0/
@@ -88,6 +84,6 @@ file:///C:/Flutter/packages/flutter_test/
 file:///C:/Flutter/packages/flutter_test/lib/
 gr_zoom
 2.12
-file:///C:/Users/MR/Downloads/Compressed/gr_zoom-1.3.0+1/
-file:///C:/Users/MR/Downloads/Compressed/gr_zoom-1.3.0+1/lib/
+file:///Z:/Work/Vclasses/MyPackage/My_gr_zoom/
+file:///Z:/Work/Vclasses/MyPackage/My_gr_zoom/lib/
 2

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.webcare.zoom.sdksample">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="us.zoom.sdksample">
 
     <uses-feature android:glEsVersion="0x00020000"/>
 
@@ -58,20 +57,18 @@
         android:name="androidx.multidex.MultiDexApplication"
         android:allowBackup="false">
 
-        <activity android:name="com.webcare.zoom.sdksample.ui.InitAuthSDKActivity"
+        <activity android:name="us.zoom.sdksample.ui.InitAuthSDKActivity"
             android:configChanges="screenSize|orientation|keyboardHidden|keyboard"
             android:screenOrientation="portrait"
             android:exported="true"
             android:theme="@style/ZMTheme.MainWindow" >
         </activity>
-
-         <activity
-      android:name="com.webcare.zoom.sdksample.MyMeetingActivity"
-      android:exported="false"
-      android:configChanges="orientation|screenSize"
-      android:hardwareAccelerated="false"
-      android:theme="@style/ZMTheme.SubWindow"
-      />
+        <activity
+            android:name="us.zoom.sdksample.MyMeetingActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenSize"
+            android:hardwareAccelerated="false"
+            android:theme="@style/ZMTheme.SubWindow"/>
 
         <activity android:name=".ui.APIUserStartJoinMeetingActivity"
                   android:exported="false"
@@ -84,19 +81,19 @@
             android:theme="@style/ZMTheme.MainWindow" >
         </activity>
 
-        <activity android:name="com.webcare.zoom.sdksample.ui.SSOUserLoginActivity"
+        <activity android:name="us.zoom.sdksample.ui.SSOUserLoginActivity"
             android:theme="@style/ZMTheme.MainWindow"
             android:exported="false"
             android:screenOrientation="portrait" >
         </activity>
         
-        <activity android:name="com.webcare.zoom.sdksample.otherfeatures.MyInviteActivity"
+        <activity android:name="us.zoom.sdksample.otherfeatures.MyInviteActivity"
                   android:label="@string/invite_acitivity_name"
                   android:exported="false"
                   android:theme="@style/ZMTheme.MainWindow" >
         </activity>
         
-        <activity android:name="com.webcare.zoom.sdksample.otherfeatures.MyWaitJoinActivity"
+        <activity android:name="us.zoom.sdksample.otherfeatures.MyWaitJoinActivity"
                   android:exported="false"
                   android:theme="@style/ZMTheme.MainWindow" >
 <!--            <intent-filter>
@@ -105,7 +102,7 @@
             </intent-filter>-->
         </activity>
                 
-        <activity android:name="com.webcare.zoom.sdksample.otherfeatures.MyCallMeByPhoneActivity"
+        <activity android:name="us.zoom.sdksample.otherfeatures.MyCallMeByPhoneActivity"
                   android:theme="@style/ZMTheme.MainWindow" >
 <!--            <intent-filter>
                 <action android:name="us.zoom.sdkexample.intent.action.CallMyPhone" />
@@ -114,7 +111,7 @@
         </activity>
 
         <activity
-            android:name="com.webcare.zoom.sdksample.inmeetingfunction.customizedmeetingui.MyMeetingActivity"
+            android:name="us.zoom.sdksample.inmeetingfunction.customizedmeetingui.MyMeetingActivity"
             android:configChanges="screenSize"
             android:theme="@style/ZMTheme.SubWindow"
             android:exported="false"
@@ -144,7 +141,7 @@
             android:theme="@style/ZMTheme.SubWindow"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.webcare.zoom.sdksample.inmeetingfunction.zoommeetingui.CustomNewZoomUIActivity"
+            android:name="us.zoom.sdksample.inmeetingfunction.zoommeetingui.CustomNewZoomUIActivity"
             android:exported="false"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"

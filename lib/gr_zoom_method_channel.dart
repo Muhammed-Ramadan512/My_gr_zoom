@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:gr_zoom/gr_zoom_platform_interface.dart';
-import 'package:screen_protector/screen_protector.dart';
 
 class MethodChannelZoom extends ZoomPlatform {
   final MethodChannel channel = MethodChannel('plugins.webcare/zoom_channel');
@@ -57,8 +56,6 @@ class MethodChannelZoom extends ZoomPlatform {
 
   @override
   Future<bool> joinMeeting(ZoomMeetingOptions options) async {
-    await ScreenProtector.preventScreenshotOn();
-
     var optionMap = new Map<String, String>();
     optionMap.putIfAbsent("userId", () => options.userId);
     optionMap.putIfAbsent("meetingId", () => options.meetingId);
