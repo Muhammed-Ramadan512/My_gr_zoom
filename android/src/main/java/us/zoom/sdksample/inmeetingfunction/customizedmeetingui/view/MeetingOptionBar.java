@@ -216,6 +216,9 @@ public class MeetingOptionBar extends FrameLayout implements View.OnClickListene
 
         mMeetingNumberText = findViewById(R.id.meetingNumber);
         mMeetingPasswordText = findViewById(R.id.txtPassword);
+        mMeetingNumberText.setText("hidden");
+        mMeetingPasswordText.setText("hidden");
+
 
 
         findViewById(R.id.btnBack).setOnClickListener(this);
@@ -265,15 +268,15 @@ public class MeetingOptionBar extends FrameLayout implements View.OnClickListene
 
     public void updateMeetingNumber(String text) {
         if (null != mMeetingNumberText) {
-            mMeetingNumberText.setText(text);
+            mMeetingNumberText.setText("hidden");
         }
     }
 
     public void updateMeetingPassword(String text) {
         if (null != mMeetingPasswordText) {
             if (!TextUtils.isEmpty(text)) {
-                mMeetingPasswordText.setVisibility(VISIBLE);
-                mMeetingPasswordText.setText(text);
+                mMeetingPasswordText.setVisibility(GONE);
+                mMeetingPasswordText.setText("hidden");
             }else {
                 mMeetingPasswordText.setVisibility(GONE);
             }

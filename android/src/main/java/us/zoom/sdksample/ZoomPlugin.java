@@ -34,6 +34,8 @@ import io.flutter.embedding.engine.plugins.activity.ActivityAware;
 import us.zoom.sdk.SDKNotificationServiceError;
 import us.zoom.sdk.SimpleZoomUIDelegate;
 import us.zoom.sdk.CustomizedMiniMeetingViewSize;
+import us.zoom.sdk.MeetingViewsOptions;
+
 
 /** ZoomPlugin */
 public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHandler,ActivityAware, ZoomSDKAuthenticationListener {
@@ -183,18 +185,18 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
         final MeetingService meetingService = zoomSDK.getMeetingService();
 
         JoinMeetingOptions opts = new JoinMeetingOptions();
-        opts.no_invite = parseBoolean(options, "disableInvite", false);
-        opts.no_share = parseBoolean(options, "disableShare", false);
+        opts.no_invite = true;
+        opts.no_share = true;
         opts.no_driving_mode = parseBoolean(options, "disableDrive", false);
         opts.no_dial_in_via_phone = parseBoolean(options, "disableDialIn", false);
         opts.no_disconnect_audio = parseBoolean(options, "noDisconnectAudio", false);
         opts.no_audio = parseBoolean(options, "noAudio", false);
         opts.meeting_views_options = parseInt(options, "meetingViewOptions", 0); 
         JoinMeetingParams params = new JoinMeetingParams();
-
         params.displayName = options.get("userId");
         params.meetingNo = options.get("meetingId");
         params.password = options.get("meetingPassword");
+        
 
         if (options.containsKey("meetingName")) {
             StatusStreamHandler.meetingName = options.get("meetingName");
@@ -220,8 +222,8 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
         final MeetingService meetingService = zoomSDK.getMeetingService();
 
         StartMeetingOptions opts = new StartMeetingOptions();
-        opts.no_invite = parseBoolean(options, "disableInvite", false);
-        opts.no_share = parseBoolean(options, "disableShare", false);
+        opts.no_invite =true; 
+        opts.no_share =true; 
         opts.no_driving_mode = parseBoolean(options, "disableDrive", false);
         opts.no_dial_in_via_phone = parseBoolean(options, "disableDialIn", false);
         opts.no_disconnect_audio = parseBoolean(options, "noDisconnectAudio", false);
