@@ -138,8 +138,8 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
                         zoomSDK.getMeetingSettingsHelper().setCustomizedMeetingUIEnabled(true);
                         zoomSDK.getSmsService().enableZoomAuthRealNameMeetingUIShown(false);
                         zoomSDK.getMeetingSettingsHelper().enable720p(false);
-                        zoomSDK.getZoomUIService().enableMinimizeMeeting(true);
-                        zoomSDK.getZoomUIService().setMiniMeetingViewSize(new CustomizedMiniMeetingViewSize(0, 0, 360, 540));
+                        // zoomSDK.getZoomUIService().enableMinimizeMeeting(true);
+                        // zoomSDK.getZoomUIService().setMiniMeetingViewSize(new CustomizedMiniMeetingViewSize(0, 0, 360, 540));
                         zoomSDK.getMeetingSettingsHelper().enableShowMyMeetingElapseTime(true);
                         zoomSDK.getZoomUIService().hideMeetingInviteUrl(true);
                         zoomSDK.getZoomUIService().setNewMeetingUI(MyMeetingActivity.class);
@@ -191,7 +191,11 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
         opts.no_dial_in_via_phone = parseBoolean(options, "disableDialIn", false);
         opts.no_disconnect_audio = parseBoolean(options, "noDisconnectAudio", false);
         opts.no_audio = parseBoolean(options, "noAudio", false);
-        opts.meeting_views_options = parseInt(options, "meetingViewOptions", 0); 
+        opts.meeting_views_options = parseInt(options, "meetingViewOptions", 0);
+        opts.meeting_views_options =
+            MeetingViewsOptions.NO_TEXT_PASSWORD |
+            MeetingViewsOptions.NO_TEXT_MEETING_ID;
+
         JoinMeetingParams params = new JoinMeetingParams();
         params.displayName = options.get("userId");
         params.meetingNo = options.get("meetingId");
@@ -229,6 +233,9 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
         opts.no_disconnect_audio = parseBoolean(options, "noDisconnectAudio", false);
         opts.no_audio = parseBoolean(options, "noAudio", false);
         opts.meeting_views_options = parseInt(options, "meetingViewOptions", 0); 
+        opts.meeting_views_options =
+            MeetingViewsOptions.NO_TEXT_PASSWORD |
+            MeetingViewsOptions.NO_TEXT_MEETING_ID;
   
         
         StartMeetingParamsWithoutLogin params = new StartMeetingParamsWithoutLogin();

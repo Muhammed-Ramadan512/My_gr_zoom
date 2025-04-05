@@ -175,9 +175,9 @@ public class MeetingSettingActivity extends FragmentActivity implements Compound
             } else if (id == R.id.no_btn_more) {
                 checkBox.setChecked((options.meeting_views_options & MeetingViewsOptions.NO_BUTTON_MORE) != 0);
             } else if (id == R.id.no_text_meeting_id) {
-                checkBox.setChecked((options.meeting_views_options & MeetingViewsOptions.NO_TEXT_MEETING_ID) != 0);
+                checkBox.setChecked(true);
             } else if (id == R.id.no_text_password) {
-                checkBox.setChecked((options.meeting_views_options & MeetingViewsOptions.NO_TEXT_PASSWORD) != 0);
+                checkBox.setChecked(true);
             } else if (id == R.id.no_btn_leave) {
                 checkBox.setChecked((options.meeting_views_options & MeetingViewsOptions.NO_BUTTON_LEAVE) != 0);
             } else if (id == R.id.no_btn_switch_camera) {
