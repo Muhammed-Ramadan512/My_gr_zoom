@@ -1,6 +1,6 @@
+import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
-import 'dart:convert';
 //import 'package:dio/dio.dart';
 
 void main(List<String> args) async {
@@ -93,7 +93,7 @@ Future<void> checkAndDownloadSDK(String location) async {
   if (!exists) {
     await downloadFile(
         Uri.parse(
-            'https://com21-static.s3.sa-east-1.amazonaws.com/zoom/android/6.0.12/mobilertc.aar?dl=1'),
+            'https://com21-static.s3.sa-east-1.amazonaws.com/zoom/android/6.1.1/mobilertc.aar?dl=1'),
         androidRTCLibFile);
   }
 }
