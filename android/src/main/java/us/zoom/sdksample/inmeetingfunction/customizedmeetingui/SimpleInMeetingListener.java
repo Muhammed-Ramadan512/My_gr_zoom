@@ -2,6 +2,7 @@ package us.zoom.sdksample.inmeetingfunction.customizedmeetingui;
 
 import java.util.List;
 
+import us.zoom.sdk.CameraControlRequestResult;
 import us.zoom.sdk.CameraControlRequestType;
 import us.zoom.sdk.ChatMessageDeleteType;
 import us.zoom.sdk.FreeMeetingNeedUpgradeType;
@@ -17,6 +18,9 @@ import us.zoom.sdk.InMeetingServiceListener;
 import us.zoom.sdk.LocalRecordingRequestPrivilegeStatus;
 import us.zoom.sdk.MobileRTCFocusModeShareType;
 import us.zoom.sdk.VideoQuality;
+import us.zoom.sdk.ZoomSDKFileReceiver;
+import us.zoom.sdk.ZoomSDKFileSender;
+import us.zoom.sdk.ZoomSDKFileTransferInfo;
 
 public class SimpleInMeetingListener implements InMeetingServiceListener {
 
@@ -31,6 +35,26 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
 
     @Override
     public void onCameraControlRequestResult(long userId, boolean isApproved) {
+
+    }
+
+    @Override
+    public void onCameraControlRequestResult(long userId, CameraControlRequestResult result) {
+
+    }
+
+    @Override
+    public void onFileSendStart(ZoomSDKFileSender sender) {
+
+    }
+
+    @Override
+    public void onFileReceived(ZoomSDKFileReceiver receiver) {
+
+    }
+
+    @Override
+    public void onFileTransferProgress(ZoomSDKFileTransferInfo info) {
 
     }
 

@@ -130,3 +130,13 @@
 
 ## [1.5.0]
 * New Version with Zoom Sdk 6.0.12 for Android and IOS
+
+## [1.6.0-dev.1]
+* Pre-release: New Version with Zoom Sdk 6.1.1 for Android and 6.1.5 for IOS
+
+## [1.6.0]
+* New Version with Zoom Sdk 6.1.1 for Android and 6.1.5 for IOS
+
+
+## [1.7.0]
+* New version with pubspec update

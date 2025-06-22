@@ -216,9 +216,6 @@ public class MeetingOptionBar extends FrameLayout implements View.OnClickListene
 
         mMeetingNumberText = findViewById(R.id.meetingNumber);
         mMeetingPasswordText = findViewById(R.id.txtPassword);
-        mMeetingNumberText.setText("hidden");
-        mMeetingPasswordText.setText("hidden");
-
 
 
         findViewById(R.id.btnBack).setOnClickListener(this);
@@ -268,15 +265,15 @@ public class MeetingOptionBar extends FrameLayout implements View.OnClickListene
 
     public void updateMeetingNumber(String text) {
         if (null != mMeetingNumberText) {
-            mMeetingNumberText.setText("hidden");
+            mMeetingNumberText.setText(text);
         }
     }
 
     public void updateMeetingPassword(String text) {
         if (null != mMeetingPasswordText) {
             if (!TextUtils.isEmpty(text)) {
-                mMeetingPasswordText.setVisibility(GONE);
-                mMeetingPasswordText.setText("hidden");
+                mMeetingPasswordText.setVisibility(VISIBLE);
+                mMeetingPasswordText.setText(text);
             }else {
                 mMeetingPasswordText.setVisibility(GONE);
             }
@@ -618,7 +615,8 @@ public class MeetingOptionBar extends FrameLayout implements View.OnClickListene
                     }
                     case MENU_INTERNAL_SOURCE:{
                         ZoomSDKVideoSourceHelper sourceHelper=ZoomSDK.getInstance().getVideoSourceHelper();
-                        Bitmap waterMark = BitmapFactory.decodeResource(getResources(), R.drawable.zm_watermark_sdk);
+                        // Bitmap waterMark = BitmapFactory.decodeResource(getResources(), R.drawable.zm_watermark_sdk);
+                        Bitmap waterMark = BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_report_image);
                         byte[] yuv = YUVConvert.convertBitmapToYuv(waterMark);
                         final WaterMarkData data = new WaterMarkData(waterMark.getWidth(), waterMark.getHeight(), yuv);
 
