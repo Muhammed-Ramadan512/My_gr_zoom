@@ -49,6 +49,7 @@ android {
         disable 'InvalidPackage'
     }
     buildFeatures {
+        // viewBinding true
         buildConfig = true
     }
     sourceSets {
@@ -56,6 +57,8 @@ android {
             java.srcDirs = ['src/main/java']
             res.srcDirs = ['src/main/res']  // <-- ESSENCIAL para reconhecer o drawable
             manifest.srcFile 'src/main/AndroidManifest.xml'
+            jniLibs.srcDirs += 'libs'
+
         }
     }
 }

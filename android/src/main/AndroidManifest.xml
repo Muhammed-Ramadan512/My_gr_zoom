@@ -63,7 +63,7 @@
             android:exported="true"
             android:theme="@style/ZMTheme.MainWindow" >
         </activity>
-        <activity
+          <activity
             android:name="us.zoom.sdksample.MyMeetingActivity"
             android:exported="false"
             android:configChanges="orientation|screenSize"

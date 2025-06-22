@@ -84,25 +84,21 @@ class _ZoomJoinScreenState extends State<ZoomJoinScreen> {
     ZoomOptions zoomOptions = ZoomOptions(
         domain: "zoom.us",
         jwtToken:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBLZXkiOiJUMVZ0Qmtnd1JHYUtMb0dtdW5sWkJRIiwibW4iOiI4Njk3NjA5NzkzMCIsInJvbGUiOjAsImlhdCI6MTc0Mzg1OTExMywiZXhwIjoxNzQzODYyNzEzLCJ0b2tlbkV4cCI6MTc0Mzg2MjcxM30.Lrs8goib2K_T3VN_PyU0NPJjg5bMYtibXLh0vjy1HlM"
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBLZXkiOiJUMVZ0Qmtnd1JHYUtMb0dtdW5sWkJRIiwibW4iOiI4MTQzNjYwMzM1NyIsInJvbGUiOjAsImlhdCI6MTc1MDYzMjEyOCwiZXhwIjoxNzUwNjM1NzI4LCJ0b2tlbkV4cCI6MTc1MDYzNTcyOH0.qgTPssdxi4vMuka7jtbERgUMuRxGbzjF8_RJJBvUWWk"
         // appKey: widget.appKey, //API KEY FROM ZOOM - Sdk API Key
         // appSecret: widget.appSecret,
         // disableScreenshotAndRecording: false,
+        ,
+        customAndroidUi: false
 
         //API SECRET FROM ZOOM - Sdk API Secret
         );
     var meetingOptions = ZoomMeetingOptions(
       userId: userName ??
           "User", //pass username for join meeting only --- Any name eg:- EVILRATT.
-      meetingId: "86976097930", //pass meeting id for join meeting only
-      meetingPassword: "123456", //pass meeting password for join meeting only
-      disableDialIn: "true",
-      disableDrive: "true",
-      disableInvite: "true",
-      disableShare: "true",
-      noAudio: "false",
-      noDisconnectAudio: "false",
-      meetingViewOptions: 1,
+      meetingId: "81436603357", //pass meeting id for join meeting only
+      meetingPassword: "DVw0xh",
+      //pass meeting password for join meeting only
     );
 
     var zoom = Zoom();
