@@ -189,9 +189,6 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
         opts.no_disconnect_audio = parseBoolean(options, "noDisconnectAudio", false);
         opts.no_audio = parseBoolean(options, "noAudio", false);
         opts.meeting_views_options = parseInt(options, "meetingViewOptions", 0); 
-        opts.meeting_views_options =
-            MeetingViewsOptions.NO_TEXT_PASSWORD |
-            MeetingViewsOptions.NO_TEXT_MEETING_ID;
         opts.customer_key = options.get("customerKey"); 
         JoinMeetingParams params = new JoinMeetingParams();
 
