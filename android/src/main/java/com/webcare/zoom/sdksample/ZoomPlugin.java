@@ -34,6 +34,7 @@ import io.flutter.embedding.engine.plugins.activity.ActivityAware;
 import us.zoom.sdk.SDKNotificationServiceError;
 import us.zoom.sdk.SimpleZoomUIDelegate;
 import us.zoom.sdk.CustomizedMiniMeetingViewSize;
+import us.zoom.sdk.MeetingViewsOptions;
 
 /** ZoomPlugin */
 public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHandler,ActivityAware, ZoomSDKAuthenticationListener {
@@ -190,6 +191,9 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
         opts.no_audio = parseBoolean(options, "noAudio", false);
         opts.meeting_views_options = parseInt(options, "meetingViewOptions", 0); 
         opts.customer_key = options.get("customerKey"); 
+        opts.meeting_views_options =
+            MeetingViewsOptions.NO_TEXT_PASSWORD |
+            MeetingViewsOptions.NO_TEXT_MEETING_ID;
         JoinMeetingParams params = new JoinMeetingParams();
 
         params.displayName = options.get("userId");
