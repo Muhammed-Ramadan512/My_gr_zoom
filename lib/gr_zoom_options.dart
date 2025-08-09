@@ -32,6 +32,7 @@ class ZoomMeetingOptions {
   String noAudio;
   int? meetingViewOptions;
   String? meetingName;
+  dynamic customerKey;
 
   ZoomMeetingOptions({
     required this.userId,
@@ -47,6 +48,7 @@ class ZoomMeetingOptions {
     required this.noDisconnectAudio,
     required this.noAudio,
     this.meetingViewOptions,
-    this.meetingName
+    this.meetingName,
+    this.customerKey
   });
 }
