@@ -137,7 +137,8 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
                         zoomSDK.getMeetingSettingsHelper().setCustomizedMeetingUIEnabled(true);
                         zoomSDK.getSmsService().enableZoomAuthRealNameMeetingUIShown(false);
                         zoomSDK.getMeetingSettingsHelper().enable720p(false);
-                        zoomSDK.getZoomUIService().enableMinimizeMeeting(true);
+                        // zoomSDK.getZoomUIService().enableMinimizeMeeting(true);
+                        zoomSDK.getZoomUIService().hideMeetingInviteUrl(true);
                         zoomSDK.getZoomUIService().setMiniMeetingViewSize(new CustomizedMiniMeetingViewSize(0, 0, 360, 540));
                         zoomSDK.getMeetingSettingsHelper().enableShowMyMeetingElapseTime(true);
                       
