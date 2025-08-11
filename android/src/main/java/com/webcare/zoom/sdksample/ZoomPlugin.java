@@ -145,7 +145,7 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
 
                         MeetingService meetingService = zoomSDK.getMeetingService();
                         meetingStatusChannel.setStreamHandler(new StatusStreamHandler(meetingService, context, previousActivity, zoomSDK));
-                        zoomSDK.getZoomUIService().setNewMeetingUI(MyMeetingActivity.class);
+                      
                         result.success(response);
                     } else {
                         List<Integer> response = Arrays.asList(errorCode, internalErrorCode);
@@ -158,6 +158,7 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
 
                         zoomSDK.getMeetingSettingsHelper().setCustomizedMeetingUIEnabled(false);
                         MeetingService meetingService = zoomSDK.getMeetingService();
+                        zoomSDK.getZoomUIService().hideMeetingInviteUrl(true);
                         meetingStatusChannel.setStreamHandler(new StatusStreamHandler(meetingService));
                         zoomSDK.getZoomUIService().setNewMeetingUI(MyMeetingActivity.class);
                         result.success(response);
@@ -193,7 +194,7 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
         opts.customer_key = options.get("customerKey"); 
         opts.meeting_views_options =
             MeetingViewsOptions.NO_TEXT_PASSWORD |
-            MeetingViewsOptions.NO_TEXT_MEETING_ID;
+            MeetingViewsOptions.NO_TEXT_MEETING_ID| MeetingViewsOptions.NO_BUTTON_MORE;
         JoinMeetingParams params = new JoinMeetingParams();
 
         params.displayName = options.get("userId");
