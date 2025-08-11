@@ -66,30 +66,30 @@ void main(List<String> args) async {
 }
 
 Future<void> checkAndDownloadSDK(String location) async {
-  var iosSDKFile = location +
-      '/ios/MobileRTC.xcframework/ios-arm64/MobileRTC.framework/MobileRTC';
-  bool exists = await File(iosSDKFile).exists();
+  // var iosSDKFile = location +
+  //     '/ios/MobileRTC.xcframework/ios-arm64/MobileRTC.framework/MobileRTC';
+  // bool exists = await File(iosSDKFile).exists();
 
-  if (!exists) {
-    await downloadFile(
-        Uri.parse(
-            'https://com21-static.s3.sa-east-1.amazonaws.com/zoom/ios/5.15.5/ios-arm64/MobileRTC?dl=1'),
-        iosSDKFile);
-  }
+  // if (!exists) {
+  //   await downloadFile(
+  //       Uri.parse(
+  //           'https://com21-static.s3.sa-east-1.amazonaws.com/zoom/ios/5.15.5/ios-arm64/MobileRTC?dl=1'),
+  //       iosSDKFile);
+  // }
 
-  var iosSimulateSDKFile = location +
-      '/ios/MobileRTC.xcframework/ios-arm64_x86_64-simulator/MobileRTC.framework/MobileRTC';
-  exists = await File(iosSimulateSDKFile).exists();
+  // var iosSimulateSDKFile = location +
+  //     '/ios/MobileRTC.xcframework/ios-arm64_x86_64-simulator/MobileRTC.framework/MobileRTC';
+  // exists = await File(iosSimulateSDKFile).exists();
 
-  if (!exists) {
-    await downloadFile(
-        Uri.parse(
-            'https://com21-static.s3.sa-east-1.amazonaws.com/zoom/ios/5.15.5/ios-arm64_x86_64-simulator/MobileRTC'),
-        iosSimulateSDKFile);
-  }
+  // if (!exists) {
+  //   await downloadFile(
+  //       Uri.parse(
+  //           'https://com21-static.s3.sa-east-1.amazonaws.com/zoom/ios/5.15.5/ios-arm64_x86_64-simulator/MobileRTC'),
+  //       iosSimulateSDKFile);
+  // }
 
   var androidRTCLibFile = location + '/android/libs/mobilertc.aar';
-  exists = await File(androidRTCLibFile).exists();
+  var exists = await File(androidRTCLibFile).exists();
   if (!exists) {
     await downloadFile(
         Uri.parse(
