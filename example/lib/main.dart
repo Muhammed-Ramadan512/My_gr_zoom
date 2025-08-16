@@ -78,7 +78,7 @@ class _MyAppState extends State<MyApp> {
       domain: "zoom.us",
 
       jwtToken:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBLZXkiOiJnaFBHU04ybnlRVDl5UDMyMnNmM2F0WW43V2hROVE0QzJhWnIiLCJzZGtLZXkiOiJnaFBHU04ybnlRVDl5UDMyMnNmM2F0WW43V2hROVE0QzJhWnIiLCJtbiI6IjgzMzU2NTgzMjU4Iiwicm9sZSI6MSwiaWF0IjoxNzE1MTA0Mzg3LCJleHAiOjE3MTUxMDc5ODcsInRva2VuRXhwIjoxNzE1MTA3OTg3fQ.S6VbBcaftD_pvWriWLZ9r04MhUucNZYCIltJRTYIHPo",
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHBLZXkiOiJZQ2k4RmhZV1NmV1oycG44WnE2VVFnIiwibW4iOiI5Mjc4ODM2MjM0NCIsInJvbGUiOjAsImlhdCI6MTc1NTM3MjA2NywiZXhwIjoxNzU1Mzc1NjY3LCJ0b2tlbkV4cCI6MTc1NTM3NTY2N30.5h4g9vHT8IPq5s8OKk8i6mZcElJNGEYkfXLU9gSSijo",
       // appKey:
       //     "TfHhRiMpRZ33yVhBcSO4ZIOi9Ew1eLsp2GJJ", //API KEY FROM ZOOM - Sdk API Key
       // appSecret:
@@ -88,8 +88,8 @@ class _MyAppState extends State<MyApp> {
         userId: userName ??
             "User", //pass username for join meeting only --- Any name eg:- EVILRATT.
         meetingId:
-            "83356583258", //widget.meetingId, //pass meeting id for join meeting only
-        meetingPassword: "123456",
+            "92788362344", //widget.meetingId, //pass meeting id for join meeting only
+        meetingPassword: "",
         // widget
         //     .meetingPassword, //pass meeting password for join meeting only
         disableDialIn: "true",

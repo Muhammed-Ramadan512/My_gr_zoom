@@ -49,6 +49,6 @@ class ZoomMeetingOptions {
     required this.noAudio,
     this.meetingViewOptions,
     this.meetingName,
-    this.customerKey
+    this.customerKey,
   });
 }

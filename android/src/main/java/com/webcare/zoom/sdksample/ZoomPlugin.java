@@ -35,7 +35,6 @@ import us.zoom.sdk.SDKNotificationServiceError;
 import us.zoom.sdk.SimpleZoomUIDelegate;
 import us.zoom.sdk.CustomizedMiniMeetingViewSize;
 import us.zoom.sdk.MeetingViewsOptions;
-
 /** ZoomPlugin */
 public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHandler,ActivityAware, ZoomSDKAuthenticationListener {
     /// The MethodChannel that will the communication between Flutter and native Android
@@ -137,15 +136,14 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
                         zoomSDK.getMeetingSettingsHelper().setCustomizedMeetingUIEnabled(true);
                         zoomSDK.getSmsService().enableZoomAuthRealNameMeetingUIShown(false);
                         zoomSDK.getMeetingSettingsHelper().enable720p(false);
-                        // zoomSDK.getZoomUIService().enableMinimizeMeeting(true);
-                        zoomSDK.getZoomUIService().hideMeetingInviteUrl(true);
+                        zoomSDK.getZoomUIService().enableMinimizeMeeting(true);
+                         zoomSDK.getZoomUIService().hideMeetingInviteUrl(true);
                         zoomSDK.getZoomUIService().setMiniMeetingViewSize(new CustomizedMiniMeetingViewSize(0, 0, 360, 540));
                         zoomSDK.getMeetingSettingsHelper().enableShowMyMeetingElapseTime(true);
 
 
                         MeetingService meetingService = zoomSDK.getMeetingService();
                         meetingStatusChannel.setStreamHandler(new StatusStreamHandler(meetingService, context, previousActivity, zoomSDK));
-                      
                         result.success(response);
                     } else {
                         List<Integer> response = Arrays.asList(errorCode, internalErrorCode);
@@ -158,7 +156,7 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
 
                         zoomSDK.getMeetingSettingsHelper().setCustomizedMeetingUIEnabled(false);
                         MeetingService meetingService = zoomSDK.getMeetingService();
-                        zoomSDK.getZoomUIService().hideMeetingInviteUrl(true);
+                         zoomSDK.getZoomUIService().hideMeetingInviteUrl(true);
                         meetingStatusChannel.setStreamHandler(new StatusStreamHandler(meetingService));
                         zoomSDK.getZoomUIService().setNewMeetingUI(MyMeetingActivity.class);
                         result.success(response);
@@ -184,8 +182,8 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
         final MeetingService meetingService = zoomSDK.getMeetingService();
 
         JoinMeetingOptions opts = new JoinMeetingOptions();
-        opts.no_invite = true;
-        opts.no_share = true; 
+         opts.no_invite = true;
+        opts.no_share = true;
         opts.no_driving_mode = parseBoolean(options, "disableDrive", false);
         opts.no_dial_in_via_phone = parseBoolean(options, "disableDialIn", false);
         opts.no_disconnect_audio = parseBoolean(options, "noDisconnectAudio", false);
@@ -225,7 +223,7 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
         final MeetingService meetingService = zoomSDK.getMeetingService();
 
         StartMeetingOptions opts = new StartMeetingOptions();
-        opts.no_invite = true; 
+         opts.no_invite = true; 
         opts.no_share = true; 
         opts.no_driving_mode = parseBoolean(options, "disableDrive", false);
         opts.no_dial_in_via_phone = parseBoolean(options, "disableDialIn", false);

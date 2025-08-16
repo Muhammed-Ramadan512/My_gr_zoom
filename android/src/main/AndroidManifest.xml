@@ -64,8 +64,7 @@
             android:exported="true"
             android:theme="@style/ZMTheme.MainWindow" >
         </activity>
-
-         <activity
+        <activity
       android:name="com.webcare.zoom.sdksample.MyMeetingActivity"
       android:exported="false"
       android:configChanges="orientation|screenSize"

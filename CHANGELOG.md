@@ -87,6 +87,31 @@
 
 * New version with Zoom Sdk 5.17.6 for Android
 
-## [1.3.0+1]
+## [1.3.0+1] 
 
 * Improves on Android custom layout
+
+## [1.3.0-dev.1]
+
+* New version with Zoom Sdk 5.17.6 for IOS
+
+## [1.3.0-dev.2]
+
+* Remove some files not used
+
+
+## [1.3.0-dev.3]
+
+* Pre-release: New version with Zoom Sdk 5.17.11 for IOS
+
+## [1.3.1]
+* New Version with Zoom Sdk 5.17.11 for IOS
+
+## [1.3.2-dev.1]
+* Pre-release: New Version with Zoom Sdk 5.17.11 for Android
+
+## [1.3.2-dev.2]
+* Pre-release: Implement abstract method
+
+## [1.3.2]
+* New Version with Zoom Sdk 5.17.11 for IOS

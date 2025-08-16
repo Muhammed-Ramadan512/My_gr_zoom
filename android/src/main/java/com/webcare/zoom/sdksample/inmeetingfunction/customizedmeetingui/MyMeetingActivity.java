@@ -219,8 +219,7 @@ public class MyMeetingActivity extends FragmentActivity implements View.OnClickL
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+
         // let onConfigurationChanged to be called
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
