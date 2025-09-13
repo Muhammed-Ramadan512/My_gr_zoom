@@ -192,7 +192,7 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
         opts.customer_key = options.get("customerKey"); 
         opts.meeting_views_options =
             MeetingViewsOptions.NO_TEXT_PASSWORD |
-            MeetingViewsOptions.NO_TEXT_MEETING_ID| MeetingViewsOptions.NO_BUTTON_MORE;
+            MeetingViewsOptions.NO_TEXT_MEETING_ID;
         JoinMeetingParams params = new JoinMeetingParams();
 
         params.displayName = options.get("userId");
