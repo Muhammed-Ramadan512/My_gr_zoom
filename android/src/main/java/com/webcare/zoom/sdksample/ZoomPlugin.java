@@ -163,7 +163,7 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
                         MeetingService meetingService = zoomSDK.getMeetingService();
                          zoomSDK.getZoomUIService().hideMeetingInviteUrl(true);
                         meetingStatusChannel.setStreamHandler(new StatusStreamHandler(meetingService));
-                        // zoomSDK.getZoomUIService().setNewMeetingUI(MyMeetingActivity.class);
+                        zoomSDK.getZoomUIService().setNewMeetingUI(MyMeetingActivity.class);
                         result.success(response);
                     }
                 }
