@@ -33,6 +33,7 @@ class ZoomMeetingOptions {
   int? meetingViewOptions;
   String? meetingName;
   dynamic customerKey;
+  dynamic watermark;
 
   ZoomMeetingOptions({
     required this.userId,
@@ -50,5 +51,6 @@ class ZoomMeetingOptions {
     this.meetingViewOptions,
     this.meetingName,
     this.customerKey,
+    this.watermark,
   });
 }

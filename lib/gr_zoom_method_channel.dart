@@ -66,6 +66,9 @@ class MethodChannelZoom extends ZoomPlatform {
     optionMap.putIfAbsent("disableShare", () => options.disableShare);
     optionMap.putIfAbsent("noDisconnectAudio", () => options.noDisconnectAudio);
     optionMap.putIfAbsent("noAudio", () => options.noAudio);
+    if (options.watermark != null) {
+      optionMap.putIfAbsent("watermark", () => options.watermark.toString());
+    }
 
     if (options.meetingViewOptions != null) {
       optionMap.putIfAbsent(

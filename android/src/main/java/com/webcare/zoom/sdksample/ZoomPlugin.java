@@ -35,6 +35,10 @@ import us.zoom.sdk.SDKNotificationServiceError;
 import us.zoom.sdk.SimpleZoomUIDelegate;
 import us.zoom.sdk.CustomizedMiniMeetingViewSize;
 import us.zoom.sdk.MeetingViewsOptions;
+import android.content.Intent;
+
+
+
 /** ZoomPlugin */
 public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHandler,ActivityAware, ZoomSDKAuthenticationListener {
     /// The MethodChannel that will the communication between Flutter and native Android
@@ -47,6 +51,7 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
     private ZoomSDK zoomSDK;
     private Activity previousActivity;
     private boolean customAndroidUi = false;
+    public static String watermarkText = "";
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
@@ -158,7 +163,7 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
                         MeetingService meetingService = zoomSDK.getMeetingService();
                          zoomSDK.getZoomUIService().hideMeetingInviteUrl(true);
                         meetingStatusChannel.setStreamHandler(new StatusStreamHandler(meetingService));
-                        zoomSDK.getZoomUIService().setNewMeetingUI(MyMeetingActivity.class);
+                        // zoomSDK.getZoomUIService().setNewMeetingUI(MyMeetingActivity.class);
                         result.success(response);
                     }
                 }
@@ -170,6 +175,12 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
     private void joinMeeting(MethodCall methodCall, MethodChannel.Result result) {
 
         Map<String, String> options = methodCall.arguments();
+
+       if (options.containsKey("watermark")) {
+    ZoomPlugin.watermarkText = options.get("watermark");
+}
+System.out.println("WATERMARK_NATIVE = " + options.get("watermark"));
+
 
         ZoomSDK zoomSDK = ZoomSDK.getInstance();
 
@@ -193,6 +204,7 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
         opts.meeting_views_options =
             MeetingViewsOptions.NO_TEXT_PASSWORD |
             MeetingViewsOptions.NO_TEXT_MEETING_ID;
+          
         JoinMeetingParams params = new JoinMeetingParams();
 
         params.displayName = options.get("userId");
@@ -204,6 +216,9 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
         }
 
         meetingService.joinMeetingWithParams(context, params, opts);
+      
+        Intent overlayIntent = new Intent(context, OverlayService.class);
+        context.startService(overlayIntent);
 
         result.success(true);
     }
@@ -275,6 +290,17 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
         }
 
         MeetingStatus status = meetingService.getMeetingStatus();
+        if (status == MeetingStatus.MEETING_STATUS_ENDED
+        || status == MeetingStatus.MEETING_STATUS_FAILED
+        || status == MeetingStatus.MEETING_STATUS_DISCONNECTING) {
+
+    try {
+        Intent overlayIntent = new Intent(context, OverlayService.class);
+        context.stopService(overlayIntent);
+    } catch (Exception ignored) {}
+}
+
+
         result.success(status != null ? Arrays.asList(status.name(), "") :  Arrays.asList("MEETING_STATUS_UNKNOWN", "No status available"));
     }
 
