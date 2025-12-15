@@ -1,7 +1,10 @@
 package com.webcare.zoom.sdksample;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.IBinder;
@@ -18,16 +21,31 @@ public class OverlayService extends Service {
     private TextView wm;
     private Handler handler = new Handler();
     private Random random = new Random();
-    private boolean isRemoved = false;
+
+    private boolean isVisible = false;
+    private boolean destroyed = false;
+
+    private BroadcastReceiver endReceiver;
 
     @Override
     public IBinder onBind(Intent intent) {
-        return null; // خدمة overlay لا تحتاج Binder
+        return null;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        // Listen for meeting end
+        endReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                stopSelf();  // Kill overlay immediately
+            }
+        };
+
+        registerReceiver(endReceiver, new IntentFilter("ZOOM_MEETING_ENDED"),
+                Context.RECEIVER_NOT_EXPORTED);
 
         wmgr = (WindowManager) getSystemService(WINDOW_SERVICE);
 
@@ -41,21 +59,20 @@ public class OverlayService extends Service {
         params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, // آمن بدون SYSTEM_ALERT_WINDOW
+                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
                         WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
-                -3 // PixelFormat.TRANSLUCENT
+                -3
         );
 
         params.gravity = Gravity.TOP | Gravity.END;
-        params.x = 20;
-        params.y = 20;
+        params.x = 30;
+        params.y = 30;
 
         try {
             wmgr.addView(wm, params);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            isVisible = true;
+        } catch (Exception ignored) {}
 
         startMovement();
     }
@@ -64,15 +81,15 @@ public class OverlayService extends Service {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (isRemoved || wm == null) return;
+                if (destroyed || !isVisible || wm == null) return;
 
                 try {
-                    params.x = random.nextInt(300);
-                    params.y = random.nextInt(800);
+                    params.x = random.nextInt(350);
+                    params.y = random.nextInt(900);
                     wmgr.updateViewLayout(wm, params);
                 } catch (Exception ignored) {}
 
-                handler.postDelayed(this, 3000); // إعادة الحركة
+                handler.postDelayed(this, 3000);
             }
         }, 3000);
     }
@@ -80,13 +97,19 @@ public class OverlayService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        isRemoved = true;
+        destroyed = true;
 
         try {
-            if (wm != null) {
-                wmgr.removeView(wm);
-                wm = null;
-            }
+            unregisterReceiver(endReceiver);
         } catch (Exception ignored) {}
+
+        if (isVisible && wm != null) {
+            try {
+                wmgr.removeView(wm);
+            } catch (Exception ignored) {}
+        }
+
+        wm = null;
+        isVisible = false;
     }
 }
