@@ -290,13 +290,18 @@ System.out.println("WATERMARK_NATIVE = " + options.get("watermark"));
         }
 
         MeetingStatus status = meetingService.getMeetingStatus();
+
         if (status == MeetingStatus.MEETING_STATUS_ENDED
         || status == MeetingStatus.MEETING_STATUS_FAILED
         || status == MeetingStatus.MEETING_STATUS_DISCONNECTING) {
 
     try {
+        Intent endIntent = new Intent("ZOOM_MEETING_ENDED");
+        context.sendBroadcast(endIntent);
+
         Intent overlayIntent = new Intent(context, OverlayService.class);
         context.stopService(overlayIntent);
+
     } catch (Exception ignored) {}
 }
 
