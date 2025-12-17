@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:gr_zoom/gr_zoom.dart';
-import 'package:screen_protector/screen_protector.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,41 +16,20 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  final _grZoomPlugin = Zoom();
+  // String _platformVersion = 'Unknown';
+  // final _grZoomPlugin = Zoom();
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await ScreenProtector.preventScreenshotOn();
-    });
-    // initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    // String platformVersion;
-    // // Platform messages may fail, so we use a try/catch PlatformException.
-    // // We also handle the message potentially returning null.
-    // try {
-    //   platformVersion = await _grZoomPlugin.getPlatformVersion() ??
-    //       'Unknown platform version';
-    // } on PlatformException {
-    //   platformVersion = 'Failed to get platform version.';
-    // }
-
-    // // If the widget was removed from the tree while the asynchronous platform
-    // // message was in flight, we want to discard the reply rather than calling
-    // // setState to update our non-existent appearance.
-    // if (!mounted) return;
-
-    // setState(() {
-    //   _platformVersion = platformVersion;
-    // });
   }
 
   late Timer timer;
+  String _statusText = "Connecting to Zoom…";
+  String meetingID = "83327793303";
+  String meetingPassword = "07821563";
+  String jwt =
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHBLZXkiOiJVTndiclpmZFI0R1RVZU5lM3ZfcnZnIiwibW4iOiI4MzMyNzc5MzMwMyIsInJvbGUiOjAsImlhdCI6MTc2NTk3MTgyNywiZXhwIjoxNzY1OTc1NDI3LCJ0b2tlbkV4cCI6MTc2NTk3NTQyN30.zgdfksc2JsVyCqqsEmtnlG2KWyTbaCwlNkLNbpMWDb8";
 
   @override
   void dispose() {
@@ -61,74 +39,163 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
   }
 
-  joinMeeting(BuildContext context, userName) {
+  joinMeeting(BuildContext context, userName, userId) {
+    String _mapStatus(String code, [String? details]) {
+      if (code == null) return "Unknown status";
+      switch (code) {
+        case "MEETING_STATUS_CONNECTING":
+          return "Connecting to Zoom…";
+        case "MEETING_STATUS_WAITINGFORHOST":
+          return "Waiting for host to start the meeting…";
+        case "MEETING_STATUS_IN_WAITING_ROOM":
+          return "You are in the waiting room…";
+        case "MEETING_STATUS_INMEETING":
+          return "You're in the meeting ✅";
+        case "MEETING_STATUS_RECONNECTING":
+          return "Connection dropped, reconnecting…";
+        case "MEETING_STATUS_DISCONNECTING":
+          return "Leaving the meeting…";
+        case "MEETING_STATUS_ENDED":
+          return "Meeting ended.";
+        case "MEETING_STATUS_FAILED":
+          // details أحيانًا بيرجع سبب نصي
+          return "Failed to join the meeting.${details != null && details.toString().trim().isNotEmpty ? " ($details)" : ""}";
+        case "MEETING_STATUS_IDLE":
+          return "Not connected.";
+        default:
+          return "Status: $code";
+      }
+    }
+
+    // ignore: no_leading_underscores_for_local_identifiers
     bool _isMeetingEnded(String status) {
-      var result = false;
+      if (status == null) return false;
+      if (Platform.isAndroid) {
+        return status == "MEETING_STATUS_FAILED" ||
+            status == "MEETING_STATUS_ENDED" ||
+            status == "MEETING_STATUS_DISCONNECTING";
+      } else {
+        return status == "MEETING_STATUS_FAILED" ||
+            status == "MEETING_STATUS_IDLE" ||
+            status == "MEETING_STATUS_ENDED";
+      }
+    }
 
-      if (Platform.isAndroid)
-        result = status == "MEETING_STATUS_DISCONNECTING" ||
-            status == "MEETING_STATUS_FAILED";
-      else
-        result = status == "MEETING_STATUS_IDLE";
+    void _setStatus(String txt) {
+      if (!mounted) return;
+      setState(() => _statusText = txt);
+    }
 
-      return result;
+    void _toast(String msg) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(msg), duration: Duration(seconds: 2)),
+      );
     }
 
     ZoomOptions zoomOptions = ZoomOptions(
       domain: "zoom.us",
-
-      jwtToken:
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHBLZXkiOiJZQ2k4RmhZV1NmV1oycG44WnE2VVFnIiwibW4iOiI5Mjc4ODM2MjM0NCIsInJvbGUiOjAsImlhdCI6MTc1NTM3MjA2NywiZXhwIjoxNzU1Mzc1NjY3LCJ0b2tlbkV4cCI6MTc1NTM3NTY2N30.5h4g9vHT8IPq5s8OKk8i6mZcElJNGEYkfXLU9gSSijo",
-      // appKey:
-      //     "TfHhRiMpRZ33yVhBcSO4ZIOi9Ew1eLsp2GJJ", //API KEY FROM ZOOM - Sdk API Key
-      // appSecret:
-      //     "ZubMdRlYUeOa4HbQWFdcA8mxAamqYBvAVQS7", //API SECRET FROM ZOOM - Sdk API Secret
+      jwtToken: jwt,
+      customAndroidUi: false,
     );
+
+    if (zoomOptions.jwtToken == null || zoomOptions.jwtToken!.isEmpty) {
+      _setStatus("Missing JWT token for Zoom.");
+      _toast("JWT is required");
+      return;
+    }
+
     var meetingOptions = ZoomMeetingOptions(
         userId: userName ??
             "User", //pass username for join meeting only --- Any name eg:- EVILRATT.
-        meetingId:
-            "92788362344", //widget.meetingId, //pass meeting id for join meeting only
-        meetingPassword: "",
-        // widget
-        //     .meetingPassword, //pass meeting password for join meeting only
+        meetingId: meetingID, //pass meeting id for join meeting only
+        meetingPassword:
+            meetingPassword, //pass meeting password for join meeting only
         disableDialIn: "true",
         disableDrive: "true",
         disableInvite: "true",
         disableShare: "true",
         noAudio: "false",
-        noDisconnectAudio: "false");
+        noDisconnectAudio: "false",
+        meetingViewOptions: 1,
+        customerKey: userId,
+        watermark: "MMMMR");
 
     var zoom = Zoom();
-    // ZoomView(); //Zoom()
-    zoom.init(zoomOptions).then((results) {
-      print(results);
-      if (results[0] == 0) {
-        zoom
-            .meetingStatus("83356583258"
-                // widget.meetingId
-                )
-            .then((status) {
-          print("[Meeting Status Stream] : " + status[0] + " - " + status[1]);
-          if (_isMeetingEnded(status[0])) {
-            print("[Meeting Status] :- Ended");
-            timer.cancel();
-          }
-        });
-        print("listen on event channel");
-        zoom.joinMeeting(meetingOptions).then((joinMeetingResult) {
-          timer = Timer.periodic(new Duration(seconds: 2), (timer) {
-            zoom.meetingStatus(meetingOptions.meetingId).then((status) {
-              print("[Meeting Status Polling] : " +
-                  status[0] +
-                  " - " +
-                  status[1]);
+
+    _setStatus("Initializing Zoom SDK…");
+
+    zoom.init(zoomOptions).then((initResult) {
+      debugPrint("Zoom init -> $initResult (type=${initResult.runtimeType})");
+
+      // 3.3.1 ممكن يرجّع List أو bool
+      int initCode = -1;
+      // ignore: unnecessary_type_check
+      if (initResult is List && initResult.isNotEmpty && initResult[0] is int) {
+        initCode = initResult[0];
+      } else if (initResult is bool) {
+        initCode = (initResult as bool) ? 0 : 1;
+      }
+
+      if (initCode != 0) {
+        _setStatus("Failed to initialize Zoom SDK.");
+        _toast("Zoom init failed ($initCode)");
+        return;
+      }
+
+      // حالة قبل الانضمام (أحيانًا بتفيد)
+      zoom.meetingStatus("mettingID").then((st) {
+        String? code =
+            (st is List && st.length > 0 && st[0] is String) ? st[0] : null;
+        String? det = (st is List && st.length > 1) ? st[1]?.toString() : null;
+        debugPrint("[Status before join] $st");
+        if (code != null) _setStatus(_mapStatus(code, det));
+      }).catchError((_) {});
+
+      _setStatus("Joining meeting…");
+
+      zoom.joinMeeting(meetingOptions).then((joinOk) {
+        debugPrint("joinMeeting -> $joinOk (type=${joinOk.runtimeType})");
+
+        // في 3.3.1: bool فقط
+        if (joinOk == true) {
+          _setStatus("Connecting to Zoom…");
+          _toast("✅ Joined successfully");
+
+          // ابدأ متابعة الحالة كل ثانيتين
+          timer = Timer.periodic(Duration(seconds: 2), (t) {
+            zoom.meetingStatus(meetingID).then((st) {
+              debugPrint("[Meeting Status] $st");
+              String code = (st is List && st.length > 0 && st[0] is String)
+                  ? st[0]
+                  : null;
+              String? det =
+                  (st is List && st.length > 1) ? st[1]?.toString() : null;
+
+              if (code != null) {
+                _setStatus(_mapStatus(code, det));
+                if (_isMeetingEnded(code)) {
+                  if (timer != null) timer.cancel();
+                }
+              }
+            }).catchError((e) {
+              debugPrint("meetingStatus error: $e");
             });
           });
-        });
-      }
-    }).catchError((error) {
-      print("[Error Generated] : " + error.toString());
+        } else {
+          // join فشل: هنا بنعرض أسباب محتملة للمستخدم
+          _setStatus(
+              "Failed to join the meeting. Check meeting ID/password or token.");
+          _toast("❌ Failed to join meeting");
+        }
+      }).catchError((e) {
+        debugPrint("joinMeeting error: $e");
+        _setStatus("Exception while joining meeting.");
+        _toast("⚠️ Exception while joining");
+      });
+    }).catchError((e) {
+      debugPrint("init error: $e");
+      _setStatus("Exception while initializing Zoom SDK.");
+      _toast("⚠️ Init exception");
     });
   }
 
@@ -141,8 +208,8 @@ class _MyAppState extends State<MyApp> {
           ),
           body: Center(
             child: TextButton(
-                onPressed: () => joinMeeting(context, "MR"),
-                child: Text("join meeting")),
+                onPressed: () => joinMeeting(context, "MR", "1"),
+                child: const Text("join meeting")),
           )),
     );
   }

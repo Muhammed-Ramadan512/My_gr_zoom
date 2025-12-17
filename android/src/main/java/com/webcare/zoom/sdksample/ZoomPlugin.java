@@ -179,7 +179,7 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
        if (options.containsKey("watermark")) {
     ZoomPlugin.watermarkText = options.get("watermark");
 }
-System.out.println("WATERMARK_NATIVE = " + options.get("watermark"));
+
 
 
         ZoomSDK zoomSDK = ZoomSDK.getInstance();
@@ -217,8 +217,7 @@ System.out.println("WATERMARK_NATIVE = " + options.get("watermark"));
 
         meetingService.joinMeetingWithParams(context, params, opts);
       
-        Intent overlayIntent = new Intent(context, OverlayService.class);
-        context.startService(overlayIntent);
+      
 
         result.success(true);
     }
@@ -272,42 +271,29 @@ System.out.println("WATERMARK_NATIVE = " + options.get("watermark"));
     }
 
 
-    private void meetingStatus(MethodChannel.Result result) {
+   private void meetingStatus(MethodChannel.Result result) {
 
-        ZoomSDK zoomSDK = ZoomSDK.getInstance();
+    ZoomSDK zoomSDK = ZoomSDK.getInstance();
 
-        if(!zoomSDK.isInitialized()) {
-            System.out.println("Not initialized!!!!!!");
-            result.success(Arrays.asList("MEETING_STATUS_UNKNOWN", "SDK not initialized"));
-            return;
-        }
+    if (!zoomSDK.isInitialized()) {
+        result.success(Arrays.asList("MEETING_STATUS_UNKNOWN", "SDK not initialized"));
+        return;
+    }
 
-        MeetingService meetingService = zoomSDK.getMeetingService();
+    MeetingService meetingService = zoomSDK.getMeetingService();
+    if (meetingService == null) {
+        result.success(Arrays.asList("MEETING_STATUS_UNKNOWN", "No status available"));
+        return;
+    }
 
-        if(meetingService == null) {
-            result.success(Arrays.asList("MEETING_STATUS_UNKNOWN", "No status available"));
-            return;
-        }
-
-        MeetingStatus status = meetingService.getMeetingStatus();
-
-        if (status == MeetingStatus.MEETING_STATUS_ENDED
-        || status == MeetingStatus.MEETING_STATUS_FAILED
-        || status == MeetingStatus.MEETING_STATUS_DISCONNECTING) {
-
-    try {
-        Intent endIntent = new Intent("ZOOM_MEETING_ENDED");
-        context.sendBroadcast(endIntent);
-
-        Intent overlayIntent = new Intent(context, OverlayService.class);
-        context.stopService(overlayIntent);
-
-    } catch (Exception ignored) {}
+    MeetingStatus status = meetingService.getMeetingStatus();
+    result.success(
+        status != null
+            ? Arrays.asList(status.name(), "")
+            : Arrays.asList("MEETING_STATUS_UNKNOWN", "No status available")
+    );
 }
 
-
-        result.success(status != null ? Arrays.asList(status.name(), "") :  Arrays.asList("MEETING_STATUS_UNKNOWN", "No status available"));
-    }
 
 
     @Override

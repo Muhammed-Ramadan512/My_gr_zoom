@@ -57,10 +57,6 @@
     <application
         android:name="androidx.multidex.MultiDexApplication"
         android:allowBackup="false">
-        <service
-            android:name="com.webcare.zoom.sdksample.OverlayService"
-            android:exported="false" />
-
         <activity android:name="com.webcare.zoom.sdksample.ui.InitAuthSDKActivity"
             android:configChanges="screenSize|orientation|keyboardHidden|keyboard"
             android:screenOrientation="portrait"
