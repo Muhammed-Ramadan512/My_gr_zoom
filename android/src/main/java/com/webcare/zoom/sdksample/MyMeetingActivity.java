@@ -27,7 +27,7 @@ protected void onCreate(Bundle savedInstanceState) {
         WindowManager.LayoutParams.FLAG_SECURE,
         WindowManager.LayoutParams.FLAG_SECURE
     );
-
+    if (ZoomPlugin.watermarkText == null) return;
     addWatermark();
 }
 
