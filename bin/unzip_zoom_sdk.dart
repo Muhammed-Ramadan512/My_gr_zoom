@@ -93,7 +93,7 @@ Future<void> checkAndDownloadSDK(String location) async {
   if (!exists) {
     await downloadFile(
         Uri.parse(
-            'https://com21-static.s3.sa-east-1.amazonaws.com/zoom/android/5.17.6/mobilertc.aar?dl=1'),
+            'https://com21-static.s3.sa-east-1.amazonaws.com/zoom/android/5.17.11/mobilertc.aar?dl=1'),
         androidRTCLibFile);
   }
 }
