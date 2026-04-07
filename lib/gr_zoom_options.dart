@@ -33,6 +33,8 @@ class ZoomMeetingOptions {
   int? meetingViewOptions;
   String? meetingName;
   dynamic customerKey;
+  String? watermarkText;
+  bool? enableScreenProtection;
 
   ZoomMeetingOptions({
     required this.userId,
@@ -49,6 +51,8 @@ class ZoomMeetingOptions {
     required this.noAudio,
     this.meetingViewOptions,
     this.meetingName,
-    this.customerKey
+    this.customerKey,
+    this.watermarkText,
+    this.enableScreenProtection,
   });
 }

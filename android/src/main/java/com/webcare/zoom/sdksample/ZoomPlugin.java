@@ -100,6 +100,7 @@ public class ZoomPlugin extends Activity
         ZoomSDK zoomSDK = ZoomSDK.getInstance();
 
         if (zoomSDK.isInitialized()) {
+            meetingStatusChannel.setStreamHandler(new StatusStreamHandler(zoomSDK.getMeetingService()));
             List<Integer> response = Arrays.asList(0, 0);
             result.success(response);
             return;
@@ -207,6 +208,15 @@ public class ZoomPlugin extends Activity
         if (options.containsKey("meetingName")) {
             StatusStreamHandler.meetingName = options.get("meetingName");
         }
+        
+        if (options.containsKey("watermarkText") && options.get("watermarkText") != null && !options.get("watermarkText").isEmpty()) {
+            ZoomPlugin.watermarkText = options.get("watermarkText");
+            
+            
+        } else {
+            ZoomPlugin.watermarkText = "";
+            
+        }
 
         meetingService.joinMeetingWithParams(context, params, opts);
 
@@ -245,6 +255,15 @@ public class ZoomPlugin extends Activity
 
         if (options.containsKey("meetingName")) {
             StatusStreamHandler.meetingName = options.get("meetingName");
+        }
+        
+        if (options.containsKey("watermarkText") && options.get("watermarkText") != null && !options.get("watermarkText").isEmpty()) {
+            ZoomPlugin.watermarkText = options.get("watermarkText");
+            
+            
+        } else {
+            ZoomPlugin.watermarkText = "";
+            
         }
 
         meetingService.startMeetingWithParams(context, params, opts);

@@ -74,6 +74,15 @@ class MethodChannelZoom extends ZoomPlatform {
       optionMap.putIfAbsent(
           "meetingViewOptions", () => options.meetingViewOptions!.toString());
     }
+    
+    if (options.watermarkText != null) {
+      optionMap.putIfAbsent("watermarkText", () => options.watermarkText!);
+    }
+
+    if (options.enableScreenProtection != null) {
+      optionMap.putIfAbsent(
+          "enableScreenProtection", () => options.enableScreenProtection!.toString());
+    }
 
     return channel
         .invokeMethod<bool>('join', optionMap)

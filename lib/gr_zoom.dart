@@ -14,7 +14,11 @@ class Zoom {
       ZoomPlatform.instance.startMeeting(options);
 
   Future<bool> joinMeeting(ZoomMeetingOptions options) async {
-    await ScreenProtector.preventScreenshotOn();
+    if (options.enableScreenProtection ?? true) {
+      await ScreenProtector.preventScreenshotOn();
+    } else {
+      await ScreenProtector.preventScreenshotOff();
+    }
 
     return ZoomPlatform.instance.joinMeeting(options);
   }

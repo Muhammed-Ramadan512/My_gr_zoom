@@ -149,6 +149,7 @@
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:theme="@style/ZMTheme.SubWindow"/>
+        
     </application>
     
 </manifest> 
