@@ -127,7 +127,7 @@ public class AnnotateToolbar extends FrameLayout implements IColorChangedListene
 		mColorTableView = new PopupWindow(contentView, LayoutParams.MATCH_PARENT, AndroidAppUtil.dip2px(context, 100));
 		mColorTable = (ColorTable) contentView.findViewById(R.id.colorTable);
 		txtLineWidth = (TextView)contentView.findViewById(R.id.txtLineWidth);
-		mColorTableView.setBackgroundDrawable(getResources().getDrawable(R.drawable.zm_transparent));
+		mColorTableView.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
 		mColorTableView.setContentView(contentView);
 		mColorTableView.setFocusable(true);
 		mColorTableView.setOutsideTouchable(true);

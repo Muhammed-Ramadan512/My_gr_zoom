@@ -17,7 +17,6 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 import us.zoom.sdk.JoinMeetingOptions;
 import us.zoom.sdk.JoinMeetingParams;
 import us.zoom.sdk.MeetingService;
@@ -37,10 +36,14 @@ import us.zoom.sdk.CustomizedMiniMeetingViewSize;
 import us.zoom.sdk.MeetingViewsOptions;
 
 /** ZoomPlugin */
-public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHandler,ActivityAware, ZoomSDKAuthenticationListener {
-    /// The MethodChannel that will the communication between Flutter and native Android
+public class ZoomPlugin extends Activity
+        implements FlutterPlugin, MethodCallHandler, ActivityAware, ZoomSDKAuthenticationListener {
+    public static String watermarkText = "";
+    /// The MethodChannel that will the communication between Flutter and native
+    /// Android
     ///
-    /// This local reference serves to register the plugin with the Flutter Engine and unregister it
+    /// This local reference serves to register the plugin with the Flutter Engine
+    /// and unregister it
     /// when the Flutter Engine is detached from the Activity
     private MethodChannel channel;
     private EventChannel meetingStatusChannel;
@@ -55,7 +58,8 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
         channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "plugins.webcare/zoom_channel");
         channel.setMethodCallHandler(this);
 
-        meetingStatusChannel = new EventChannel(flutterPluginBinding.getBinaryMessenger(), "plugins.webcare/zoom_event_stream");
+        meetingStatusChannel = new EventChannel(flutterPluginBinding.getBinaryMessenger(),
+                "plugins.webcare/zoom_event_stream");
     }
 
     @Override
@@ -95,7 +99,7 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
 
         ZoomSDK zoomSDK = ZoomSDK.getInstance();
 
-        if(zoomSDK.isInitialized()) {
+        if (zoomSDK.isInitialized()) {
             List<Integer> response = Arrays.asList(0, 0);
             result.success(response);
             return;
@@ -115,58 +119,58 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
         Activity zoomPluginObj = this;
 
         zoomSDK.initialize(
-            context,
-            new ZoomSDKInitializeListener() {
-                @Override
-                public void onZoomAuthIdentityExpired() {
+                context,
+                new ZoomSDKInitializeListener() {
+                    @Override
+                    public void onZoomAuthIdentityExpired() {
 
-                }
-
-                @Override
-                public void onZoomSDKInitializeResult(int errorCode, int internalErrorCode) {
-
-                    if (customAndroidUi) {
-                        List<Integer> response = Arrays.asList(errorCode, internalErrorCode);
-
-                        if (errorCode != ZoomError.ZOOM_ERROR_SUCCESS) {
-                            System.out.println("Failed to initialize Zoom SDK");
-                            result.success(response);
-                            return;
-                        }
-
-                        zoomSDK.getMeetingSettingsHelper().setCustomizedMeetingUIEnabled(true);
-                        zoomSDK.getSmsService().enableZoomAuthRealNameMeetingUIShown(false);
-                        zoomSDK.getMeetingSettingsHelper().enable720p(false);
-                        // zoomSDK.getZoomUIService().enableMinimizeMeeting(true);
-                        zoomSDK.getZoomUIService().hideMeetingInviteUrl(true);
-                        zoomSDK.getZoomUIService().setMiniMeetingViewSize(new CustomizedMiniMeetingViewSize(0, 0, 360, 540));
-                        zoomSDK.getMeetingSettingsHelper().enableShowMyMeetingElapseTime(true);
-
-
-                        MeetingService meetingService = zoomSDK.getMeetingService();
-                        meetingStatusChannel.setStreamHandler(new StatusStreamHandler(meetingService, context, previousActivity, zoomSDK));
-                      
-                        result.success(response);
-                    } else {
-                        List<Integer> response = Arrays.asList(errorCode, internalErrorCode);
-
-                        if (errorCode != ZoomError.ZOOM_ERROR_SUCCESS) {
-                            System.out.println("Failed to initialize Zoom SDK");
-                            result.success(response);
-                            return;
-                        }
-
-                        zoomSDK.getMeetingSettingsHelper().setCustomizedMeetingUIEnabled(false);
-                        MeetingService meetingService = zoomSDK.getMeetingService();
-                        zoomSDK.getZoomUIService().hideMeetingInviteUrl(true);
-                        meetingStatusChannel.setStreamHandler(new StatusStreamHandler(meetingService));
-                        zoomSDK.getZoomUIService().setNewMeetingUI(MyMeetingActivity.class);
-                        result.success(response);
                     }
-                }
-            },
-            initParams
-        );
+
+                    @Override
+                    public void onZoomSDKInitializeResult(int errorCode, int internalErrorCode) {
+
+                        if (customAndroidUi) {
+                            List<Integer> response = Arrays.asList(errorCode, internalErrorCode);
+
+                            if (errorCode != ZoomError.ZOOM_ERROR_SUCCESS) {
+                                System.out.println("Failed to initialize Zoom SDK");
+                                result.success(response);
+                                return;
+                            }
+
+                            zoomSDK.getMeetingSettingsHelper().setCustomizedMeetingUIEnabled(true);
+                            zoomSDK.getSmsService().enableZoomAuthRealNameMeetingUIShown(false);
+                            zoomSDK.getMeetingSettingsHelper().enable720p(false);
+                            // zoomSDK.getZoomUIService().enableMinimizeMeeting(true);
+                            zoomSDK.getZoomUIService().hideMeetingInviteUrl(true);
+                            zoomSDK.getZoomUIService()
+                                    .setMiniMeetingViewSize(new CustomizedMiniMeetingViewSize(0, 0, 360, 540));
+                            zoomSDK.getMeetingSettingsHelper().enableShowMyMeetingElapseTime(true);
+
+                            MeetingService meetingService = zoomSDK.getMeetingService();
+                            meetingStatusChannel.setStreamHandler(
+                                    new StatusStreamHandler(meetingService, context, previousActivity, zoomSDK));
+
+                            result.success(response);
+                        } else {
+                            List<Integer> response = Arrays.asList(errorCode, internalErrorCode);
+
+                            if (errorCode != ZoomError.ZOOM_ERROR_SUCCESS) {
+                                System.out.println("Failed to initialize Zoom SDK");
+                                result.success(response);
+                                return;
+                            }
+
+                            zoomSDK.getMeetingSettingsHelper().setCustomizedMeetingUIEnabled(false);
+                            MeetingService meetingService = zoomSDK.getMeetingService();
+                            zoomSDK.getZoomUIService().hideMeetingInviteUrl(true);
+                            meetingStatusChannel.setStreamHandler(new StatusStreamHandler(meetingService));
+                            zoomSDK.getZoomUIService().setNewMeetingUI(MyMeetingActivity.class);
+                            result.success(response);
+                        }
+                    }
+                },
+                initParams);
     }
 
     private void joinMeeting(MethodCall methodCall, MethodChannel.Result result) {
@@ -175,7 +179,7 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
 
         ZoomSDK zoomSDK = ZoomSDK.getInstance();
 
-        if(!zoomSDK.isInitialized()) {
+        if (!zoomSDK.isInitialized()) {
             System.out.println("Not initialized!!!!!!");
             result.success(false);
             return;
@@ -185,16 +189,15 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
 
         JoinMeetingOptions opts = new JoinMeetingOptions();
         opts.no_invite = true;
-        opts.no_share = true; 
+        opts.no_share = true;
         opts.no_driving_mode = parseBoolean(options, "disableDrive", false);
         opts.no_dial_in_via_phone = parseBoolean(options, "disableDialIn", false);
         opts.no_disconnect_audio = parseBoolean(options, "noDisconnectAudio", false);
         opts.no_audio = parseBoolean(options, "noAudio", false);
-        opts.meeting_views_options = parseInt(options, "meetingViewOptions", 0); 
-        opts.customer_key = options.get("customerKey"); 
-        opts.meeting_views_options =
-            MeetingViewsOptions.NO_TEXT_PASSWORD |
-            MeetingViewsOptions.NO_TEXT_MEETING_ID| MeetingViewsOptions.NO_BUTTON_MORE;
+        opts.meeting_views_options = parseInt(options, "meetingViewOptions", 0);
+        opts.customer_key = options.get("customerKey");
+        opts.meeting_views_options = MeetingViewsOptions.NO_TEXT_PASSWORD |
+                MeetingViewsOptions.NO_TEXT_MEETING_ID | MeetingViewsOptions.NO_BUTTON_MORE;
         JoinMeetingParams params = new JoinMeetingParams();
 
         params.displayName = options.get("userId");
@@ -216,7 +219,7 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
 
         ZoomSDK zoomSDK = ZoomSDK.getInstance();
 
-        if(!zoomSDK.isInitialized()) {
+        if (!zoomSDK.isInitialized()) {
             System.out.println("Not initialized!!!!!!");
             result.success(false);
             return;
@@ -225,15 +228,14 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
         final MeetingService meetingService = zoomSDK.getMeetingService();
 
         StartMeetingOptions opts = new StartMeetingOptions();
-        opts.no_invite = true; 
-        opts.no_share = true; 
+        opts.no_invite = true;
+        opts.no_share = true;
         opts.no_driving_mode = parseBoolean(options, "disableDrive", false);
         opts.no_dial_in_via_phone = parseBoolean(options, "disableDialIn", false);
         opts.no_disconnect_audio = parseBoolean(options, "noDisconnectAudio", false);
         opts.no_audio = parseBoolean(options, "noAudio", false);
-        opts.meeting_views_options = parseInt(options, "meetingViewOptions", 0); 
-  
-        
+        opts.meeting_views_options = parseInt(options, "meetingViewOptions", 0);
+
         StartMeetingParamsWithoutLogin params = new StartMeetingParamsWithoutLogin();
 
         params.displayName = options.get("displayName");
@@ -258,12 +260,11 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
         return options.get(property) == null ? defaultValue : Integer.parseInt(options.get(property));
     }
 
-
     private void meetingStatus(MethodChannel.Result result) {
 
         ZoomSDK zoomSDK = ZoomSDK.getInstance();
 
-        if(!zoomSDK.isInitialized()) {
+        if (!zoomSDK.isInitialized()) {
             System.out.println("Not initialized!!!!!!");
             result.success(Arrays.asList("MEETING_STATUS_UNKNOWN", "SDK not initialized"));
             return;
@@ -271,15 +272,15 @@ public class ZoomPlugin extends Activity implements FlutterPlugin, MethodCallHan
 
         MeetingService meetingService = zoomSDK.getMeetingService();
 
-        if(meetingService == null) {
+        if (meetingService == null) {
             result.success(Arrays.asList("MEETING_STATUS_UNKNOWN", "No status available"));
             return;
         }
 
         MeetingStatus status = meetingService.getMeetingStatus();
-        result.success(status != null ? Arrays.asList(status.name(), "") :  Arrays.asList("MEETING_STATUS_UNKNOWN", "No status available"));
+        result.success(status != null ? Arrays.asList(status.name(), "")
+                : Arrays.asList("MEETING_STATUS_UNKNOWN", "No status available"));
     }
-
 
     @Override
     public void onZoomAuthIdentityExpired() {

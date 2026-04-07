@@ -614,17 +614,17 @@ public class MeetingOptionBar extends FrameLayout implements View.OnClickListene
                        break;
                     }
                     case MENU_INTERNAL_SOURCE:{
-                        ZoomSDKVideoSourceHelper sourceHelper=ZoomSDK.getInstance().getVideoSourceHelper();
-                        Bitmap waterMark = BitmapFactory.decodeResource(getResources(), R.drawable.zm_watermark_sdk);
-                        byte[] yuv = YUVConvert.convertBitmapToYuv(waterMark);
-                        final WaterMarkData data = new WaterMarkData(waterMark.getWidth(), waterMark.getHeight(), yuv);
+                        // ZoomSDKVideoSourceHelper sourceHelper=ZoomSDK.getInstance().getVideoSourceHelper();
+                        // Bitmap waterMark = BitmapFactory.decodeResource(getResources(), R.drawable.zm_watermark_sdk);
+                        // byte[] yuv = YUVConvert.convertBitmapToYuv(waterMark);
+                        // final WaterMarkData data = new WaterMarkData(waterMark.getWidth(), waterMark.getHeight(), yuv);
 
-                        sourceHelper.setPreProcessor(new ZoomSDKPreProcessor() {
-                            @Override
-                            public void onPreProcessRawData(ZoomSDKPreProcessRawData rawData) {
-                                YUVConvert.addWaterMark(rawData, data, 140, 120, true);
-                            }
-                        });
+                        // sourceHelper.setPreProcessor(new ZoomSDKPreProcessor() {
+                        //     @Override
+                        //     public void onPreProcessRawData(ZoomSDKPreProcessRawData rawData) {
+                        //         YUVConvert.addWaterMark(rawData, data, 140, 120, true);
+                        //     }
+                        // });
                         break;
                     }
                     case MENU_INTERPRETATION: {
