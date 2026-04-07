@@ -341,4 +341,8 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
     public void onVideoAlphaChannelStatusChanged(boolean isAlphaModeOn) {
 
     }
+    @Override
+    public void onAllowParticipantsRequestCloudRecording(boolean b) {
+
+    }
 }
