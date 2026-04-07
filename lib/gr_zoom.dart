@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:gr_zoom/gr_zoom_platform_interface.dart';
-import 'package:screen_protector/screen_protector.dart';
 
 export 'package:gr_zoom/gr_zoom_platform_interface.dart'
     show ZoomOptions, ZoomMeetingOptions;
@@ -14,12 +13,6 @@ class Zoom {
       ZoomPlatform.instance.startMeeting(options);
 
   Future<bool> joinMeeting(ZoomMeetingOptions options) async {
-    if (options.enableScreenProtection ?? true) {
-      await ScreenProtector.preventScreenshotOn();
-    } else {
-      await ScreenProtector.preventScreenshotOff();
-    }
-
     return ZoomPlatform.instance.joinMeeting(options);
   }
 

@@ -34,6 +34,17 @@ public class MyMeetingActivity extends NewMeetingActivity {
 
             watermarkView.setLayoutParams(lp);
 
+            int[] colors = {
+                Color.parseColor("#66FF0000"),
+                Color.parseColor("#660000FF"),
+                Color.parseColor("#6600FF00"),
+                Color.parseColor("#66FFA500"),
+                Color.parseColor("#66800080"),
+                Color.parseColor("#6600FFFF"),
+                Color.parseColor("#88FFFFFF")
+            };
+            watermarkView.setTextColor(colors[random.nextInt(colors.length)]);
+
             // 🔁 الحركة مستمرة مهما حصل
             watermarkView.postDelayed(this, 3000);
         }
@@ -70,10 +81,12 @@ public class MyMeetingActivity extends NewMeetingActivity {
 
         watermarkView = new TextView(this);
         watermarkView.setText(ZoomPlugin.watermarkText);
-        watermarkView.setTextColor(Color.WHITE);
-        watermarkView.setBackgroundColor(Color.parseColor("#55000000"));
-        watermarkView.setTextSize(14f);
+        watermarkView.setTextColor(Color.parseColor("#88FFFFFF"));
+        watermarkView.setBackgroundColor(Color.TRANSPARENT);
+        watermarkView.setTextSize(18f); // Made slightly bigger to match iOS feel
+        watermarkView.setTypeface(null, android.graphics.Typeface.BOLD);
         watermarkView.setPadding(18, 10, 18, 10);
+        watermarkView.setRotation(-45); // Diagonal like iOS
 
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.WRAP_CONTENT,

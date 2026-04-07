@@ -19,6 +19,73 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
   var authenticationDelegate: AuthenticationDelegate
   var eventSink: FlutterEventSink?
     var isObserved: Bool = false
+    private var overlayWindow: UIWindow?
+    private var currentWatermarkText: String?
+    private var watermarkTimer: Timer?
+    private var watermarkLabel: UILabel?
+
+    private func showCustomWatermark(text: String?) {
+        DispatchQueue.main.async {
+            guard let text = text else { return }
+            
+            if self.overlayWindow == nil {
+                if #available(iOS 13.0, *) {
+                    if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+                        self.overlayWindow = UIWindow(windowScene: scene)
+                    }
+                }
+                if self.overlayWindow == nil {
+                    self.overlayWindow = UIWindow(frame: UIScreen.main.bounds)
+                }
+                self.overlayWindow?.windowLevel = .alert + 1
+                self.overlayWindow?.backgroundColor = .clear
+                self.overlayWindow?.isUserInteractionEnabled = false
+            }
+            
+            self.overlayWindow?.subviews.forEach { $0.removeFromSuperview() }
+            
+            let label = UILabel()
+            label.text = text
+            label.textColor = UIColor.gray.withAlphaComponent(0.4)
+            label.numberOfLines = 0
+            label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+            label.sizeToFit()
+            
+            let transform = CGAffineTransform(rotationAngle: -(.pi / 4))
+            label.transform = transform
+            label.center = CGPoint(x: self.overlayWindow!.bounds.width / 2, y: self.overlayWindow!.bounds.height / 2)
+            
+            self.overlayWindow?.addSubview(label)
+            self.overlayWindow?.isHidden = false
+            
+            self.watermarkLabel = label
+            self.startWatermarkAnimation()
+        }
+    }
+    
+    private func startWatermarkAnimation() {
+        self.watermarkTimer?.invalidate()
+        if #available(iOS 10.0, *) {
+            self.watermarkTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
+                guard let self = self, let label = self.watermarkLabel, let window = self.overlayWindow else { return }
+                
+                let maxX = window.bounds.width
+                let maxY = window.bounds.height
+                
+                let newX = CGFloat.random(in: label.bounds.width/2 ... maxX - label.bounds.width/2)
+                let newY = CGFloat.random(in: label.bounds.height/2 ... maxY - label.bounds.height/2)
+                
+                let colors: [UIColor] = [.red, .blue, .green, .orange, .purple, .cyan, .gray, .brown, .systemPink]
+                let randomColor = colors.randomElement()!.withAlphaComponent(0.4)
+                
+                UIView.animate(withDuration: 3.0, delay: 0, options: [.curveEaseInOut, .allowUserInteraction], animations: {
+                    label.center = CGPoint(x: newX, y: newY)
+                    label.textColor = randomColor
+                }, completion: nil)
+            }
+        }
+    }
+
   public static func register(with registrar: FlutterPluginRegistrar) {
     let messenger = registrar.messenger()
     let channel = FlutterMethodChannel(name: "plugins.webcare/zoom_channel", binaryMessenger: messenger)
@@ -47,7 +114,7 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
     @objc private func handleScreenshot() {
       showAlert(title: "تحذير", message: "لقد قمت بأخذ لقطة للشاشة")
       sendEventToFlutter(event: ["type": "screenshot_detected"])
-        exitApplication()
+        // MobileRTC.shared().getMeetingService()?.leaveMeeting(with: .leave)
 
     }
     
@@ -57,7 +124,7 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
                 if isCaptured {
                     showAlert(title: "تحذير", message: "لقد قمت بتسجيل الشاشة")
                     sendEventToFlutter(event: ["type": "screen_recording", "isCaptured": isCaptured])
-                    exitApplication()
+                    MobileRTC.shared().getMeetingService()?.leaveMeeting(with: .leave)
                 }
                 // Handle the screen capture status change here
             }
@@ -156,25 +223,52 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
     }
     
     public func joinMeeting(call: FlutterMethodCall, result: FlutterResult) {
+        let arguments = call.arguments as! Dictionary<String, String?>
         
-        
-        if !isObserved {
-            // Add observers for screenshot and screen recording
-            NotificationCenter.default.addObserver(self, selector: #selector(handleScreenshot), name: UIApplication.userDidTakeScreenshotNotification, object: nil)
-
-            if #available(iOS 11.0, *) {
-                NotificationCenter.default.addObserver(self, selector: #selector(screenCaptureChanged), name: UIScreen.capturedDidChangeNotification, object: nil)
-
+        // Setup Screen Protection Observers based on parameter
+        var isProtected = false
+        if let val = arguments["enableScreenProtection"] as? String {
+            isProtected = NSString(string: val).boolValue
+        } else if let valStr = arguments["enableScreenProtection"] as? String? {
+            if let v = valStr {
+                isProtected = NSString(string: v).boolValue
             }
-            
+        }
+        if isProtected {
+            if #available(iOS 11.0, *) {
+                if UIScreen.main.isCaptured {
+                    self.showAlert(title: "تحذير", message: "لا يمكنك دخول المحاضرة أثناء تسجيل الشاشة. يرجى إيقاف التسجيل أولاً.")
+                    self.sendEventToFlutter(event: ["type": "screen_recording", "isCaptured": true])
+                    result(false)
+                    return
+                }
+            }
+            if !isObserved {
+                NotificationCenter.default.addObserver(self, selector: #selector(handleScreenshot), name: UIApplication.userDidTakeScreenshotNotification, object: nil)
+                if #available(iOS 11.0, *) {
+                    NotificationCenter.default.addObserver(self, selector: #selector(screenCaptureChanged), name: UIScreen.capturedDidChangeNotification, object: nil)
+                }
+                isObserved = true
+            }
+        } else {
+            if isObserved {
+                NotificationCenter.default.removeObserver(self, name: UIApplication.userDidTakeScreenshotNotification, object: nil)
+                if #available(iOS 11.0, *) {
+                    NotificationCenter.default.removeObserver(self, name: UIScreen.capturedDidChangeNotification, object: nil)
+                }
+                isObserved = false
+            }
         }
         
         let meetingService = MobileRTC.shared().getMeetingService()
         let meetingSettings = MobileRTC.shared().getMeetingSettings()
         
         if meetingService != nil {
-            
-            let arguments = call.arguments as! Dictionary<String, String?>
+            if let wText = arguments["watermarkText"] {
+                self.currentWatermarkText = wText
+            } else {
+                self.currentWatermarkText = nil
+            }
             
             meetingSettings?.disableDriveMode(parseBoolean(data: arguments["disableDrive"]!, defaultValue: false))
             meetingSettings?.disableCall(in: parseBoolean(data: arguments["disableDialIn"]!, defaultValue: false))
@@ -251,26 +345,53 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
     }
 
     public func startMeeting(call: FlutterMethodCall, result: FlutterResult) {
+        let arguments = call.arguments as! Dictionary<String, String?>
         
-        
-        if !isObserved {
-            // Add observers for screenshot and screen recording
-            NotificationCenter.default.addObserver(self, selector: #selector(handleScreenshot), name: UIApplication.userDidTakeScreenshotNotification, object: nil)
-
-            if #available(iOS 11.0, *) {
-                NotificationCenter.default.addObserver(self, selector: #selector(screenCaptureChanged), name: UIScreen.capturedDidChangeNotification, object: nil)
-
+        // Setup Screen Protection Observers based on parameter
+        var isProtected = false
+        if let val = arguments["enableScreenProtection"] as? String {
+            isProtected = NSString(string: val).boolValue
+        } else if let valStr = arguments["enableScreenProtection"] as? String? {
+            if let v = valStr {
+                isProtected = NSString(string: v).boolValue
             }
-            
+        }
+        if isProtected {
+            if #available(iOS 11.0, *) {
+                if UIScreen.main.isCaptured {
+                    self.showAlert(title: "تحذير", message: "لا يمكنك دخول المحاضرة أثناء تسجيل الشاشة. يرجى إيقاف التسجيل أولاً.")
+                    self.sendEventToFlutter(event: ["type": "screen_recording", "isCaptured": true])
+                    result(false)
+                    return
+                }
+            }
+            if !isObserved {
+                NotificationCenter.default.addObserver(self, selector: #selector(handleScreenshot), name: UIApplication.userDidTakeScreenshotNotification, object: nil)
+                if #available(iOS 11.0, *) {
+                    NotificationCenter.default.addObserver(self, selector: #selector(screenCaptureChanged), name: UIScreen.capturedDidChangeNotification, object: nil)
+                }
+                isObserved = true
+            }
+        } else {
+            if isObserved {
+                NotificationCenter.default.removeObserver(self, name: UIApplication.userDidTakeScreenshotNotification, object: nil)
+                if #available(iOS 11.0, *) {
+                    NotificationCenter.default.removeObserver(self, name: UIScreen.capturedDidChangeNotification, object: nil)
+                }
+                isObserved = false
+            }
         }
         
         let meetingService = MobileRTC.shared().getMeetingService()
         let meetingSettings = MobileRTC.shared().getMeetingSettings()
         
         if meetingService != nil {
-            
-            let arguments = call.arguments as! Dictionary<String, String?>
-            
+            if let wText = arguments["watermarkText"] {
+                self.currentWatermarkText = wText
+            } else {
+                self.currentWatermarkText = nil
+            }
+
             meetingSettings?.disableDriveMode(parseBoolean(data: arguments["disableDrive"]!, defaultValue: false))
             meetingSettings?.disableCall(in: parseBoolean(data: arguments["disableDialIn"]!, defaultValue: false))
             meetingSettings?.setAutoConnectInternetAudio(parseBoolean(data: arguments["noDisconnectAudio"]!, defaultValue: false))
@@ -384,6 +505,21 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
         }
         
         eventSink(getStateMessage(state))
+
+        switch state {
+        case .inMeeting:
+            if let watermark = self.currentWatermarkText {
+                self.showCustomWatermark(text: watermark)
+            }
+        case .idle, .ended, .failed, .disconnecting:
+            DispatchQueue.main.async {
+                self.watermarkTimer?.invalidate()
+                self.watermarkTimer = nil
+                self.overlayWindow?.isHidden = true
+                self.overlayWindow = nil
+            }
+        default: break
+        }
     }
     
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
