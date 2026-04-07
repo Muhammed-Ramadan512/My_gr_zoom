@@ -18,10 +18,7 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
 
   var authenticationDelegate: AuthenticationDelegate
   var eventSink: FlutterEventSink?
-  var isObserved: Bool = false
-  var watermarkWindow: UIWindow?
-  var watermarkTimer: Timer?
-    
+    var isObserved: Bool = false
   public static func register(with registrar: FlutterPluginRegistrar) {
     let messenger = registrar.messenger()
     let channel = FlutterMethodChannel(name: "plugins.webcare/zoom_channel", binaryMessenger: messenger)
@@ -35,6 +32,8 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
   override init(){
     authenticationDelegate = AuthenticationDelegate()
       super.init()
+
+         
   }
 
     deinit {
@@ -60,6 +59,7 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
                     sendEventToFlutter(event: ["type": "screen_recording", "isCaptured": isCaptured])
                     exitApplication()
                 }
+                // Handle the screen capture status change here
             }
         }
     
@@ -86,7 +86,10 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
         }
       }
     }
+    
+    
 
+ 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
         case "init":
@@ -102,6 +105,7 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
         }
   }
 
+    
     public func onMethodCall(call: FlutterMethodCall, result: @escaping FlutterResult) {
         
         switch call.method {
@@ -151,94 +155,26 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
         }
     }
     
-    private func setupScreenProtection(enable: Bool) {
-        if enable && !isObserved {
-            isObserved = true
-            NotificationCenter.default.addObserver(self, selector: #selector(handleScreenshot), name: UIApplication.userDidTakeScreenshotNotification, object: nil)
-            if #available(iOS 11.0, *) {
-                NotificationCenter.default.addObserver(self, selector: #selector(screenCaptureChanged), name: UIScreen.capturedDidChangeNotification, object: nil)
-            }
-        } else if !enable && isObserved {
-            isObserved = false
-            NotificationCenter.default.removeObserver(self, name: UIApplication.userDidTakeScreenshotNotification, object: nil)
-            if #available(iOS 11.0, *) {
-                NotificationCenter.default.removeObserver(self, name: UIScreen.capturedDidChangeNotification, object: nil)
-            }
-        }
-    }
-    
-    static var watermarkText: String = ""
-    private func setupWatermark(text: String?) {
-        guard let watermarkString = text, !watermarkString.isEmpty else { return }
-        SwiftZoomPlugin.watermarkText = watermarkString
-    }
-    
-
-    private func showWatermark() {
-        if SwiftZoomPlugin.watermarkText.isEmpty { return }
-        
-        if watermarkWindow == nil {
-            let window = UIWindow(frame: UIScreen.main.bounds)
-            let alertLevel = UIWindow.Level.alert.rawValue
-            window.windowLevel = UIWindow.Level(alertLevel + 1)
-            window.backgroundColor = .clear
-            window.isUserInteractionEnabled = false
-            
-            let label = UILabel()
-            label.text = SwiftZoomPlugin.watermarkText
-            label.textColor = UIColor(white: 1.0, alpha: 0.5)
-            label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-            label.numberOfLines = 0
-            label.textAlignment = .center
-            label.sizeToFit()
-            
-            window.addSubview(label)
-            window.isHidden = false
-            self.watermarkWindow = window
-            
-            animateWatermark()
-        }
-    }
-    
-    private func hideWatermark() {
-        watermarkTimer?.invalidate()
-        watermarkTimer = nil
-        watermarkWindow?.isHidden = true
-        watermarkWindow = nil
-    }
-    
-    @objc private func animateWatermark() {
-        guard let window = watermarkWindow, let label = window.subviews.first as? UILabel else { return }
-        
-        let maxX = window.bounds.width - label.bounds.width
-        let maxY = window.bounds.height - label.bounds.height
-        
-        let newX = CGFloat(arc4random_uniform(UInt32(max(1, Int(maxX)))))
-        let newY = CGFloat(arc4random_uniform(UInt32(max(1, Int(maxY)))))
-        
-        UIView.animate(withDuration: 3.0, delay: 0, options: [.curveLinear, .allowUserInteraction], animations: {
-            label.frame.origin = CGPoint(x: newX, y: newY)
-        }, completion: nil)
-        
-        watermarkTimer?.invalidate()
-        watermarkTimer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(animateWatermark), userInfo: nil, repeats: false)
-    }
-
     public func joinMeeting(call: FlutterMethodCall, result: FlutterResult) {
         
-        let argumentsDict = call.arguments as? Dictionary<String, String?>
-        let protectStr = argumentsDict?["enableScreenProtection"] ?? nil
-        let protect = parseBoolean(data: protectStr, defaultValue: false)
-        setupScreenProtection(enable: protect)
-
-        let wText = argumentsDict?["watermarkText"] ?? nil
-        setupWatermark(text: wText)
         
-        let arguments = call.arguments as! Dictionary<String, String?>
+        if !isObserved {
+            // Add observers for screenshot and screen recording
+            NotificationCenter.default.addObserver(self, selector: #selector(handleScreenshot), name: UIApplication.userDidTakeScreenshotNotification, object: nil)
+
+            if #available(iOS 11.0, *) {
+                NotificationCenter.default.addObserver(self, selector: #selector(screenCaptureChanged), name: UIScreen.capturedDidChangeNotification, object: nil)
+
+            }
+            
+        }
+        
         let meetingService = MobileRTC.shared().getMeetingService()
         let meetingSettings = MobileRTC.shared().getMeetingSettings()
         
         if meetingService != nil {
+            
+            let arguments = call.arguments as! Dictionary<String, String?>
             
             meetingSettings?.disableDriveMode(parseBoolean(data: arguments["disableDrive"]!, defaultValue: false))
             meetingSettings?.disableCall(in: parseBoolean(data: arguments["disableDialIn"]!, defaultValue: false))
@@ -252,6 +188,8 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
             meetingSettings?.meetingInviteUrlHidden=true
             meetingSettings?.disableGalleryView(true)
             meetingSettings?.meetingParticipantHidden = true        
+            
+
             
             if  arguments["meetingViewOptions"] != nil{
                 meetingSettings?.meetingShareHidden = true
@@ -275,6 +213,12 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
                 if (meetingViewOptions & MeetingViewOptions.NO_BUTTON_PARTICIPANTS) != 0 {
                     meetingSettings?.meetingParticipantHidden = true
                 }
+                if (meetingViewOptions & MeetingViewOptions.NO_BUTTON_SWITCH_AUDIO_SOURCE) != 0 {
+                   
+                }
+                if (meetingViewOptions & MeetingViewOptions.NO_BUTTON_SWITCH_CAMERA) != 0 {
+                    
+                }
                 if (meetingViewOptions & MeetingViewOptions.NO_BUTTON_VIDEO) != 0 {
                     meetingSettings?.meetingVideoHidden = false
                 }
@@ -289,6 +233,7 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
             joinMeetingParameters.userName = arguments["userId"]!!
             joinMeetingParameters.meetingNumber = arguments["meetingId"]!!
            
+            
             let hasPassword = arguments["meetingPassword"]! != nil
             if hasPassword {
                 joinMeetingParameters.password = arguments["meetingPassword"]!!
@@ -307,20 +252,24 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
 
     public func startMeeting(call: FlutterMethodCall, result: FlutterResult) {
         
-        let argumentsDict = call.arguments as? Dictionary<String, String?>
-        let protectStr = argumentsDict?["enableScreenProtection"] ?? nil
-        let protect = parseBoolean(data: protectStr, defaultValue: false)
-        setupScreenProtection(enable: protect)
         
-        let wText = argumentsDict?["watermarkText"] ?? nil
-        setupWatermark(text: wText)
+        if !isObserved {
+            // Add observers for screenshot and screen recording
+            NotificationCenter.default.addObserver(self, selector: #selector(handleScreenshot), name: UIApplication.userDidTakeScreenshotNotification, object: nil)
 
-        let arguments = call.arguments as! Dictionary<String, String?>
+            if #available(iOS 11.0, *) {
+                NotificationCenter.default.addObserver(self, selector: #selector(screenCaptureChanged), name: UIScreen.capturedDidChangeNotification, object: nil)
+
+            }
+            
+        }
         
         let meetingService = MobileRTC.shared().getMeetingService()
         let meetingSettings = MobileRTC.shared().getMeetingSettings()
         
         if meetingService != nil {
+            
+            let arguments = call.arguments as! Dictionary<String, String?>
             
             meetingSettings?.disableDriveMode(parseBoolean(data: arguments["disableDrive"]!, defaultValue: false))
             meetingSettings?.disableCall(in: parseBoolean(data: arguments["disableDialIn"]!, defaultValue: false))
@@ -328,21 +277,24 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
             meetingSettings?.setMuteAudioWhenJoinMeeting(parseBoolean(data: arguments["noAudio"]!, defaultValue: false))
             meetingSettings?.meetingShareHidden = true
             meetingSettings?.meetingInviteHidden = true 
+           
             meetingSettings?.meetingTitleHidden = true
             meetingSettings?.meetingPasswordHidden = true
             meetingSettings?.meetingInviteUrlHidden=true
             meetingSettings?.disableGalleryView(true)
             meetingSettings?.meetingParticipantHidden = true
+
+            
             
             if  arguments["meetingViewOptions"] != nil{
-                meetingSettings?.meetingShareHidden = true
-                meetingSettings?.meetingInviteHidden = true 
-                meetingSettings?.meetingInviteUrlHidden=true
-                meetingSettings?.meetingMoreHidden=false
-                meetingSettings?.meetingTitleHidden = true
-                meetingSettings?.meetingPasswordHidden = true
-                meetingSettings?.disableGalleryView(true)
-                meetingSettings?.meetingParticipantHidden = true    
+            meetingSettings?.meetingShareHidden = true
+            meetingSettings?.meetingInviteHidden = true 
+            meetingSettings?.meetingInviteUrlHidden=true
+            meetingSettings?.meetingMoreHidden=false
+            meetingSettings?.meetingTitleHidden = true
+            meetingSettings?.meetingPasswordHidden = true
+            meetingSettings?.disableGalleryView(true)
+            meetingSettings?.meetingParticipantHidden = true    
                 let meetingViewOptions = parseInt(data: arguments["meetingViewOptions"]!, defaultValue: 0)   
                 if (meetingViewOptions & MeetingViewOptions.NO_BUTTON_AUDIO) != 0 {
                     meetingSettings?.meetingAudioHidden = true
@@ -355,6 +307,12 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
                 }
                 if (meetingViewOptions & MeetingViewOptions.NO_BUTTON_PARTICIPANTS) != 0 {
                     meetingSettings?.meetingParticipantHidden = true
+                }
+                if (meetingViewOptions & MeetingViewOptions.NO_BUTTON_SWITCH_AUDIO_SOURCE) != 0 {
+                   
+                }
+                if (meetingViewOptions & MeetingViewOptions.NO_BUTTON_SWITCH_CAMERA) != 0 {
+                    
                 }
                 if (meetingViewOptions & MeetingViewOptions.NO_BUTTON_VIDEO) != 0 {
                     meetingSettings?.meetingVideoHidden = false
@@ -408,25 +366,18 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
         return result
     }
     
+    
     public func onMeetingError(_ error: MobileRTCMeetError, message: String?) {
         
     }
     
     public func getMeetErrorMessage(_ errorCode: MobileRTCMeetError) -> String {
+        
         let message = "" 
         return message
     }
     
     public func onMeetingStateChange(_ state: MobileRTCMeetingState) {
-        if state == .inMeeting {
-            DispatchQueue.main.async {
-                self.showWatermark()
-            }
-        } else if state == .ended || state == .disconnecting || state == .failed {
-            DispatchQueue.main.async {
-                self.hideWatermark()
-            }
-        }
         
         guard let eventSink = eventSink else {
             return
@@ -453,59 +404,85 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
     }
     
     private func getStateMessage(_ state: MobileRTCMeetingState?) -> [String] {
+        
         var message: [String]
         switch state {
         case  .idle:
             message = ["MEETING_STATUS_IDLE", "No meeting is running"]
+            break
         case .connecting:
             message = ["MEETING_STATUS_CONNECTING", "Connect to the meeting server"]
+            break
         case .inMeeting:
             message = ["MEETING_STATUS_INMEETING", "Meeting is ready and in process"]
+            break
         case .webinarPromote:
             message = ["MEETING_STATUS_WEBINAR_PROMOTE", "Upgrade the attendees to panelist in webinar"]
+            break
         case .webinarDePromote:
             message = ["MEETING_STATUS_WEBINAR_DEPROMOTE", "Demote the attendees from the panelist"]
+            break
         case .disconnecting:
             message = ["MEETING_STATUS_DISCONNECTING", "Disconnect the meeting server, leave meeting status"]
+            break;
         case .ended:
             message = ["MEETING_STATUS_ENDED", "Meeting ends"]
+            break;
         case .failed:
             message = ["MEETING_STATUS_FAILED", "Failed to connect the meeting server"]
+            break;
         case .reconnecting:
             message = ["MEETING_STATUS_RECONNECTING", "Reconnecting meeting server status"]
+            break;
         case .waitingForHost:
             message = ["MEETING_STATUS_WAITINGFORHOST", "Waiting for the host to start the meeting"]
+            break;
         case .inWaitingRoom:
             message = ["MEETING_STATUS_IN_WAITING_ROOM", "Participants who join the meeting before the start are in the waiting room"]
+            break;
         default:
             message = ["MEETING_STATUS_UNKNOWN", "\(state?.rawValue ?? 9999)"]
         }
+        
         return message
     }
 }
 
+ 
 public class AuthenticationDelegate: NSObject, MobileRTCAuthDelegate {
+    
     private var result: FlutterResult?
+    
     
     public func onAuth(_ result: FlutterResult?) -> AuthenticationDelegate {
         self.result = result
         return self
     }
     
+    
     public func onMobileRTCAuthReturn(_ returnValue: MobileRTCAuthError) {
+
         if returnValue == .success {
             self.result?([0, 0])
         } else {
             self.result?([1, 0])
         }
+        
         self.result = nil
     }
     
-    public func onMobileRTCLoginReturn(_ returnValue: Int) { }
+    public func onMobileRTCLoginReturn(_ returnValue: Int) {
+        
+    }
     
-    public func onMobileRTCLogoutReturn(_ returnValue: Int) { }
+    public func onMobileRTCLogoutReturn(_ returnValue: Int) {
+        
+    }
     
     public func getAuthErrorMessage(_ errorCode: MobileRTCAuthError) -> String {
-        return ""
+        
+        let message = ""
+         
+        return message
     }
 }

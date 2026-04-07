@@ -78,7 +78,7 @@ typedef enum {
  @param content The message to be sent.
  @return The result of sending the message.
  */
-- (MobileRTCSendChatError)sendChatToUser:(NSUInteger)userID WithContent:(nonnull NSString*)content;
+- (MobileRTCSendChatError)sendChatToUser:(NSUInteger)userID WithContent:(nonnull NSString*)content DEPRECATED_MSG_ATTRIBUTE("Use sendChatMsg: instead");
 
 /*!
  @brief Send message to group in the meeting.
@@ -86,7 +86,15 @@ typedef enum {
  @param content The message to be sent.
  @return The result of sending the message.
  */
-- (MobileRTCSendChatError)sendChatToGroup:(MobileRTCChatGroup)group WithContent:(nonnull NSString*)content;
+- (MobileRTCSendChatError)sendChatToGroup:(MobileRTCChatGroup)group WithContent:(nonnull NSString*)content DEPRECATED_MSG_ATTRIBUTE("Use sendChatMsg: instead");
+
+/*!
+ @brief Send a chat message.
+ @param msg The chat message.
+ @return The result of sending the message.
+ */
+- (MobileRTCSendChatError)sendChatMsg:(nullable MobileRTCMeetingChat *)msg;
+
 
 /*!
  @brief Delete chat message by message id.

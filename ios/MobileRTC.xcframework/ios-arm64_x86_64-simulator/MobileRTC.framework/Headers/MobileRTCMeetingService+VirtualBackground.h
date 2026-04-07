@@ -73,8 +73,7 @@
 - (MobileRTCMeetError)addBGImage:(UIImage *_Nonnull)image;
 
 /*!
- @brief Remove image item form image list.
- @brief Will use the previous one for virtual background.
+ @brief Remove image item form image list. Will use the previous one for virtual background.
  @return Remove result.
  */
 - (MobileRTCMeetError)removeBGImage:(MobileRTCVirtualBGImageInfo *_Nonnull)bgImageInfo;

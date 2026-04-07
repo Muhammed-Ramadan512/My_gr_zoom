@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 /*!
- @class MobileRTCMeetingInviteActionItem
- @brief Add custom invitation action items to the meeting.  
+ MobileRTCMeetingInviteActionItem
+ @brief Add custom invitation action items to the meeting.
  */
 typedef void (^MobileRTCMeetingInviteActionItemBlock)(void);
 
@@ -29,8 +29,8 @@ typedef void (^MobileRTCMeetingInviteActionItemBlock)(void);
 @end
 
 /*!
- @class MobileRTCMeetingShareActionItem
- @brief Add custom share action item to the meeting. 
+ MobileRTCMeetingShareActionItem
+ @brief Add custom share action item to the meeting.
  */
 @protocol MobileRTCMeetingShareActionItemDelegate <NSObject>
 @required

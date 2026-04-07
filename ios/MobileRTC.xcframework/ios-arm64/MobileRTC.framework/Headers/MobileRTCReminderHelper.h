@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <MobileRTC/MobileRTC.h>
-#import "MobileRTCConstants.h"
 
 @class MobileRTCReminderContent;
 @class MobileRTCReminderHandler;
@@ -22,7 +20,7 @@
 /**
  * @brief Callback event when the reminder dialog show.
  * @param content the detail content in the reminder dialog.
- * @param handle the helper to handle the reminder dialog.
+ * @param handler the helper to handle the reminder dialog.
  */
 - (void)onReminderNotify:(MobileRTCReminderContent * _Nullable)content handle:(MobileRTCReminderHandler * _Nullable)handler;
 
@@ -53,6 +51,10 @@
  */
 @property (nonatomic, assign) BOOL isBlock;
 
+/**
+ * Get the type of the action which user should take after receiving this reminder content.
+ */
+@property (nonatomic, assign) MobileRTCReminderActionType actionType;
 
 @end
 

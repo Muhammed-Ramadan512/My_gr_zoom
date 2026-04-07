@@ -20,12 +20,12 @@
 /*!
  @brief Get the file path of current image.
  */
-@property (nonatomic, copy) NSString *imagePath;
+@property (nonatomic, copy) NSString * _Nullable imagePath;
 
 /*!
  @brief Get the name of current image.
  */
-@property (nonatomic, copy) NSString *imageName;
+@property (nonatomic, copy) NSString * _Nullable imageName;
 
 /*!
  @brief Get the index of current image.
@@ -61,7 +61,7 @@
  @brief Get the array of the video filter images.
  @return the array of <MobileRTC3DAvatarImageInfo*> if the call success, otherwise return nil.
  */
-- (NSArray <MobileRTC3DAvatarImageInfo* >*)get3DAvatarImageList;
+- (NSArray <MobileRTC3DAvatarImageInfo* >* _Nullable)get3DAvatarImageList;
 
 /*!
  @brief Specify an image to be the video filter image.
@@ -69,12 +69,12 @@
  @return success of errors of this function call.
  @warning Will close the 3D avatar when the imageInfo.index is -1.
  */
-- (MobileRTCSDKError)set3DAvatarImage:(MobileRTC3DAvatarImageInfo*)imageInfo;
+- (MobileRTCSDKError)set3DAvatarImage:(MobileRTC3DAvatarImageInfo*_Nullable)imageInfo;
 
 /*!
  @brief Determine if show the last used avatar in the meeting.
  @param bShow YES indicates to show the last used avatar.
- @return If the function succeeds, the return value is SDKErr_Success.Otherwise failed.
+ @return If the function succeeds, the return value is MobileRTCSDKError_Success.Otherwise failed.
  */
 - (MobileRTCSDKError)showAvatar:(BOOL)bShow;
 

@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'gr_zoom'
-  s.version          = '1.3.0+1'
+  s.version          = '1.3.2'
   s.summary          = 'A Flutter zoom meeting sdk project.'
   s.description      = <<-DESC
   A flutter plugin project to use zoom meeting sdk.
@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.platform = :ios, '8.0'
 
   # Flutter.framework does not contain a i386 slice.
-  s.pod_target_xcconfig = { 'OTHER_LDFLAGS' => '-framework MobileRTC', 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
+  s.pod_target_xcconfig = { 'OTHER_LDFLAGS' => '-framework MobileRTC', 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386, arm64' }
   s.swift_version = '5.0'
   
   s.preserve_paths = 'MobileRTC.xcframework', 'MobileRTCResources.bundle'

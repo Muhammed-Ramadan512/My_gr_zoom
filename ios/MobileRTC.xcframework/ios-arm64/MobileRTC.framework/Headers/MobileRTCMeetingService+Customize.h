@@ -24,7 +24,7 @@
 
 /*!
 @brief Set to customize the meeting topic which will be displayed in the meeting info view.
-@param topic The topic of the meeting.
+ @param meetingTopic The topic of the meeting.
 @warning only meeting original host can call the function.
 @warning only in-meeting can call the function.
 */

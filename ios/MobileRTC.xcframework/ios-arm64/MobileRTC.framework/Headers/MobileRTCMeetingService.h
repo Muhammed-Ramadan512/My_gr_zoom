@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MobileRTCConstants.h"
-#import "MobileRTCMeetingDelegate.h"
+#import <MobileRTC/MobileRTCConstants.h>
+#import <MobileRTC/MobileRTCMeetingDelegate.h>
 
 /**
  * @brief Provides settings for starting a meeting, such as enabling screen sharing, microphone, and camera.
@@ -55,6 +55,11 @@
  * @brief <Optional>Set the invitation ID for automatic meeting invitation.
  */
 @property(nullable, nonatomic, copy) NSString *inviteContactID;
+
+/**
+ * @brief <Optional> Is audio raw data stereo? The default is mono.
+ */
+@property (nonatomic, assign, readwrite) BOOL isAudioRawDataStereo;
 
 @end
 
@@ -149,6 +154,11 @@
  * @brief <Optional> Is my voice in the mixed audio raw data?
  */
 @property (nonatomic, assign, readwrite) BOOL isMyVoiceInMix;
+
+/**
+ * @brief <Optional> Is audio raw data stereo? The default is mono.
+ */
+@property (nonatomic, assign, readwrite) BOOL isAudioRawDataStereo;
 
 @end
 
@@ -285,7 +295,7 @@
 
 /**
  * @brief Set the customized invitation domain.
- * @param invitationDomain: Specify the customized invitation domain. For example, https://example.com.
+ * @param invitationDomain Specify the customized invitation domain. For example, https://example.com.
  * @return YES means success, otherwise it's not successful.
  * @warning This method can only be called after auth ready and before join or start meeting.
  */

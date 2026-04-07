@@ -165,7 +165,7 @@
 /*!
  @brief Enable my video auto-framing.
  @param mode the auto-framing mode.
- @param param the auto-framing parameter.
+ @param setting the auto-framing parameter.
  @return If the function succeeds, the return value is MobileRTCSDKError_Success.
  */
 - (MobileRTCSDKError)enableVideoAutoFraming:(MobileRTCAutoFramingParameter * _Nullable)setting forMode:(MobileRTCAutoFramingMode)mode;
@@ -218,6 +218,22 @@
  */
 - (MobileRTCAutoFramingParameter * _Nullable)getVideoAutoFramingSetting:(MobileRTCAutoFramingMode)mode;
 
+/*!
+ @brief Determine if alpha channel mode can be enabled.
+ @return YES means it can be enabled. Otherwise NO.
+ */
+- (BOOL)canEnableAlphaChannelMode;
 
+/*!
+ @brief Enable or disable alpha channel mode.
+ @param enable YES indicates to enable alpha channel mode., Otherwise, disable it.
+ @return If the function succeeds, the return value is SDKErr_Success. Otherwise failed. To get extended error information, see [MobileRTCSDKError] enum.
+ */
+- (MobileRTCSDKError)enableAlphaChannelMode:(BOOL)enable;
 
+/*!
+ @brief Determine if alpha channel mode is enabled.
+ @return YES indicates is in alpha channel mode. Otherwise NO.
+ */
+- (BOOL)isAlphaChannelModeEnabled;
 @end

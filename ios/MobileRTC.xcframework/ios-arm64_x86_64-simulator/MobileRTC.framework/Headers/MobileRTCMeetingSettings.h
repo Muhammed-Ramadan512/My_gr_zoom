@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 /*!
- @class MobileRTCMeetingSettings
+ MobileRTCMeetingSettings
  @brief Set to modify the configurations of the meeting.
  */
 @interface MobileRTCMeetingSettings : NSObject
@@ -181,11 +181,6 @@
 @property (assign, nonatomic) BOOL proximityMonitoringDisable;
 
 /*!
- @brief Enable Custom In-Meeting UI in meeting.
- */
-@property (assign, nonatomic) BOOL enableCustomMeeting;
-
-/*!
  @brief hide feedback button on cloud whiteboard.
  */
 @property (assign, nonatomic) BOOL hideFeedbackButtonOnCloudWhiteboard;
@@ -244,7 +239,7 @@
 
 /*!
  @brief Set Touch up my appearance enable or not.
- @param muted YES means successful, otherwise not.
+ @param enable YES means successful, otherwise not.
  */
 - (void)setFaceBeautyEnabled:(BOOL)enable;
 
@@ -256,8 +251,7 @@
 
 /*!
  @brief Set to enable/disable mirror effect.
- @param enable YES means enabled, No disabled.
- @return If the function succeeds, it will return ZoomSDKError_Success. Otherwise failed. 
+ @param enable YES means enabled, No disabled
  */
 - (void)enableMirrorEffect:(BOOL)enable;
 
@@ -359,7 +353,7 @@
 
 /*!
  @brief Set speaker off.  Default value is No, Need set to NO when not used.
- @param YES means speaker off, otherwise not.
+ @param speakerOff means speaker off, otherwise not.
  @warning The function only for Zoom UI.
  */
 - (void)setSpeakerOffWhenInMeeting:(BOOL)speakerOff;
@@ -450,7 +444,7 @@
 
 /*!
 @brief Set to disable confidential watermark.
-@param disabled The option value.
+@param disable The option value.
 @return YES means confidential watermark is disable, otherwise not.
 @warning The function only for Zoom UI.
 */
@@ -535,4 +529,53 @@
  @warning only works in ZoomUI.
  */
 - (void)enableVideoCallPictureInPicture:(BOOL)enable;
+
+/*!
+ @brief Call this method to enable or disable the auto adjust input of mic.
+ @param enable YES to enable auto adjust input or false to disable it.
+ */
+- (void)enableAutoAdjustMic:(BOOL)enable;
+
+/*!
+ @brief Determine whether the original input of the microphone is enabled.
+ @return YES if auto adjust input  is enabled, otherwise false.
+ */
+- (BOOL)isAutoAdjustMicEnable;
+
+/*!
+ @brief Query if this device supports CenterStage Mode.
+ @return YES means supported, otherwise not.
+ */
+- (BOOL)isCenterStageModeSupported;
+
+/*!
+ @brief Enable or disable CenterStage Mode. This is disable by default.
+ @param enable YES means enabled, otherwise not.
+ @return YES means supported, otherwise not.
+ */
+- (BOOL)enableCenterStageMode:(BOOL)enable;
+
+/*!
+ @brief Query if CenterStage Mode is enable by MobileRTC.
+ @return YES indicates enable. Otherwise not.
+ */
+- (BOOL)isEnabledCenterStageMode;
+/**
+ * @brief Enable echo cancellation.
+ * @param enable true means enabled, false disabled.
+ * @return error code {@link MobileRTCSDKError}
+ */
+- (MobileRTCSDKError)enableEchoCancellation:(BOOL)enable;
+
+/**
+ * @brief Determine if echo cancellation is enabled or not.
+ * @return true means supported, otherwise not.
+ */
+- (BOOL)isEchoCancellationOn;
+
+/**
+ * @brief Determine if the meeting supports echo cancellation.
+ * @return true means supported, otherwise not.
+ */
+- (BOOL)isSupportEchoCancellation;
 @end

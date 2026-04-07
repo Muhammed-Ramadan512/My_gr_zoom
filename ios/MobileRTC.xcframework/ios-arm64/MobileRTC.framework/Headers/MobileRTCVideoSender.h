@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#include "MobileRTCConstants.h"
+#import <MobileRTC/MobileRTCConstants.h>
 
 @interface MobileRTCVideoSender : NSObject
 /*!

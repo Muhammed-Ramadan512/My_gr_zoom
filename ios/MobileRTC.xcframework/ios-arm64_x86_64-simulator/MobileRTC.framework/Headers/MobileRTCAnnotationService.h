@@ -54,7 +54,7 @@ typedef NS_ENUM(NSUInteger, MobileRTCAnnoClearType) {
 
 @class MobileRTCAnnotationService;
 /*!
- @class MobileRTCAnnotationServiceDelegate
+MobileRTCAnnotationServiceDelegate
  @brief the share sender will disable the annotation, this delegate will notify the status change to viewer #only for custom UI#.
  */
 @protocol MobileRTCAnnotationServiceDelegate <NSObject>
@@ -97,6 +97,7 @@ typedef NS_ENUM(NSUInteger, MobileRTCAnnoClearType) {
 /*!
  @brief Set the types of annotation tools.  
  @return The result of operation.
+ @warning The tool type MobileRTCAnnoTool_Picker and MobileRTCAnnoTool_SpotLight are not support for viewer.
  */
 - (MobileRTCAnnotationError)setToolType:(MobileRTCAnnoTool)type;
 
@@ -147,19 +148,19 @@ typedef NS_ENUM(NSUInteger, MobileRTCAnnoClearType) {
  @brief Check if support to disable viewer's annotation item.
  @return Yes if support.
  */
-- (BOOL)canDisableViewerAnnoataion;
+- (BOOL)canDisableViewerAnnotation;
 
 /*!
  @brief Check currently sender disabled the viewer's annotation or not.
  @return Yes if disabled viewer's annotation.
  */
-- (BOOL)isViewerAnnoataionDisabled;
+- (BOOL)isViewerAnnotationDisabled;
 
 /*!
  @brief disable viewer's annotation.
  @return MobileRTCAnnotationError_Successed if disabled the viewer's annotation success.
  */
-- (MobileRTCAnnotationError)disableViewerAnnoataion:(BOOL)isDisable;
+- (MobileRTCAnnotationError)disableViewerAnnotation:(BOOL)isDisable;
 
 /*!
  @brief Check can do annotation or not.

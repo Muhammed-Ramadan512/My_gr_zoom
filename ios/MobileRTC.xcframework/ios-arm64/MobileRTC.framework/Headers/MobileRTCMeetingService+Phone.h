@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @brief Get the list of the countries which support to call out.
  * @return An NSArray contains ZoomSDKPhoneSupportCountryInfoList objects of all countries supporting to call out.  Otherwise nil.
  */
--(NSArray <MobileRTCCallCountryCode*>* )getSupportCountryInfo;
+-(NSArray <MobileRTCCallCountryCode*>* _Nullable)getSupportCountryInfo;
 
 /*!
  @brief Query if there is any outgoing call in process.

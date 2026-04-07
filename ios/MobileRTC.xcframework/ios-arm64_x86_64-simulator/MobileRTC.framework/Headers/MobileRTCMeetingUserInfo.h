@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 /*!
- @class MobileRTCVideoStatus
+ MobileRTCVideoStatus
  @brief The object of video status of the current user in the meeting.
  */
 @interface MobileRTCVideoStatus : NSObject
@@ -40,7 +40,7 @@ typedef NS_ENUM(NSUInteger, MobileRTCAudioType) {
     MobileRTCAudioType_None,
 };
 /*!
- @class MobileRTCVideoStatus
+ MobileRTCVideoStatus
  @brief The object of the audio status of the current user in the meeting. 
  */
 @interface MobileRTCAudioStatus : NSObject
@@ -128,7 +128,7 @@ typedef NS_ENUM(NSUInteger, MobileRTCFeedbackType) {
  */
 @property (nonatomic, assign) BOOL             isMySelf;
 /*!
- @brief The value of customerKey.
+ @brief The customer key that need the app intergrated with sdk to specify. The SDK will set this value when the associated settings are turned on. The max length of customer_key is 35.
  */
 @property (nonatomic, retain) NSString* _Nullable       customerKey;
 /*!
@@ -151,6 +151,10 @@ typedef NS_ENUM(NSUInteger, MobileRTCFeedbackType) {
  @brief The user raised his hand.
  */
 @property (nonatomic, assign) BOOL             handRaised;
+/*!
+ @brief Query if the participant has a camera.
+ */
+@property (nonatomic, assign) BOOL             hasCamera;
 /*!
  @brief User enter the waiting room when joins the meeting.
  */
@@ -192,9 +196,32 @@ typedef NS_ENUM(NSUInteger, MobileRTCFeedbackType) {
  */
 @property (nonatomic, assign) BOOL             isInterpreter;
 /*!
+ @brief Determine whether the user specified by the current information is a sign language interpreter or not.
+ @return YES indicates that the specified user is a sign language  interpreter, otherwise false.
+ */
+@property (nonatomic, assign) BOOL             isSignLanguageInterpreter;
+/*!
  @brief Get interpreter active language.
  */
 @property (nonatomic, retain) NSString* _Nullable   interpreterActiveLanguage;
+
+/*!
+ @brief Determine whether the user has started a raw live stream.
+ @return YES indicates that the specified user has started a raw live stream, otherwise false.
+*/
+@property (nonatomic, assign) BOOL             isRawLiveStreaming;
+/*!
+ @brief Determine whether the user has raw live stream privilege.
+ @return YES indicates that the specified user has raw live stream privilege, otherwise false.
+*/
+@property (nonatomic, assign) BOOL             hasRawLiveStreamPrivilege;
+
+/*!
+ @brief  Determine whether the user corresponding to the current information is the sender of Closed Caption or not.
+ @return YES indicates that the user is the sender of Closed Caption.
+*/
+@property (nonatomic, assign) BOOL       isClosedCaptionSender;
+
 @end
 
 /*!
