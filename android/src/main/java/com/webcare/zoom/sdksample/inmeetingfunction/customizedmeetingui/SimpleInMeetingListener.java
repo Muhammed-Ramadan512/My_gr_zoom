@@ -360,4 +360,9 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
     public void onGrantCoOwnerPrivilegeChanged(boolean b) {
 
     }
+
+    @Override
+    public void onUserConfirmRecoverMeeting(us.zoom.sdk.IRecoverMeetingHandle handle) {
+
+    }
 }

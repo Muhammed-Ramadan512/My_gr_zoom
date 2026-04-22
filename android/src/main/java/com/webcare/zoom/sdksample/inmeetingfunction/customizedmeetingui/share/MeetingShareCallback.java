@@ -42,7 +42,7 @@ public class MeetingShareCallback extends BaseCallback<MeetingShareCallback.Shar
     }
 
     InMeetingShareController.InMeetingShareListener shareListener = new InMeetingShareController.InMeetingShareListener() {
-        @Override
+        // @Override removed for SDK 7.x compatibility
         public void onShareActiveUser(long userId) {
 
             for (ShareEvent event : callbacks) {
@@ -50,7 +50,7 @@ public class MeetingShareCallback extends BaseCallback<MeetingShareCallback.Shar
             }
         }
 
-        @Override
+        // @Override removed for SDK 7.x compatibility
         public void onSharingStatus(SharingStatus status, long userId) {
 
         }

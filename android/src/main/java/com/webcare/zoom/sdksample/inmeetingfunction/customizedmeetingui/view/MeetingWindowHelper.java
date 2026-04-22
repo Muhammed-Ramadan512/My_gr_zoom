@@ -226,7 +226,7 @@ public class MeetingWindowHelper implements InMeetingShareController.InMeetingSh
     }
 
 
-    @Override
+    // @Override removed for SDK 7.x compatibility
     public void onShareActiveUser(long userId) {
         if (mbAddedView && null != mobileRTCVideoView) {
             if (userId < 0) {
@@ -247,7 +247,7 @@ public class MeetingWindowHelper implements InMeetingShareController.InMeetingSh
 
     }
 
-    @Override
+    // @Override removed for SDK 7.x compatibility
     public void onSharingStatus(SharingStatus status, long userId) {
 
     }
