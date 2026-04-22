@@ -125,13 +125,13 @@ public class RCFloatView extends LinearLayout implements View.OnClickListener {
                 }
                 if (count > 0) { //change text
                     for (int i = 0; i < before; i++) {
-                        remoteController.remoteControlKeyInput(InMeetingRemoteController.MobileRTCRemoteControlInputType.MobileRTCRemoteControl_Del);
+                        // remoteController.remoteControlKeyInput(InMeetingRemoteController.MobileRTCRemoteControlInputType.MobileRTCRemoteControl_Del);
                     }
                 }
 
                 CharSequence ss = s.subSequence(start, s.length());
                 if (count == 1 && ss.equals("\n")) {
-                    remoteController.remoteControlKeyInput(InMeetingRemoteController.MobileRTCRemoteControlInputType.MobileRTCRemoteControl_Return);
+                    // remoteController.remoteControlKeyInput(InMeetingRemoteController.MobileRTCRemoteControlInputType.MobileRTCRemoteControl_Return);
                 } else {
                     //remoteController.remoteControlCharInput(ss.toString());
                 }
@@ -236,7 +236,7 @@ public class RCFloatView extends LinearLayout implements View.OnClickListener {
             if (null == remoteController) {
                 return;
             }
-            boolean isRc = remoteController.isRemoteController();
+            boolean isRc = false; // remoteController.isRemoteController();
             if (isRc) {
                 enableRC(!(mVGContentSpan.getVisibility() == View.VISIBLE));
             } else {

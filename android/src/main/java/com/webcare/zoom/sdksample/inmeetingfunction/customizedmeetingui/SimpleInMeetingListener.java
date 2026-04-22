@@ -385,4 +385,9 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
     public void onVirtualNameTagStatusChanged(boolean b, long l) {
 
     }
+
+    @Override
+    public void onBotAuthorizerRelationChanged(long l) {
+
+    }
 }
