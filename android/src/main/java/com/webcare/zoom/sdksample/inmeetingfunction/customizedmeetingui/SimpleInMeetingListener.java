@@ -465,4 +465,9 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
     public void onJoinMeetingNeedUserInfo(us.zoom.sdk.IMeetingInputUserInfoHandler handler) {
         
     }
+
+    @Override
+    public void onMeetingNeedConfirmPreview(us.zoom.sdk.InMeetingPreviewHandler handler) {
+        
+    }
 }
