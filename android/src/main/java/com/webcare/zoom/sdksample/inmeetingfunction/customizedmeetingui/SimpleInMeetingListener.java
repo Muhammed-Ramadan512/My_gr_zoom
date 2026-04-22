@@ -350,4 +350,9 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
     public void onAppSignalPanelUpdated(us.zoom.sdk.InMeetingAppSignalPanelHandler handler) {
 
     }
+
+    @Override
+    public void onUserNetworkStatusChanged(us.zoom.sdk.EnumComponentType type, us.zoom.sdk.MobileRTCNetworkQuality quality, long userId, boolean isSub) {
+
+    }
 }

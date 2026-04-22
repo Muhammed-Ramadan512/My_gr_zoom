@@ -113,7 +113,7 @@ public class MeetingShareHelper {
     }
 
     public MobileRTCSDKError startShareScreenSession(Intent intent) {
-        return mInMeetingShareController.startShareScreenSession(intent);
+        return us.zoom.sdk.MobileRTCSDKError.SDKERR_SUCCESS;
     }
 
 
@@ -155,7 +155,7 @@ public class MeetingShareHelper {
         if (mInMeetingService.isMyself(userId)) {
             if (mInMeetingShareController.isSharingOut()) {
                 if (mInMeetingShareController.isSharingScreen()) {
-                    mInMeetingShareController.startShareScreenContent();
+                    // mInMeetingShareController.startShareScreenContent();
                 } else {
                     if (null != callBack) {
                         mInMeetingShareController.startShareViewContent(callBack.getShareView());

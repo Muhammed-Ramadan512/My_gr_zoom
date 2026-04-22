@@ -57,23 +57,23 @@ public class MyCallMeByPhoneActivity extends Activity implements View.OnClickLis
 	
 			if(meetingService != null) {
 				String number = mEdtPhoneNumber.getText().toString().trim();
-				meetingService.dialOutUser(number, null, true);
+				// meetingService.dialOutUser(number, null, true);
 			}
 		} else if(arg0.getId() == R.id.btnHangUp) {
-			meetingService.cancelDialOut(true);
+			// meetingService.cancelDialOut(true);
 		}
 	}
 		
 	private void initButtons() {
 		ZoomSDK zoomSDK = ZoomSDK.getInstance();
 		MeetingService meetingService = zoomSDK.getMeetingService();
-		if(meetingService != null && meetingService.isDialOutInProgress()) {
+		// if(meetingService != null && meetingService.isDialOutInProgress()) {
 			mBtnCall.setEnabled(false);
 			mBtnHangup.setEnabled(true);
-		} else {
-			mBtnCall.setEnabled(true);
-			mBtnHangup.setEnabled(false);
-		}
+		// } else {
+		// 	mBtnCall.setEnabled(true);
+		// 	mBtnHangup.setEnabled(false);
+		// }
 	}
 	
 	private void updateButtons(int status) {
@@ -110,7 +110,7 @@ public class MyCallMeByPhoneActivity extends Activity implements View.OnClickLis
 		
 		if(zoomSDK.isInitialized()) {
 			MeetingService meetingService = zoomSDK.getMeetingService();
-			meetingService.removeDialOutListener(this);
+			// meetingService.removeDialOutListener(this);
 		}
 		
 		super.onDestroy();
