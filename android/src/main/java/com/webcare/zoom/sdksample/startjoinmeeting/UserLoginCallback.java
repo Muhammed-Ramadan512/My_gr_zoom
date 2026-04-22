@@ -95,7 +95,7 @@ public class UserLoginCallback implements ZoomSDKAuthenticationListener {
         }
     }
 
-    @Override
+    // @Override removed for SDK 7.x
     public void onNotificationServiceStatus(SDKNotificationServiceStatus status) {
 
     }

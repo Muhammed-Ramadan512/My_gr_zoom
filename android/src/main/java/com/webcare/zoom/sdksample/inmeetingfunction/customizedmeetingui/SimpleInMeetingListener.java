@@ -98,7 +98,7 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
 
     }
 
-    @Override
+    // @Override removed for SDK 7.x
     public void onMeetingCoHostChanged(long l) {
 
     }
@@ -118,7 +118,7 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
 
     }
 
-    @Override
+    // @Override removed for SDK 7.x
     public void onSpotlightVideoChanged(boolean b) {
 
     }
@@ -168,7 +168,7 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
 
     }
 
-    @Override
+    // @Override removed for SDK 7.x
     public void onUserNetworkQualityChanged(long userId) {
 
     }
@@ -368,6 +368,11 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
 
     @Override
     public void onRemoveCompanionRelation(long userId) {
+
+    }
+
+    @Override
+    public void onCreateCompanionRelation(long userId, long companionId) {
 
     }
 }
