@@ -435,4 +435,9 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
     public void onCameraControlRequestReceived(long userId, us.zoom.sdk.CameraControlRequestType type, us.zoom.sdk.ICameraControlRequestHandler handler) {
         
     }
+
+    @Override
+    public void onUserConfirmToStartArchive(us.zoom.sdk.IMeetingArchiveConfirmHandler handler) {
+
+    }
 }
