@@ -420,4 +420,9 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
     public void onFileSendStart(us.zoom.sdk.ZoomSDKFileSender sender) {
 
     }
+
+    @Override
+    public void onCameraControlRequestResult(long userId, us.zoom.sdk.CameraControlRequestResult approved) {
+        
+    }
 }
