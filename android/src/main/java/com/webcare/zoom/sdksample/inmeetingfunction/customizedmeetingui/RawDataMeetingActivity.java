@@ -564,7 +564,7 @@ public class RawDataMeetingActivity extends FragmentActivity implements MeetingS
     };
 
 
-    @Override
+    // @Override removed for SDK 7.x compatibility
     public void onShareActiveUser(long userId) {
         currentShareUserId = userId;
         if (currentShareUserId <= 0) {
@@ -589,7 +589,7 @@ public class RawDataMeetingActivity extends FragmentActivity implements MeetingS
     public void onShareSettingTypeChanged(ShareSettingType type) {
     }
 
-    @Override
+    // @Override removed for SDK 7.x compatibility
     public void onSharingStatus(SharingStatus status, long userId) {
     }
     @Override

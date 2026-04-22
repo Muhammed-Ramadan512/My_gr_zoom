@@ -35,7 +35,7 @@ public class MyCallMeByPhoneActivity extends Activity implements View.OnClickLis
 		ZoomSDK zoomSDK = ZoomSDK.getInstance();
 		MeetingService meetingService = zoomSDK.getMeetingService();
 		if(meetingService != null) {
-			meetingService.addDialOutListener(this);
+			// meetingService.addDialOutListener(this);
 		}
 	}
 	

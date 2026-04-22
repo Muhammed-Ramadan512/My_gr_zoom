@@ -355,4 +355,9 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
     public void onUserNetworkStatusChanged(us.zoom.sdk.EnumComponentType type, us.zoom.sdk.MobileRTCNetworkQuality quality, long userId, boolean isSub) {
 
     }
+
+    @Override
+    public void onGrantCoOwnerPrivilegeChanged(boolean b) {
+
+    }
 }

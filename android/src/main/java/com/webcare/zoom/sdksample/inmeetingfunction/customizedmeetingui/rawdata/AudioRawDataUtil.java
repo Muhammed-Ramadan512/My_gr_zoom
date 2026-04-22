@@ -63,7 +63,7 @@ public class AudioRawDataUtil {
             saveAudioRawData(rawData, userId);
         }
 
-        @Override
+        // @Override removed for SDK 7.x compatibility
         public void onShareAudioRawDataReceived(ZoomSDKAudioRawData rawData) {
             Log.d(TAG, "onShareAudioRawDataReceived:" + rawData.getBufferLen());
             saveAudioRawData(rawData, -1);
