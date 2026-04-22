@@ -450,4 +450,9 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
     public void onSinkAttendeeChatPrivilegeChanged(int currentPrivilege) {
         
     }
+
+    @Override
+    public void onChatMessageEditNotification(us.zoom.sdk.InMeetingChatMessage msg) {
+        
+    }
 }
