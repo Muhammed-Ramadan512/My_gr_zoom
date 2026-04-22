@@ -596,7 +596,7 @@ public class RawDataMeetingActivity extends FragmentActivity implements MeetingS
     public void onMeetingParameterNotification(MeetingParameter meetingParameter) {
     }
     @Override
-    public void onLiveStreamStatusChange(us.zoom.sdk.MobileRTCLiveStreamStatus status) {
+    public void onLiveStreamStatusChange(us.zoom.sdk.InMeetingLiveStreamController.MobileRTCLiveStreamStatus status) {
     }
 
     @Override
