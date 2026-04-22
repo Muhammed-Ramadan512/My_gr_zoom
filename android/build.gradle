@@ -79,8 +79,9 @@ dependencies {
     implementation "androidx.core:core-splashscreen:1.0.1"
     implementation "androidx.databinding:viewbinding:8.3.0"
 
-    // ── Zoom Meeting SDK 6.3.0 (16KB page-size aligned) ──────────────────────
-    // Replaces: api(name: 'mobilertc', ext: 'aar') ← 5.15.5 / 4KB-aligned
-    // Available on Maven Central — no extra repository needed
-    implementation 'us.zoom.meetingsdk:zoomsdk:6.3.0'
+    // ── Zoom Meeting SDK 7.0.2 (16KB page-size aligned, latest stable) ───────
+    // Replaces: api(name: 'mobilertc', ext: 'aar') ← 5.17.11 / 4KB-aligned
+    // Available on Maven Central (versions start at 6.4.0.23300, 6.3.0 never existed)
+    // 16KB compliance: version 6.6.0+ required — 7.0.2 is latest stable
+    implementation 'us.zoom.meetingsdk:zoomsdk:7.0.2'
 }
