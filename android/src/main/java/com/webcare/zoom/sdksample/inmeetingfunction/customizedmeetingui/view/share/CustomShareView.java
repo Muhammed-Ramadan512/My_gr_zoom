@@ -168,7 +168,7 @@ public class CustomShareView extends FrameLayout implements RCFloatView.IRemoteC
             if (inMouseActived) {
                 float x = mobileRTCVideoView.getVideoViewManager().viewToShareContentX(e.getRawX());
                 float y = mobileRTCVideoView.getVideoViewManager().viewToShareContentY(e.getRawY());
-                meetingRemoteController.remoteControlDoubleTap(x, y);
+                // meetingRemoteController.remoteControlDoubleTap(x, y);
             }
             return super.onDoubleTap(e);
         }
@@ -179,7 +179,7 @@ public class CustomShareView extends FrameLayout implements RCFloatView.IRemoteC
             if (inMouseActived) {
                 float x = mobileRTCVideoView.getVideoViewManager().viewToShareContentX(e.getRawX());
                 float y = mobileRTCVideoView.getVideoViewManager().viewToShareContentY(e.getRawY());
-                meetingRemoteController.remoteControlSingleTap(x, y);
+                // meetingRemoteController.remoteControlSingleTap(x, y);
                 mouseView.moveMouse(e.getRawX(), e.getRawY());
             }
             return true;

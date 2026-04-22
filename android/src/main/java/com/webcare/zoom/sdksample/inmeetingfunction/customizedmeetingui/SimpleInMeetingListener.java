@@ -390,4 +390,9 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
     public void onBotAuthorizerRelationChanged(long l) {
 
     }
+
+    @Override
+    public void onMeetingFullToWatchLiveStream(String s) {
+
+    }
 }

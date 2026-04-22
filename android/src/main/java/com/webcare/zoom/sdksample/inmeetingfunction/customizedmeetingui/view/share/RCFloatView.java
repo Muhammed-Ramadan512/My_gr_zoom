@@ -103,7 +103,7 @@ public class RCFloatView extends LinearLayout implements View.OnClickListener {
                         if (null == remoteController) {
                             return false;
                         }
-                        remoteController.remoteControlKeyInput(InMeetingRemoteController.MobileRTCRemoteControlInputType.MobileRTCRemoteControl_Del);
+                        // remoteController.remoteControlKeyInput(InMeetingRemoteController.MobileRTCRemoteControlInputType.MobileRTCRemoteControl_Del);
                         return true;
                     }
                 }
