@@ -375,4 +375,9 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
     public void onCreateCompanionRelation(long userId, long companionId) {
 
     }
+
+    @Override
+    public void onVirtualNameTagRosterInfoUpdated(long userId) {
+
+    }
 }

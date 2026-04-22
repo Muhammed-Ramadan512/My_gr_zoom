@@ -549,15 +549,15 @@ public class MeetingOptionBar extends FrameLayout implements View.OnClickListene
                         }
                         break;
                     case MENU_AllOW_ATTENDEE_CHAT:
-                        mInMeetingChatController.allowAttendeeChat(
-                                InMeetingChatController.MobileRTCWebinarChatPriviledge.All_Panelists_And_Attendees);
+                        // mInMeetingChatController.allowAttendeeChat(
+                        //         InMeetingChatController.MobileRTCWebinarChatPriviledge.All_Panelists_And_Attendees);
                         break;
                     case MENU_AllOW_PANELIST_START_VIDEO:
                         mInMeetingWebinarController.allowPanelistStartVideo();
                         break;
                     case MENU_DISALLOW_ATTENDEE_CHAT:
-                        mInMeetingChatController.allowAttendeeChat(
-                                InMeetingChatController.MobileRTCWebinarChatPriviledge.All_Panelists);
+                        // mInMeetingChatController.allowAttendeeChat(
+                        //         InMeetingChatController.MobileRTCWebinarChatPriviledge.All_Panelists);
                         break;
                     case MENU_DISALLOW_PANELIST_START_VIDEO:
                         mInMeetingWebinarController.disallowPanelistStartVideo();

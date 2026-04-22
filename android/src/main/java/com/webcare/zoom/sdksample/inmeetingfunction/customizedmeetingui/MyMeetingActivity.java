@@ -1766,10 +1766,10 @@ public class MyMeetingActivity extends FragmentActivity implements View.OnClickL
              // Zoom SDK 7.x stub
         }
 
-        @Override
-        public void onStartCaptionsRequestReceived(us.zoom.sdk.ICCRequestHandler handler) {
-             // Zoom SDK 7.x stub
-        }
+//        @Override
+//        public void onStartCaptionsRequestReceived(us.zoom.sdk.ICCRequestHandler handler) {
+//             // Zoom SDK 7.x stub
+//        }
 
         @Override
         public void onManualCaptionStatusChanged(boolean b) {
