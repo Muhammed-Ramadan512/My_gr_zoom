@@ -460,4 +460,9 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
     public void onWebinarNeedInputScreenName(us.zoom.sdk.InMeetingEventHandler handler) {
 
     }
+
+    @Override
+    public void onJoinMeetingNeedUserInfo(us.zoom.sdk.IMeetingInputUserInfoHandler handler) {
+        
+    }
 }
