@@ -3,6 +3,7 @@ package com.webcare.zoom.sdksample.inmeetingfunction.customizedmeetingui.share;
 import us.zoom.sdk.InMeetingShareController;
 import us.zoom.sdk.ShareSettingType;
 import us.zoom.sdk.SharingStatus;
+import us.zoom.sdk.ZoomSDKSharingSourceInfo;
 import us.zoom.sdk.ZoomSDK;
 import com.webcare.zoom.sdksample.inmeetingfunction.customizedmeetingui.BaseCallback;
 import com.webcare.zoom.sdksample.inmeetingfunction.customizedmeetingui.BaseEvent;
@@ -67,6 +68,11 @@ public class MeetingShareCallback extends BaseCallback<MeetingShareCallback.Shar
             for (ShareEvent event : callbacks) {
                 event.onShareSettingTypeChanged(type);
             }
+        }
+
+        @Override
+        public void onShareContentChanged(ZoomSDKSharingSourceInfo sharingSourceInfo) {
+            // Added for Zoom SDK 7.x compatibility — no-op stub
         }
     };
 

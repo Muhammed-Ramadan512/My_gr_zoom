@@ -68,6 +68,13 @@ public class AudioRawDataUtil {
             Log.d(TAG, "onShareAudioRawDataReceived:" + rawData.getBufferLen());
             saveAudioRawData(rawData, -1);
         }
+
+        @Override
+        public void onShareAudioRawDataReceived(ZoomSDKAudioRawData rawData, long userId) {
+            // Added for Zoom SDK 7.x compatibility
+            Log.d(TAG, "onShareAudioRawDataReceived(userId=" + userId + "):" + rawData.getBufferLen());
+            saveAudioRawData(rawData, -1);
+        }
     };
 
     private void saveAudioRawData(ZoomSDKAudioRawData rawData, int userId) {

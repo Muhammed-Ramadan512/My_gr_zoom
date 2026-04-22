@@ -1804,6 +1804,12 @@ public class MyMeetingActivity extends FragmentActivity implements View.OnClickL
         public void onCaptionStatusChanged(boolean enabled) {
             Log.d(TAG, "onCaptionStatusChanged: " + enabled);
         }
+
+        @Override
+        public void onSpokenLanguageChanged(InMeetingLiveTranscriptionController.InMeetingLiveTranscriptionLanguage language) {
+            // Added for Zoom SDK 7.x compatibility
+            Log.d(TAG, "onSpokenLanguageChanged: " + (language != null ? language.getLTTLanguageName() : "null"));
+        }
     };
 }
 

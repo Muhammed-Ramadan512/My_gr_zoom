@@ -50,6 +50,7 @@ import us.zoom.sdk.ShareSettingType;
 import us.zoom.sdk.SharingStatus;
 import us.zoom.sdk.VideoQuality;
 import us.zoom.sdk.ZoomSDK;
+import us.zoom.sdk.ZoomSDKSharingSourceInfo;
 import us.zoom.sdk.ZoomSDKRawDataType;
 import us.zoom.sdk.ZoomSDKVideoResolution;
 import us.zoom.sdk.ZoomSDKVideoSourceHelper;
@@ -645,4 +646,9 @@ public class RawDataMeetingActivity extends FragmentActivity implements MeetingS
 
     }
 
+
+    @Override
+    public void onShareContentChanged(ZoomSDKSharingSourceInfo sharingSourceInfo) {
+        // Added for Zoom SDK 7.x compatibility
+    }
 }

@@ -23,6 +23,7 @@ import us.zoom.sdk.MobileRTCVideoView;
 import us.zoom.sdk.ShareSettingType;
 import us.zoom.sdk.SharingStatus;
 import us.zoom.sdk.ZoomSDK;
+import us.zoom.sdk.ZoomSDKSharingSourceInfo;
 import com.webcare.zoom.sdksample.R;
 import com.webcare.zoom.sdksample.inmeetingfunction.customizedmeetingui.MyMeetingActivity;
 
@@ -266,5 +267,10 @@ public class MeetingWindowHelper implements InMeetingShareController.InMeetingSh
                     || type == WindowManager.LayoutParams.TYPE_TOAST)
                 return WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         return type;
+    }
+
+    @Override
+    public void onShareContentChanged(ZoomSDKSharingSourceInfo sharingSourceInfo) {
+        // Added for Zoom SDK 7.x compatibility
     }
 }
