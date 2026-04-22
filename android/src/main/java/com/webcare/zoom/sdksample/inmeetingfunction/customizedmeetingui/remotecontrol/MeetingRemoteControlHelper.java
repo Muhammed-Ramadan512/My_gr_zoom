@@ -49,7 +49,7 @@ public class MeetingRemoteControlHelper implements InMeetingRemoteController.InM
 
         long shareUserId=mInMeetingService.activeShareUserID();
         boolean hasPriv = false;
-        boolean isRc = mInMeetingRemoteController.isRemoteController();
+        boolean isRc = false; // mInMeetingRemoteController.isRemoteController();
         if (isMe) {
             customShareView.enableRC(hasPriv, isRc);
         }
@@ -63,12 +63,12 @@ public class MeetingRemoteControlHelper implements InMeetingRemoteController.InM
 
         long shareUserId= mInMeetingService.activeShareUserID();
         boolean hasPriv = false;
-        boolean isRc = mInMeetingRemoteController.isRemoteController();
+        boolean isRc = false; // mInMeetingRemoteController.isRemoteController();
 
         Log.d(TAG, "remoteControlStarted userId:" + userId + " myUserId:" + myUserId + " hasPriv:" + hasPriv + " isRc:" + isRc);
         if (isMe) {
             if (isRc) {
-                mInMeetingRemoteController.startRemoteControl();
+                // mInMeetingRemoteController.startRemoteControl();
             }
         }
         customShareView.enableRC(hasPriv, isRc);

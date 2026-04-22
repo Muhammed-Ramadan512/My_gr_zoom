@@ -400,4 +400,9 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
     public void onMeetingTopicChanged(String s) {
 
     }
+
+    @Override
+    public void onMuteOnEntryStatusChange(boolean b) {
+
+    }
 }
