@@ -61,6 +61,11 @@ public class BreakoutRoomsAdminActivity extends FragmentActivity implements InMe
         }
 
         @Override
+        public void onCreateBOResponse(boolean success, String boId) {
+            // Zoom SDK 7.x compatibility stub
+        }
+
+        @Override
         public void onBOCreateSuccess(String strBOID) {
             Log.i(TAG, "onBOCreateSuccess: boId: " + strBOID);
         }
@@ -194,7 +199,7 @@ public class BreakoutRoomsAdminActivity extends FragmentActivity implements InMe
             option.isTimerAutoStopBOEnabled = true;
             option.isParticipantCanChooseBO = true;
             option.isParticipantCanReturnToMainSessionAtAnyTime = false;
-            boolean setBOOptionRet = iboCreator.setBOOption(option);
+            MobileRTCSDKError setBOOptionRet = iboCreator.setBOOption(option);
             Log.i(TAG, "createBO setBOOption: " + setBOOptionRet);
             String bId = iboCreator.createBO("Breakout Room " + mBoCount);
             IBOData iboData = mBoController.getBODataHelper();
@@ -218,7 +223,7 @@ public class BreakoutRoomsAdminActivity extends FragmentActivity implements InMe
             iboCreator.setEvent(mBoCreatorEvent);
             BOOption option = new BOOption();
             option.countdown = BOStopCountdown.COUNTDOWN_SECONDS_15;
-            boolean setBOOptionRet = iboCreator.setBOOption(option);
+            MobileRTCSDKError setBOOptionRet = iboCreator.setBOOption(option);
             Log.i(TAG, "batchCreateBO setBOOption: " + setBOOptionRet);
 
             List<String> boNames = new ArrayList<>();

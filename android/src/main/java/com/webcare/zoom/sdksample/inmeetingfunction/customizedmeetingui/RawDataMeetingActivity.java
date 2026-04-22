@@ -652,7 +652,7 @@ public class RawDataMeetingActivity extends FragmentActivity implements MeetingS
     }
 
     @Override
-    public void onLiveStreamReminderStatusChangeFailed() {
+    public void onLiveStreamReminderStatusChanged(boolean b) {
         // Zoom SDK 7.x compatibility stub
     }
 

@@ -345,4 +345,9 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
     public void onAllowParticipantsRequestCloudRecording(boolean b) {
 
     }
+
+    @Override
+    public void onAppSignalPanelUpdated(us.zoom.sdk.InMeetingAppSignalPanelHandler handler) {
+
+    }
 }
