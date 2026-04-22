@@ -440,4 +440,9 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
     public void onUserConfirmToStartArchive(us.zoom.sdk.IMeetingArchiveConfirmHandler handler) {
 
     }
+
+    @Override
+    public void onSinkJoin3rdPartyTelephonyAudio(String s) {
+
+    }
 }
