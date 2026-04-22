@@ -86,7 +86,7 @@ public class CustomShareView extends FrameLayout implements RCFloatView.IRemoteC
         if (inMouseActived) {
             x = mobileRTCVideoView.getVideoViewManager().viewToShareContentX(x);
             y = mobileRTCVideoView.getVideoViewManager().viewToShareContentY(y);
-            meetingRemoteController.remoteControlSingleMove(x, y);
+            // meetingRemoteController.remoteControlSingleMove(x, y);
         }
     }
 
@@ -96,7 +96,7 @@ public class CustomShareView extends FrameLayout implements RCFloatView.IRemoteC
         if (inMouseActived) {
             x = mobileRTCVideoView.getVideoViewManager().viewToShareContentX(x);
             y = mobileRTCVideoView.getVideoViewManager().viewToShareContentY(y);
-            meetingRemoteController.remoteControlSingleTap(x, y);
+            // meetingRemoteController.remoteControlSingleTap(x, y);
         }
     }
 
@@ -140,7 +140,7 @@ public class CustomShareView extends FrameLayout implements RCFloatView.IRemoteC
                 float x = mobileRTCVideoView.getVideoViewManager().viewToShareContentX(e.getRawX());
                 float y = mobileRTCVideoView.getVideoViewManager().viewToShareContentY(e.getRawY());
                 Log.d(TAG, "onLongPress:" + ":" + x + ":" + y);
-                meetingRemoteController.remoteControlLongPress(x, y);
+                // meetingRemoteController.remoteControlLongPress(x, y);
             }
             super.onLongPress(e);
         }
@@ -153,7 +153,7 @@ public class CustomShareView extends FrameLayout implements RCFloatView.IRemoteC
                     int pointCount = e2.getPointerCount();
                     if (pointCount >= 2) {
                         lastScrollTime = System.currentTimeMillis();
-                        meetingRemoteController.remoteControlDoubleScroll(0, distanceY < 0 ? -1 : 1);
+                        // meetingRemoteController.remoteControlDoubleScroll(0, distanceY < 0 ? -1 : 1);
                     }
                 }
             }

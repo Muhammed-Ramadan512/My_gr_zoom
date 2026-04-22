@@ -395,4 +395,9 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
     public void onMeetingFullToWatchLiveStream(String s) {
 
     }
+
+    @Override
+    public void onMeetingTopicChanged(String s) {
+
+    }
 }
