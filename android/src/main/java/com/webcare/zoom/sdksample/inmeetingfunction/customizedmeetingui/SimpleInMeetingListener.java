@@ -415,4 +415,9 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
     public void onFileReceived(us.zoom.sdk.ZoomSDKFileReceiver receiver) {
 
     }
+
+    @Override
+    public void onFileSendStart(us.zoom.sdk.ZoomSDKFileSender sender) {
+
+    }
 }
