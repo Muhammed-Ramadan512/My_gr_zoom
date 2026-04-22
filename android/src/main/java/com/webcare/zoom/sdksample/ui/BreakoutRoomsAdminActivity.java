@@ -56,6 +56,11 @@ public class BreakoutRoomsAdminActivity extends FragmentActivity implements InMe
         }
 
         @Override
+        public void onRemoveBOResponse(boolean success, String boId) {
+            // Zoom SDK 7.x compatibility stub
+        }
+
+        @Override
         public void onBOCreateSuccess(String strBOID) {
             Log.i(TAG, "onBOCreateSuccess: boId: " + strBOID);
         }
@@ -580,5 +585,10 @@ public class BreakoutRoomsAdminActivity extends FragmentActivity implements InMe
     @Override
     public void onBOOptionChanged(BOOption newOption) {
 
+    }
+
+    @Override
+    public void onShareFromMainSession(long userId, us.zoom.sdk.SharingStatus status, us.zoom.sdk.IShareAction action) {
+        // Zoom SDK 7.x compatibility stub
     }
 }

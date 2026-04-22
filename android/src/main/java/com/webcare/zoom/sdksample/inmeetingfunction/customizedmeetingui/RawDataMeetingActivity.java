@@ -651,6 +651,11 @@ public class RawDataMeetingActivity extends FragmentActivity implements MeetingS
         // Zoom SDK 7.x compatibility stub
     }
 
+    @Override
+    public void onLiveStreamReminderStatusChangeFailed() {
+        // Zoom SDK 7.x compatibility stub
+    }
+
 
     @Override
     public void onShareContentChanged(ZoomSDKSharingSourceInfo sharingSourceInfo) {
