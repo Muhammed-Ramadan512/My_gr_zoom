@@ -57,6 +57,11 @@ public class BOEventCallback extends BaseCallback<BOEventCallback.BOEvent> {
         public void onStopBOResponse(boolean success) {
             // Added for Zoom SDK 7.x compatibility — no-op stub
         }
+
+        @Override
+        public void onStartBOResponse(boolean success) {
+            // Added for Zoom SDK 7.x compatibility — no-op stub
+        }
     };
 
     public void addEvent(BOEvent event) {

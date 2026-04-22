@@ -651,4 +651,8 @@ public class RawDataMeetingActivity extends FragmentActivity implements MeetingS
     public void onShareContentChanged(ZoomSDKSharingSourceInfo sharingSourceInfo) {
         // Added for Zoom SDK 7.x compatibility
     }
+
+    @Override
+    public void onSharingStatus(ZoomSDKSharingSourceInfo sharingSourceInfo) {
+    }
 }

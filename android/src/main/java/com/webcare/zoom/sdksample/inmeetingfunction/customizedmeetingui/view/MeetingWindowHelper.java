@@ -273,4 +273,8 @@ public class MeetingWindowHelper implements InMeetingShareController.InMeetingSh
     public void onShareContentChanged(ZoomSDKSharingSourceInfo sharingSourceInfo) {
         // Added for Zoom SDK 7.x compatibility
     }
+
+    @Override
+    public void onSharingStatus(ZoomSDKSharingSourceInfo sharingSourceInfo) {
+    }
 }

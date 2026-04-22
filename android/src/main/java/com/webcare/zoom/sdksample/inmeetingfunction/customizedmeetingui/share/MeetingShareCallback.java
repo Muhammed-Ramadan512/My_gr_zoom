@@ -74,6 +74,11 @@ public class MeetingShareCallback extends BaseCallback<MeetingShareCallback.Shar
         public void onShareContentChanged(ZoomSDKSharingSourceInfo sharingSourceInfo) {
             // Added for Zoom SDK 7.x compatibility — no-op stub
         }
+
+        @Override
+        public void onSharingStatus(ZoomSDKSharingSourceInfo sharingSourceInfo) {
+            // Added for Zoom SDK 7.x compatibility — no-op stub
+        }
     };
 
 }
