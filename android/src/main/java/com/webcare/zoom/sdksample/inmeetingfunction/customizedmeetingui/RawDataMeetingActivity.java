@@ -646,6 +646,11 @@ public class RawDataMeetingActivity extends FragmentActivity implements MeetingS
 
     }
 
+    @Override
+    public void onUserThresholdReachedForLiveStream(int maxLimit) {
+        // Zoom SDK 7.x compatibility stub
+    }
+
 
     @Override
     public void onShareContentChanged(ZoomSDKSharingSourceInfo sharingSourceInfo) {

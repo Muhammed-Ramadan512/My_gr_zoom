@@ -1492,6 +1492,11 @@ public class MyMeetingActivity extends FragmentActivity implements View.OnClickL
 
     private SimpleInMeetingBOControllerListener mBOControllerListener = new SimpleInMeetingBOControllerListener() {
 
+        @Override
+        public void onShareFromMainSession(long userId, us.zoom.sdk.SharingStatus status, us.zoom.sdk.IShareAction action) {
+             // Zoom SDK 7.x compatibility stub
+        }
+
         AlertDialog dialog;
         @Override
         public void onHasAttendeeRightsNotification(final IBOAttendee iboAttendee) {
@@ -1756,6 +1761,11 @@ public class MyMeetingActivity extends FragmentActivity implements View.OnClickL
     };
 
     private InMeetingLiveTranscriptionController.InMeetingLiveTranscriptionListener mLiveTranscriptionListener = new InMeetingLiveTranscriptionController.InMeetingLiveTranscriptionListener() {
+        @Override
+        public void onManualCaptionStatusChanged(boolean b) {
+             // Zoom SDK 7.x compatibility stub
+        }
+
         @Override
         public void onLiveTranscriptionStatus(InMeetingLiveTranscriptionController.MobileRTCLiveTranscriptionStatus status) {
             Log.d(TAG, "onLiveTranscriptionStatus: " + status);

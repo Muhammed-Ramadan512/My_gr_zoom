@@ -51,6 +51,11 @@ public class BreakoutRoomsAdminActivity extends FragmentActivity implements InMe
     InMeetingBOController mBoController;
     IBOCreatorEvent mBoCreatorEvent = new IBOCreatorEvent() {
         @Override
+        public void onUpdateBONameResponse(boolean success, String boId) {
+            // Zoom SDK 7.x compatibility stub
+        }
+
+        @Override
         public void onBOCreateSuccess(String strBOID) {
             Log.i(TAG, "onBOCreateSuccess: boId: " + strBOID);
         }
