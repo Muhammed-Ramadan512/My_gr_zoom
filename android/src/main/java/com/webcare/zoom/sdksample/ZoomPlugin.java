@@ -336,7 +336,7 @@ public class ZoomPlugin extends Activity
 
     }
 
-    @Override
+    // @Override removed for SDK 7.x compatibility
     public void onNotificationServiceStatus(SDKNotificationServiceStatus status) {
 
     }

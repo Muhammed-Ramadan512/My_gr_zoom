@@ -1781,7 +1781,7 @@ public class MyMeetingActivity extends FragmentActivity implements View.OnClickL
             Log.d(TAG, "onLiveTranscriptionStatus: " + status);
         }
 
-        @Override
+        // @Override removed for SDK 7.x compatibility
         public void onLiveTranscriptionMsgReceived(String msg,long speakerId,  InMeetingLiveTranscriptionController.MobileRTCLiveTranscriptionOperationType type) {
             Log.d(TAG, "onLiveTranscriptionMsgReceived: " + msg + ", operation type: " + type+" speakerId:"+speakerId);
         }

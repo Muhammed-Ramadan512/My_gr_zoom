@@ -203,7 +203,7 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
 
     }
 
-    @Override
+    // @Override removed for Zoom SDK 7.x compatibility
     public void onSinkAttendeeChatPriviledgeChanged(int privilege) {
 
     }
@@ -218,7 +218,7 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
 
     }
 
-    @Override
+    // @Override removed for Zoom SDK 7.x compatibility
     public void onUserNameChanged(long userId, String name) {
 
     }
@@ -363,6 +363,11 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
 
     @Override
     public void onUserConfirmRecoverMeeting(us.zoom.sdk.IRecoverMeetingHandle handle) {
+
+    }
+
+    @Override
+    public void onRemoveCompanionRelation(long userId) {
 
     }
 }

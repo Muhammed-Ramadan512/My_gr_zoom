@@ -415,7 +415,7 @@ public class LoginUserStartJoinMeetingActivity extends Activity implements AuthC
         }
     }
 
-    @Override
+    // @Override removed for SDK 7.x compatibility
     public void onNotificationServiceStatus(SDKNotificationServiceStatus status) {
 
     }
