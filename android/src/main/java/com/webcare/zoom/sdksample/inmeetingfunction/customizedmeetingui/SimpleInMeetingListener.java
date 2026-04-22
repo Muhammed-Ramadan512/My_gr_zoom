@@ -405,4 +405,9 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
     public void onMuteOnEntryStatusChange(boolean b) {
 
     }
+
+    @Override
+    public void onFileTransferProgress(us.zoom.sdk.ZoomSDKFileTransferInfo info) {
+
+    }
 }

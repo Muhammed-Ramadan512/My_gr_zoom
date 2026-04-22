@@ -27,7 +27,7 @@ public class MeetingRemoteControlHelper implements InMeetingRemoteController.InM
     public void refreshRemoteControlStatus() {
         long shareUserID = mInMeetingService.activeShareUserID();
         boolean hasPriv = false;
-        boolean isRc = mInMeetingRemoteController.isRemoteController();
+        boolean isRc = false; // mInMeetingRemoteController.isRemoteController();
         customShareView.enableRC(hasPriv, isRc);
     }
 
