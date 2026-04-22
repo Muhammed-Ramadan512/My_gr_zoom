@@ -445,4 +445,9 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
     public void onSinkJoin3rdPartyTelephonyAudio(String s) {
 
     }
+
+    @Override
+    public void onSinkAttendeeChatPrivilegeChanged(int currentPrivilege) {
+        
+    }
 }
