@@ -267,7 +267,7 @@ public class MeetingShareHelper {
             showOtherSharingTip();
             return;
         }
-        boolean success = (mInMeetingShareController.startShareViewSession() == MobileRTCSDKError.SDKERR_SUCCESS);
+        boolean success = false; // mInMeetingShareController.startShareViewSession() removed in Zoom SDK 7.x
         if (!success) {
             Log.i(TAG, "startShare is failed");
             return;
@@ -285,7 +285,7 @@ public class MeetingShareHelper {
             showOtherSharingTip();
             return;
         }
-        boolean success = (mInMeetingShareController.startShareViewSession() == MobileRTCSDKError.SDKERR_SUCCESS);
+        boolean success = false; // mInMeetingShareController.startShareViewSession() removed in Zoom SDK 7.x
         if (!success) {
             Log.i(TAG, "startShare is failed");
             return;
@@ -308,7 +308,7 @@ public class MeetingShareHelper {
         }
         MobileRTCShareView shareView = callBack.getShareView();
 
-        boolean success = (mInMeetingShareController.startShareViewSession() == MobileRTCSDKError.SDKERR_SUCCESS);
+        boolean success = false; // mInMeetingShareController.startShareViewSession() removed in Zoom SDK 7.x
         if (!success) {
             Log.i(TAG, "startShare is failed");
             return;
@@ -325,7 +325,7 @@ public class MeetingShareHelper {
         if (null == callBack) {
             return;
         }
-        boolean success = (mInMeetingShareController.startShareViewSession() == MobileRTCSDKError.SDKERR_SUCCESS);
+        boolean success = false; // mInMeetingShareController.startShareViewSession() removed in Zoom SDK 7.x
         if (!success) {
             Log.i(TAG, "startShare is failed");
             return;
@@ -384,7 +384,7 @@ public class MeetingShareHelper {
         }
         MobileRTCShareView shareView = callBack.getShareView();
 
-        boolean success = (mInMeetingShareController.startShareViewSession() == MobileRTCSDKError.SDKERR_SUCCESS);
+        boolean success = false; // mInMeetingShareController.startShareViewSession() removed in Zoom SDK 7.x
         if (!success) {
             Log.i(TAG, "Start share PDF is failed");
             return;

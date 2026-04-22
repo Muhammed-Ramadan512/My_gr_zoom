@@ -1762,6 +1762,11 @@ public class MyMeetingActivity extends FragmentActivity implements View.OnClickL
 
     private InMeetingLiveTranscriptionController.InMeetingLiveTranscriptionListener mLiveTranscriptionListener = new InMeetingLiveTranscriptionController.InMeetingLiveTranscriptionListener() {
         @Override
+        public void onStartCaptionsRequestApproved() {
+             // Zoom SDK 7.x stub
+        }
+
+        @Override
         public void onStartCaptionsRequestReceived(us.zoom.sdk.ICCRequestHandler handler) {
              // Zoom SDK 7.x stub
         }
