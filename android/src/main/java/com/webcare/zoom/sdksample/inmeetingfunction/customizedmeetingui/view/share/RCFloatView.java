@@ -240,7 +240,7 @@ public class RCFloatView extends LinearLayout implements View.OnClickListener {
             if (isRc) {
                 enableRC(!(mVGContentSpan.getVisibility() == View.VISIBLE));
             } else {
-                remoteController.grabRemoteControl();
+                // remoteController.grabRemoteControl();
             }
         } else if (v == mIvKeyboard) {
             showKeyboard(true);

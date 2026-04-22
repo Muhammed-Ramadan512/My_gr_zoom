@@ -192,15 +192,15 @@ public class BreakoutRoomsAdminActivity extends FragmentActivity implements InMe
         if (iboCreator != null) {
             mBoCount++;
             iboCreator.setEvent(mBoCreatorEvent);
-            BOOption option = new BOOption();
-            option.countdown = BOStopCountdown.COUNTDOWN_SECONDS_15;
-            option.timerDuration = 200;
-            option.isBOTimerEnabled = true;
-            option.isTimerAutoStopBOEnabled = true;
-            option.isParticipantCanChooseBO = true;
-            option.isParticipantCanReturnToMainSessionAtAnyTime = false;
-            MobileRTCSDKError setBOOptionRet = iboCreator.setBOOption(option);
-            Log.i(TAG, "createBO setBOOption: " + setBOOptionRet);
+//            BOOption option = new BOOption();
+//            option.countdown = BOStopCountdown.COUNTDOWN_SECONDS_15;
+//            option.timerDuration = 200;
+//            option.isBOTimerEnabled = true;
+//            option.isTimerAutoStopBOEnabled = true;
+//            option.isParticipantCanChooseBO = true;
+//            option.isParticipantCanReturnToMainSessionAtAnyTime = false;
+//            MobileRTCSDKError setBOOptionRet = iboCreator.setBOOption(option);
+//            Log.i(TAG, "createBO setBOOption: " + setBOOptionRet);
             String bId = iboCreator.createBO("Breakout Room " + mBoCount);
             IBOData iboData = mBoController.getBODataHelper();
             if (iboData != null)

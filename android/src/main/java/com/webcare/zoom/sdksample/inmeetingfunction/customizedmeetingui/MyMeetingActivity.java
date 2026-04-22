@@ -1466,7 +1466,7 @@ public class MyMeetingActivity extends FragmentActivity implements View.OnClickL
                 smsService.removeListener(this);
             }
             ZoomSDK.getInstance().getInMeetingService().getInMeetingBOController().removeListener(mBOControllerListener);
-            ZoomSDK.getInstance().getInMeetingService().getInMeetingLiveTranscriptionController().removeListener(mLiveTranscriptionListener);
+//            ZoomSDK.getInstance().getInMeetingService().getInMeetingLiveTranscriptionController().removeListener(mLiveTranscriptionListener);
         }catch (Exception e){
         }
     }
@@ -1487,7 +1487,7 @@ public class MyMeetingActivity extends FragmentActivity implements View.OnClickL
 
         InMeetingInterpretationController meetingInterpretationController= ZoomSDK.getInstance().getInMeetingService().getInMeetingInterpretationController();
         meetingInterpretationController.setEvent(event);
-        ZoomSDK.getInstance().getInMeetingService().getInMeetingLiveTranscriptionController().addListener(mLiveTranscriptionListener);
+        // ZoomSDK.getInstance().getInMeetingService().getInMeetingLiveTranscriptionController().addListener(mLiveTranscriptionListener);
     }
 
     private SimpleInMeetingBOControllerListener mBOControllerListener = new SimpleInMeetingBOControllerListener() {
@@ -1760,76 +1760,6 @@ public class MyMeetingActivity extends FragmentActivity implements View.OnClickL
         }
     };
 
-    private InMeetingLiveTranscriptionController.InMeetingLiveTranscriptionListener mLiveTranscriptionListener = new InMeetingLiveTranscriptionController.InMeetingLiveTranscriptionListener() {
-        @Override
-        public void onStartCaptionsRequestApproved() {
-             // Zoom SDK 7.x stub
-        }
-
-//        @Override
-//        public void onStartCaptionsRequestReceived(us.zoom.sdk.ICCRequestHandler handler) {
-//             // Zoom SDK 7.x stub
-//        }
-
-        @Override
-        public void onManualCaptionStatusChanged(boolean b) {
-             // Zoom SDK 7.x compatibility stub
-        }
-
-        @Override
-        public void onLiveTranscriptionStatus(InMeetingLiveTranscriptionController.MobileRTCLiveTranscriptionStatus status) {
-            Log.d(TAG, "onLiveTranscriptionStatus: " + status);
-        }
-
-        // @Override removed for SDK 7.x compatibility
-        public void onLiveTranscriptionMsgReceived(String msg,long speakerId,  InMeetingLiveTranscriptionController.MobileRTCLiveTranscriptionOperationType type) {
-            Log.d(TAG, "onLiveTranscriptionMsgReceived: " + msg + ", operation type: " + type+" speakerId:"+speakerId);
-        }
-
-        @Override
-        public void onLiveTranscriptionMsgReceived(ILiveTranscriptionMessageInfo messageInfo) {
-            Log.d(TAG, "onLiveTranscriptionMsgReceived messageInfo: " + messageInfo.getMessageContent() + ", operation type: " +
-                    messageInfo.getMessageOperationType() + " speakerId:" + messageInfo.getSpeakerID());
-        }
-
-        @Override
-        public void onOriginalLanguageMsgReceived(ILiveTranscriptionMessageInfo messageInfo) {
-            Log.d(TAG, "onOriginalLanguageMsgReceived messageInfo: " + messageInfo.getMessageContent() + ", operation type: " +
-                    messageInfo.getMessageOperationType() + " speakerId:" + messageInfo.getSpeakerID());
-        }
-
-        @Override
-        public void onRequestForLiveTranscriptReceived(long requesterUserId, boolean bAnonymous) {
-            Log.d(TAG, "onRequestForLiveTranscriptReceived from: " + requesterUserId + ", bAnonymous: " + bAnonymous);
-            String userName = null;
-            if (!bAnonymous) {
-                InMeetingUserInfo userInfo = mInMeetingService.getUserInfoById(requesterUserId);
-                userName = userInfo.getUserName();
-            }
-            LiveTranscriptionRequestHandleDialog.show(MyMeetingActivity.this, userName);
-        }
-
-        @Override
-        public void onRequestLiveTranscriptionStatusChange(boolean enabled) {
-            Log.d(TAG, "onRequestLiveTranscriptionStatusChange: " + enabled);
-        }
-
-        @Override
-        public void onLiveTranscriptionMsgError(InMeetingLiveTranscriptionController.InMeetingLiveTranscriptionLanguage speakLanguage,
-                                                InMeetingLiveTranscriptionController.InMeetingLiveTranscriptionLanguage transcriptLanguage) {
-            Log.d(TAG, "onLiveTranscriptionMsgError speakLanguage: " + speakLanguage.getLTTLanguageName() + ", transcriptLanguage: " + transcriptLanguage.getLTTLanguageName());
-        }
-
-        @Override
-        public void onCaptionStatusChanged(boolean enabled) {
-            Log.d(TAG, "onCaptionStatusChanged: " + enabled);
-        }
-
-        @Override
-        public void onSpokenLanguageChanged(InMeetingLiveTranscriptionController.InMeetingLiveTranscriptionLanguage language) {
-            // Added for Zoom SDK 7.x compatibility
-            Log.d(TAG, "onSpokenLanguageChanged: " + (language != null ? language.getLTTLanguageName() : "null"));
-        }
-    };
+    private InMeetingLiveTranscriptionController.InMeetingLiveTranscriptionListener mLiveTranscriptionListener = null;
 }
 

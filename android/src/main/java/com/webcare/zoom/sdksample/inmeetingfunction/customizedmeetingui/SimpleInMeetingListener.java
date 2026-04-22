@@ -380,4 +380,9 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
     public void onVirtualNameTagRosterInfoUpdated(long userId) {
 
     }
+
+    @Override
+    public void onVirtualNameTagStatusChanged(boolean b, long l) {
+
+    }
 }
