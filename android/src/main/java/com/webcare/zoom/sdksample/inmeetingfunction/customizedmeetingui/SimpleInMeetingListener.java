@@ -455,4 +455,9 @@ public class SimpleInMeetingListener implements InMeetingServiceListener {
     public void onChatMessageEditNotification(us.zoom.sdk.InMeetingChatMessage msg) {
         
     }
+
+    @Override
+    public void onWebinarNeedInputScreenName(us.zoom.sdk.InMeetingEventHandler handler) {
+
+    }
 }
