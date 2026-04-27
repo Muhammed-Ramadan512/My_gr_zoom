@@ -12,30 +12,36 @@ buildscript {
     }
 }
 
+// ── Repositories for all subprojects ─────────────────────────────────────
 rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
-        // Removed: jcenter() — deprecated
-        // Removed: flatDir (mobilertc.aar) — migrated to Maven Central
-    }
-
-    // ── Force compose-foundation 1.8.1 (minimum required by Zoom SDK 7.0.2) ──
-    // Zoom SDK 7.0.2 requires:
-    //   - foundation >= 1.7.0: toggleable-oSLSa3U method (nullable MutableInteractionSource)
-    //   - foundation >= 1.8.0: BasicText-RWo7tUw method (TextAutoSize parameter)
-    // We force ONLY foundation — NOT runtime/animation/ui — to avoid conflicts with
-    // runtime-annotation:1.9.0 (a split artifact introduced in Compose 1.8+).
-    // In 1.8+, runtime-annotation is a separate artifact; forcing runtime:1.7.x alongside
-    // runtime-annotation:1.9.0 causes Duplicate class errors (Immutable/Stable/StableMarker).
-    configurations.all {
-        resolutionStrategy {
-            force 'androidx.compose.foundation:foundation:1.8.1'
-            force 'androidx.compose.foundation:foundation-layout:1.8.1'
-        }
     }
 }
 
+// ── Force compose-foundation 1.8.1 AFTER all projects are evaluated ──────
+// Must use afterEvaluate so the force is applied AFTER :app configurations
+// are created — ensuring Gradle picks it up BEFORE dependency resolution.
+//
+// Zoom SDK 7.0.2 requires:
+//   foundation >= 1.7.0: toggleable-oSLSa3U (nullable MutableInteractionSource)
+//   foundation >= 1.8.0: BasicText-RWo7tUw  (TextAutoSize parameter added in 1.8)
+//
+// Only foundation is forced — NOT runtime — to avoid Duplicate class errors
+// caused by runtime-annotation:1.9.0 (new separate artifact in Compose 1.8+).
+// Forcing runtime:1.7.x alongside runtime-annotation:1.9.0 duplicates:
+//   Immutable, Stable, StableMarker classes.
+rootProject.afterEvaluate { root ->
+    root.allprojects { proj ->
+        proj.configurations.all {
+            resolutionStrategy {
+                force 'androidx.compose.foundation:foundation:1.8.1'
+                force 'androidx.compose.foundation:foundation-layout:1.8.1'
+            }
+        }
+    }
+}
 
 apply plugin: 'com.android.library'
 
@@ -95,22 +101,14 @@ dependencies {
     implementation "androidx.core:core-splashscreen:1.0.1"
     implementation "androidx.databinding:viewbinding:8.3.0"
 
-    // ── Zoom Meeting SDK 7.0.2 (16KB page-size aligned, latest stable) ───────
-    // Replaces: api(name: 'mobilertc', ext: 'aar') ← 5.17.11 / 4KB-aligned
-    // Available on Maven Central (versions start at 6.4.0.23300, 6.3.0 never existed)
-    // 16KB compliance: version 6.6.0+ required — 7.0.2 is latest stable
-    // Must use `api` — Zoom SDK uses Compose 1.7.x internally; `implementation` lets
-    // older Compose versions win conflict resolution → NoSuchMethodError at runtime.
+    // ── Zoom Meeting SDK 7.0.2 (16KB page-size aligned) ───────────────────────
     api 'us.zoom.meetingsdk:zoomsdk:7.0.2'
 
-    // ── Compose 1.7.x — required by Zoom SDK 7.0.2 internal UI ──────────────
-    // Pinned explicitly so Gradle does not resolve an older version from Flutter's
-    // android engine or other transitive deps.
-    api "androidx.compose.foundation:foundation:1.7.8"
-    api "androidx.compose.foundation:foundation-layout:1.7.8"
+    // ── Compose 1.8.1 — minimum required by Zoom SDK 7.0.2 ───────────────────
+    // `api` exposes these to the consuming app so Gradle conflict resolution
+    // always picks >= 1.8.1. Do NOT include runtime here — see note above.
+    api "androidx.compose.foundation:foundation:1.8.1"
+    api "androidx.compose.foundation:foundation-layout:1.8.1"
     api "androidx.compose.material3:material3:1.3.1"
-    api "androidx.compose.ui:ui:1.7.8"
-    api "androidx.compose.runtime:runtime:1.7.8"
-    api "androidx.activity:activity-compose:1.9.3"
+    api "androidx.compose.ui:ui:1.8.1"
 }
-
