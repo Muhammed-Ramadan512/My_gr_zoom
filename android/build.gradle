@@ -20,16 +20,18 @@ rootProject.allprojects {
         // Removed: flatDir (mobilertc.aar) — migrated to Maven Central
     }
 
-    // ── Force compose-foundation 1.7.8 (minimum required by Zoom SDK 7.0.2) ──
-    // Zoom SDK uses toggleable-oSLSa3U$default which exists only in foundation 1.7.x+.
+    // ── Force compose-foundation 1.8.1 (minimum required by Zoom SDK 7.0.2) ──
+    // Zoom SDK 7.0.2 requires:
+    //   - foundation >= 1.7.0: toggleable-oSLSa3U method (nullable MutableInteractionSource)
+    //   - foundation >= 1.8.0: BasicText-RWo7tUw method (TextAutoSize parameter)
     // We force ONLY foundation — NOT runtime/animation/ui — to avoid conflicts with
     // runtime-annotation:1.9.0 (a split artifact introduced in Compose 1.8+).
-    // Forcing runtime:1.7.8 alongside runtime-annotation:1.9.0 causes duplicate class
-    // errors for Immutable/Stable/StableMarker.
+    // In 1.8+, runtime-annotation is a separate artifact; forcing runtime:1.7.x alongside
+    // runtime-annotation:1.9.0 causes Duplicate class errors (Immutable/Stable/StableMarker).
     configurations.all {
         resolutionStrategy {
-            force 'androidx.compose.foundation:foundation:1.7.8'
-            force 'androidx.compose.foundation:foundation-layout:1.7.8'
+            force 'androidx.compose.foundation:foundation:1.8.1'
+            force 'androidx.compose.foundation:foundation-layout:1.8.1'
         }
     }
 }
