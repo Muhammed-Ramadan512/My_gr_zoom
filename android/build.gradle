@@ -83,5 +83,5 @@ dependencies {
     // Replaces: api(name: 'mobilertc', ext: 'aar') ← 5.17.11 / 4KB-aligned
     // Available on Maven Central (versions start at 6.4.0.23300, 6.3.0 never existed)
     // 16KB compliance: version 6.6.0+ required — 7.0.2 is latest stable
-    api 'us.zoom.meetingsdk:zoomsdk:7.0.2'
+    implementation 'us.zoom.meetingsdk:zoomsdk:7.0.2'
 }
