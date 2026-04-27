@@ -12,34 +12,10 @@ buildscript {
     }
 }
 
-// ── Repositories for all subprojects ─────────────────────────────────────
 rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
-    }
-}
-
-// ── Force compose-foundation 1.8.1 AFTER all projects are evaluated ──────
-// Must use afterEvaluate so the force is applied AFTER :app configurations
-// are created — ensuring Gradle picks it up BEFORE dependency resolution.
-//
-// Zoom SDK 7.0.2 requires:
-//   foundation >= 1.7.0: toggleable-oSLSa3U (nullable MutableInteractionSource)
-//   foundation >= 1.8.0: BasicText-RWo7tUw  (TextAutoSize parameter added in 1.8)
-//
-// Only foundation is forced — NOT runtime — to avoid Duplicate class errors
-// caused by runtime-annotation:1.9.0 (new separate artifact in Compose 1.8+).
-// Forcing runtime:1.7.x alongside runtime-annotation:1.9.0 duplicates:
-//   Immutable, Stable, StableMarker classes.
-rootProject.afterEvaluate { root ->
-    root.allprojects { proj ->
-        proj.configurations.all {
-            resolutionStrategy {
-                force 'androidx.compose.foundation:foundation:1.8.1'
-                force 'androidx.compose.foundation:foundation-layout:1.8.1'
-            }
-        }
     }
 }
 
@@ -102,13 +78,24 @@ dependencies {
     implementation "androidx.databinding:viewbinding:8.3.0"
 
     // ── Zoom Meeting SDK 7.0.2 (16KB page-size aligned) ───────────────────────
+    // Must be `api` so Zoom's transitive Compose deps are visible to the consuming app.
     api 'us.zoom.meetingsdk:zoomsdk:7.0.2'
 
     // ── Compose 1.8.1 — minimum required by Zoom SDK 7.0.2 ───────────────────
-    // `api` exposes these to the consuming app so Gradle conflict resolution
-    // always picks >= 1.8.1. Do NOT include runtime here — see note above.
+    // Zoom SDK 7.0.2 requires:
+    //   foundation >= 1.7.0 → toggleable-oSLSa3U (nullable MutableInteractionSource)
+    //   foundation >= 1.8.0 → BasicText-RWo7tUw  (TextAutoSize param added in 1.8)
+    //
+    // Using `api` exposes these as transitive deps to the consuming Flutter app.
+    // Gradle's default conflict resolution (highest version wins) ensures the app
+    // uses >= 1.8.1 even if another plugin requests an older foundation version.
+    //
+    // NOTE: runtime is NOT included here — runtime-annotation became a separate
+    // artifact in Compose 1.8+. Declaring runtime:1.7.x alongside
+    // runtime-annotation:1.9.x causes Duplicate class errors for
+    // Immutable / Stable / StableMarker.
     api "androidx.compose.foundation:foundation:1.8.1"
     api "androidx.compose.foundation:foundation-layout:1.8.1"
-    api "androidx.compose.material3:material3:1.3.1"
     api "androidx.compose.ui:ui:1.8.1"
+    api "androidx.compose.material3:material3:1.3.1"
 }
